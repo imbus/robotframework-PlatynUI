@@ -18,3 +18,7 @@ class Buttons:
     @keyword
     def click(self, element: Element) -> None:
         element.mouse.click()
+
+    @keyword
+    def doubleclick(self, element: Element) -> None:
+        element.mouse.double_click()
