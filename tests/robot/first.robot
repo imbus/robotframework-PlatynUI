@@ -8,8 +8,9 @@ first
     # Activate    ${calculator}
     # Type Keys    ${calculator}    <ALT+1>
     Clear
-    Doubleclick    ${calculator.n1}
+    Double Click    ${calculator.n1}
     Sleep    1s
+    Clear
     Activate    ${calculator.n1}
     Activate    ${calculator.n2}
     Activate    ${calculator.n3}
