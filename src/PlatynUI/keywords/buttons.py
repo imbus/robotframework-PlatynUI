@@ -1,7 +1,6 @@
 # SPDX-FileCopyrightText: 2024 Daniel Biehl <daniel.biehl@imbus.de>
 #
 # SPDX-License-Identifier: Apache-2.0
-
 from robotlibcore import keyword
 
 from ..ui import Element
@@ -18,3 +17,8 @@ class Buttons:
     @keyword
     def click(self, element: Element) -> None:
         element.mouse.click()
+
+    @keyword
+    def double_click(self, element: Element) -> None:
+        element.mouse.double_click()
+
