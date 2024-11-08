@@ -1,7 +1,6 @@
 # SPDX-FileCopyrightText: 2024 Daniel Biehl <daniel.biehl@imbus.de>
 #
 # SPDX-License-Identifier: Apache-2.0
-from PlatynUI.ui.core.devices.mousebutton import MouseButton
 from robotlibcore import keyword
 
 from ..ui import Element
