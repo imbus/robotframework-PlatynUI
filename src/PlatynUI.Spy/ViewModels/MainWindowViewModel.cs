@@ -7,6 +7,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.ComponentModel.Composition;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading;
@@ -17,14 +18,30 @@ using Avalonia.Threading;
 using FluentAvalonia.UI.Controls;
 using PlatynUI.Runtime;
 using PlatynUI.Runtime.Core;
+using PlatynUI.Extension.Win32.UiAutomation;
+using PlatynUI.Extension.Win32.UiAutomation.Client;
 using ReactiveUI;
+using Finder = PlatynUI.Runtime.Finder;
 
 namespace PlatynUI.Spy.ViewModels;
 
+[Export]
 public class MainWindowViewModel : ViewModelBase, INotifyDataErrorInfo
 {
-    public MainWindowViewModel()
+    private readonly IMouseDevice _mouseDevice;
+    private readonly IUIAutomation _automation;
+
+    public ObservableCollection<string> Results { get; } = new();
+    public IReactiveCommand ClearResultsCommand { get; }
+
+    [ImportingConstructor]
+    public MainWindowViewModel(IMouseDevice mouseDevice)
     {
+        _mouseDevice = mouseDevice;
+        _automation = new CUIAutomation();
+        
+        ClearResultsCommand = ReactiveCommand.Create(() => Results.Clear());
+
         this.WhenAnyValue(x => x.SelectedNode)
             .Subscribe(node =>
             {
@@ -254,25 +271,44 @@ public class MainWindowViewModel : ViewModelBase, INotifyDataErrorInfo
 
     public void HandleCtrlPress()
     {
-        if (IsRecording)
+        var position = _mouseDevice.GetPosition();
+        
+        try 
         {
-            Debug.WriteLine("Hello Mars - Ctrl+F pressed!");
-            Console.WriteLine("Hello Mars - Ctrl+F pressed!");
+            var element = _automation.ElementFromPoint(new tagPOINT { x = (int)position.X, y = (int)position.Y });
             
-            var node = Desktop.GetInstance();
-            node.Attributes["Name"] = new PlatynUI.Runtime.Core.Attribute("Name", "Hello Mars - Ctrl+F pressed!", Namespaces.Raw);
-            var debugNode = new TreeNode(null, node);
-            SearchResults.Add(debugNode);
+            if (element == null)
+            {
+                Results.Add($"No element found at position ({position.X}, {position.Y})");
+                return;
+            }
+
+            // Skip if it's our own window
+            var processId = element.CurrentProcessId;
+            if (processId == Process.GetCurrentProcess().Id)
+            {
+                Results.Add($"Skipping our own window at ({position.X}, {position.Y})");
+                return;
+            }
+
+            // Get element information
+            var role = Helper.GetRole(element);
+            var name = element.CurrentName;
+            var automationId = element.CurrentAutomationId;
+            var className = element.CurrentClassName;
+            var runtimeId = Helper.GetRuntimeId(element);
+
+            Results.Add($"Element found at ({position.X}, {position.Y}):");
+            Results.Add($"  Role: {role}");
+            Results.Add($"  Name: {name}");
+            Results.Add($"  AutomationId: {automationId}");
+            Results.Add($"  ClassName: {className}");
+            Results.Add($"  RuntimeId: {runtimeId}");
         }
-        else
+        catch (Exception ex)
         {
-            Debug.WriteLine("Recording is not active");
-            Console.WriteLine("Recording is not active");
-            
-            var node = Desktop.GetInstance();
-            node.Attributes["Name"] = new PlatynUI.Runtime.Core.Attribute("Name", "Recording is not active", Namespaces.Raw);
-            var debugNode = new TreeNode(null, node);
-            SearchResults.Add(debugNode);
+            Results.Add($"Error capturing element: {ex.Message}");
+            Debug.WriteLine($"Element capture error: {ex}");
         }
     }
 

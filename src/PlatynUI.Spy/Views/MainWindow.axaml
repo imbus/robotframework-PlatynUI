@@ -235,33 +235,24 @@
                     <Grid RowDefinitions="Auto,*">
                         <StackPanel Grid.Row="0" Orientation="Horizontal">
                             <Label Grid.Row="0" Content="Results" />
-                            <ui:InfoBadge Margin="3" Value="{Binding SearchResults.Count}"
-                                IsVisible="{Binding SearchResults.Count}" />
+                            <ui:InfoBadge Margin="3" Value="{Binding Results.Count}"
+                                IsVisible="{Binding Results.Count}" />
                             <Button Content="&#xE74D;"
                                 FontFamily="{StaticResource SymbolThemeFontFamily}"
                                 Theme="{StaticResource TransparentButton}"
-                                Command="{Binding ClearResults}"
+                                Command="{Binding ClearResultsCommand}"
                                 ToolTip.Tip="Clear Results"
-                                IsVisible="{Binding SearchResults.Count}" />
-                            <StackPanel Orientation="Horizontal"
-                                IsVisible="{Binding LastError, Converter={x:Static StringConverters.IsNotNullOrEmpty}}">
-                                <ui:InfoBadge Classes="Critical Icon"
-                                    HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center">
-                                </ui:InfoBadge>
-                                <TextBlock Text="{Binding LastError}" VerticalAlignment="Center" />
-                            </StackPanel>
+                                IsVisible="{Binding Results.Count}" />
                         </StackPanel>
 
-                        <ListBox Grid.Row="1" ItemsSource="{Binding SearchResults}"
-                            SelectionMode="Single"
-                            SelectedItem="{Binding ResultsSelectedNode, Mode=TwoWay}"
-                        >
+                        <ListBox Grid.Row="1" ItemsSource="{Binding Results}"
+                            SelectionMode="Single">
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
-                                    <StackPanel Orientation="Horizontal" Spacing="6">
-                                        <TextBlock Text="{Binding NodeName}" />
-                                        <TextBlock Text="{Binding Description}" />
-                                    </StackPanel>
+                                    <TextBox Text="{Binding}"
+                                            IsReadOnly="True"
+                                            Background="Transparent"
+                                            BorderThickness="0" />
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
                         </ListBox>

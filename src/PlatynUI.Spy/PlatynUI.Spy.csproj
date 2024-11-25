@@ -15,30 +15,32 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Avalonia" Version="11.2.0" />
-    <PackageReference Include="Avalonia.Controls.DataGrid" Version="11.2.0" />
-    <PackageReference Include="Avalonia.Desktop" Version="11.2.0" />
-    <PackageReference Include="Avalonia.Themes.Fluent" Version="11.2.0" />
-    <PackageReference Include="Avalonia.Themes.Simple" Version="11.2.0" />
-    <PackageReference Include="Avalonia.Fonts.Inter" Version="11.2.0" />
+    <PackageReference Include="Avalonia" Version="11.2.1" />
+    <PackageReference Include="Avalonia.Controls.DataGrid" Version="11.2.1" />
+    <PackageReference Include="Avalonia.Desktop" Version="11.2.1" />
+    <PackageReference Include="Avalonia.Themes.Fluent" Version="11.2.1" />
+    <PackageReference Include="Avalonia.Themes.Simple" Version="11.2.1" />
+    <PackageReference Include="Avalonia.Fonts.Inter" Version="11.2.1" />
     <!--Condition
     below is needed to remove Avalonia.Diagnostics package from build output in Release
     configuration.-->
-    <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.2.0" />
-    <PackageReference Include="Avalonia.ReactiveUI" Version="11.2.0" />
+    <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.2.1" />
+    <PackageReference Include="Avalonia.ReactiveUI" Version="11.2.1" />
     <PackageReference Include="FluentAvaloniaUI" Version="2.1.0" />
-    <PackageReference Include="System.CodeDom" Version="8.0.0" />
+    <PackageReference Include="System.CodeDom" Version="9.0.0" />
+    <PackageReference Include="System.ComponentModel.Composition" Version="9.0.0" />
     <!-- <PackageReference Include="Semi.Avalonia" Version="11.0.7.4" />
     <PackageReference Include="Semi.Avalonia.DataGrid" Version="11.0.7.2" /> -->
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\PlatynUI.Runtime\PlatynUI.Runtime.csproj" />
+    <ProjectReference Include="..\PlatynUI.Platform.Win32\PlatynUI.Platform.Win32.csproj" />
+    <ProjectReference Include="..\PlatynUI.Extension.Win32.UiAutomation\PlatynUI.Extension.Win32.UiAutomation.csproj" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(RuntimeIdentifier)' == '' Or '$(RuntimeIdentifier)' == 'win-x64' Or '$(RuntimeIdentifier)' == 'win-arm64'">
-    <ProjectReference Include="..\PlatynUI.Platform.Win32\PlatynUI.Platform.Win32.csproj" />
-    <ProjectReference Include="..\PlatynUI.Extension.Win32.UiAutomation\PlatynUI.Extension.Win32.UiAutomation.csproj" />
+    <!-- Removed -->
   </ItemGroup>
 
   <ItemGroup Condition="'$(RuntimeIdentifier)' == '' Or '$(RuntimeIdentifier)' == 'linux-x64' Or '$(RuntimeIdentifier)' == 'linux-musl-x64' Or '$(RuntimeIdentifier)' == 'linux-arm64' Or '$(RuntimeIdentifier)' == 'linux-musl-arm64'">
