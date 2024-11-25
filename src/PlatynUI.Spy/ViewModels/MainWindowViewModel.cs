@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using System.Xml.XPath;
 using Avalonia.Metadata;
 using Avalonia.Threading;
+using FluentAvalonia.UI.Controls;
 using PlatynUI.Runtime;
 using PlatynUI.Runtime.Core;
 using ReactiveUI;
@@ -242,6 +243,46 @@ public class MainWindowViewModel : ViewModelBase, INotifyDataErrorInfo
         }
     }
 
+    private bool _isRecording;
+    public bool IsRecording
+    {
+        get => _isRecording;
+        set => this.RaiseAndSetIfChanged(ref _isRecording, value);
+    }
+
+    public string RecordButtonContent => IsRecording ? "\uE946" : "\uE81D";
+
+    public void HandleCtrlPress()
+    {
+        if (IsRecording)
+        {
+            Debug.WriteLine("Hello Mars - Ctrl+F pressed!");
+            Console.WriteLine("Hello Mars - Ctrl+F pressed!");
+            
+            var node = Desktop.GetInstance();
+            node.Attributes["Name"] = new PlatynUI.Runtime.Core.Attribute("Name", "Hello Mars - Ctrl+F pressed!", Namespaces.Raw);
+            var debugNode = new TreeNode(null, node);
+            SearchResults.Add(debugNode);
+        }
+        else
+        {
+            Debug.WriteLine("Recording is not active");
+            Console.WriteLine("Recording is not active");
+            
+            var node = Desktop.GetInstance();
+            node.Attributes["Name"] = new PlatynUI.Runtime.Core.Attribute("Name", "Recording is not active", Namespaces.Raw);
+            var debugNode = new TreeNode(null, node);
+            SearchResults.Add(debugNode);
+        }
+    }
+
+    public void LogHello()
+    {
+        IsRecording = !IsRecording;
+        Debug.WriteLine($"Recording state changed to: {IsRecording}");
+        this.RaisePropertyChanged(nameof(RecordButtonContent));
+    }
+
     private Dictionary<string, List<string>> _errorsByPropertyName = [];
     private static readonly string[] NO_ERRORS = [];
 
@@ -296,4 +337,10 @@ public class MainWindowViewModel : ViewModelBase, INotifyDataErrorInfo
     }
 
     public bool HasErrors => throw new NotImplementedException();
+
+    public void ClearResults()
+    {
+        SearchResults.Clear();
+        LastError = "";
+    }
 }
