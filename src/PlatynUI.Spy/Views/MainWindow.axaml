@@ -31,6 +31,8 @@
             Command="{Binding Refresh}" />
         <KeyBinding Gesture="Escape"
             Command="{Binding CancelSearch}" />
+        <KeyBinding Gesture="Ctrl+F"
+            Command="{Binding HandleCtrlPress}" />
     </Window.KeyBindings>
 
     <Grid RowDefinitions="Auto,*">
@@ -81,10 +83,6 @@
                                 Theme="{StaticResource TransparentButton}"
                                 Command="{Binding SearchAsync}"
                                 IsVisible="{Binding !InSearch}" />
-                            <Button Content="{Binding RecordButtonContent}"       
-                                FontFamily="{StaticResource SymbolThemeFontFamily}"
-                                Theme="{StaticResource TransparentButton}"
-                                Command="{Binding LogHello}"/>
                             <Button Content="&#xE711;"
                                 FontFamily="{StaticResource SymbolThemeFontFamily}"
                                 Theme="{StaticResource TransparentButton}"

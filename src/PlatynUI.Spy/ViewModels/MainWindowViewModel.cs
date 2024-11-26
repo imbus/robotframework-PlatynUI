@@ -21,7 +21,6 @@ using PlatynUI.Runtime.Core;
 using PlatynUI.Extension.Win32.UiAutomation;
 using PlatynUI.Extension.Win32.UiAutomation.Client;
 using ReactiveUI;
-using Finder = PlatynUI.Runtime.Finder;
 
 namespace PlatynUI.Spy.ViewModels;
 
@@ -211,7 +210,7 @@ public class MainWindowViewModel : ViewModelBase, INotifyDataErrorInfo
                 {
                     var first = true;
 
-                    foreach (var node in Finder.EnumAllNodes(Desktop.GetInstance(), SearchText).Cast<INode>())
+                    foreach (var node in PlatynUI.Runtime.Finder.EnumAllNodes(Desktop.GetInstance(), SearchText).Cast<INode>())
                     {
                         token.ThrowIfCancellationRequested();
 
@@ -260,21 +259,15 @@ public class MainWindowViewModel : ViewModelBase, INotifyDataErrorInfo
         }
     }
 
-    private bool _isRecording;
-    public bool IsRecording
-    {
-        get => _isRecording;
-        set => this.RaiseAndSetIfChanged(ref _isRecording, value);
-    }
-
-    public string RecordButtonContent => IsRecording ? "\uE946" : "\uE81D";
-
     public void HandleCtrlPress()
     {
         var position = _mouseDevice.GetPosition();
         
         try 
         {
+            // Clear previous results
+            Results.Clear();
+            
             var element = _automation.ElementFromPoint(new tagPOINT { x = (int)position.X, y = (int)position.Y });
             
             if (element == null)
@@ -298,25 +291,31 @@ public class MainWindowViewModel : ViewModelBase, INotifyDataErrorInfo
             var className = element.CurrentClassName;
             var runtimeId = Helper.GetRuntimeId(element);
 
+            // Add the results
             Results.Add($"Element found at ({position.X}, {position.Y}):");
             Results.Add($"  Role: {role}");
             Results.Add($"  Name: {name}");
             Results.Add($"  AutomationId: {automationId}");
             Results.Add($"  ClassName: {className}");
             Results.Add($"  RuntimeId: {runtimeId}");
+
+            // Try to highlight the element in the tree
+            var elementNode = new ElementNode(null, element);
+            var treeNode = Root.FirstOrDefault(n => n.Node.IsSamePosition(elementNode)) ?? FindNodeInTree(elementNode);
+            if (treeNode != null)
+            {
+                foreach (var ancestor in treeNode.GetAncestors())
+                {
+                    ancestor.IsExpanded = true;
+                }
+                SelectedNode = treeNode;
+            }
         }
         catch (Exception ex)
         {
             Results.Add($"Error capturing element: {ex.Message}");
             Debug.WriteLine($"Element capture error: {ex}");
         }
-    }
-
-    public void LogHello()
-    {
-        IsRecording = !IsRecording;
-        Debug.WriteLine($"Recording state changed to: {IsRecording}");
-        this.RaisePropertyChanged(nameof(RecordButtonContent));
     }
 
     private Dictionary<string, List<string>> _errorsByPropertyName = [];
