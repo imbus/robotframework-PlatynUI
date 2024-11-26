@@ -265,7 +265,6 @@ public class MainWindowViewModel : ViewModelBase, INotifyDataErrorInfo
         
         try 
         {
-            // Clear previous results
             Results.Clear();
             
             var element = _automation.ElementFromPoint(new tagPOINT { x = (int)position.X, y = (int)position.Y });
@@ -290,6 +289,7 @@ public class MainWindowViewModel : ViewModelBase, INotifyDataErrorInfo
             var automationId = element.CurrentAutomationId;
             var className = element.CurrentClassName;
             var runtimeId = Helper.GetRuntimeId(element);
+            var windowName = GetWindowName(element);
 
             // Add the results
             Results.Add($"Element found at ({position.X}, {position.Y}):");
@@ -298,24 +298,38 @@ public class MainWindowViewModel : ViewModelBase, INotifyDataErrorInfo
             Results.Add($"  AutomationId: {automationId}");
             Results.Add($"  ClassName: {className}");
             Results.Add($"  RuntimeId: {runtimeId}");
-
-            // Try to highlight the element in the tree
-            var elementNode = new ElementNode(null, element);
-            var treeNode = Root.FirstOrDefault(n => n.Node.IsSamePosition(elementNode)) ?? FindNodeInTree(elementNode);
-            if (treeNode != null)
-            {
-                foreach (var ancestor in treeNode.GetAncestors())
-                {
-                    ancestor.IsExpanded = true;
-                }
-                SelectedNode = treeNode;
-            }
+            Results.Add("");
+            Results.Add("Recommended XPaths:");
+            if (!string.IsNullOrEmpty(automationId))
+                Results.Add($"  By AutomationId: Window[@Name=\"{windowName}\"]//{role}[@AutomationId='{automationId}']");
+            if (!string.IsNullOrEmpty(name))
+                Results.Add($"  By Name: Window[@Name=\"{windowName}\"]//{role}[@Name='{name}']");
         }
         catch (Exception ex)
         {
             Results.Add($"Error capturing element: {ex.Message}");
             Debug.WriteLine($"Element capture error: {ex}");
         }
+    }
+
+    private string GetWindowName(IUIAutomationElement element)
+    {
+        try
+        {
+            var walker = _automation.ControlViewWalker;
+            var parent = element;
+            while (parent != null)
+            {
+                if (Helper.GetRole(parent) == "Window")
+                    return parent.CurrentName;
+                parent = walker.GetParentElement(parent);
+            }
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine($"Error getting window name: {ex}");
+        }
+        return "Unknown";
     }
 
     private Dictionary<string, List<string>> _errorsByPropertyName = [];
