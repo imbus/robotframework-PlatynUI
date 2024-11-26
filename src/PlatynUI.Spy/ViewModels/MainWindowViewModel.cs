@@ -7,6 +7,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.ComponentModel.Composition;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading;
@@ -14,16 +15,32 @@ using System.Threading.Tasks;
 using System.Xml.XPath;
 using Avalonia.Metadata;
 using Avalonia.Threading;
+using FluentAvalonia.UI.Controls;
 using PlatynUI.Runtime;
 using PlatynUI.Runtime.Core;
+using PlatynUI.Extension.Win32.UiAutomation;
+using PlatynUI.Extension.Win32.UiAutomation.Client;
 using ReactiveUI;
 
 namespace PlatynUI.Spy.ViewModels;
 
+[Export]
 public class MainWindowViewModel : ViewModelBase, INotifyDataErrorInfo
 {
-    public MainWindowViewModel()
+    private readonly IMouseDevice _mouseDevice;
+    private readonly IUIAutomation _automation;
+
+    public ObservableCollection<string> Results { get; } = new();
+    public IReactiveCommand ClearResultsCommand { get; }
+
+    [ImportingConstructor]
+    public MainWindowViewModel(IMouseDevice mouseDevice)
     {
+        _mouseDevice = mouseDevice;
+        _automation = new CUIAutomation();
+        
+        ClearResultsCommand = ReactiveCommand.Create(() => Results.Clear());
+
         this.WhenAnyValue(x => x.SelectedNode)
             .Subscribe(node =>
             {
@@ -193,7 +210,7 @@ public class MainWindowViewModel : ViewModelBase, INotifyDataErrorInfo
                 {
                     var first = true;
 
-                    foreach (var node in Finder.EnumAllNodes(Desktop.GetInstance(), SearchText).Cast<INode>())
+                    foreach (var node in PlatynUI.Runtime.Finder.EnumAllNodes(Desktop.GetInstance(), SearchText).Cast<INode>())
                     {
                         token.ThrowIfCancellationRequested();
 
@@ -240,6 +257,79 @@ public class MainWindowViewModel : ViewModelBase, INotifyDataErrorInfo
         {
             InSearch = false;
         }
+    }
+
+    public void HandleCtrlPress()
+    {
+        var position = _mouseDevice.GetPosition();
+        
+        try 
+        {
+            Results.Clear();
+            
+            var element = _automation.ElementFromPoint(new tagPOINT { x = (int)position.X, y = (int)position.Y });
+            
+            if (element == null)
+            {
+                Results.Add($"No element found at position ({position.X}, {position.Y})");
+                return;
+            }
+
+            // Skip if it's our own window
+            var processId = element.CurrentProcessId;
+            if (processId == Process.GetCurrentProcess().Id)
+            {
+                Results.Add($"Skipping our own window at ({position.X}, {position.Y})");
+                return;
+            }
+
+            // Get element information
+            var role = Helper.GetRole(element);
+            var name = element.CurrentName;
+            var automationId = element.CurrentAutomationId;
+            var className = element.CurrentClassName;
+            var runtimeId = Helper.GetRuntimeId(element);
+            var windowName = GetWindowName(element);
+
+            // Add the results
+            Results.Add($"Element found at ({position.X}, {position.Y}):");
+            Results.Add($"  Role: {role}");
+            Results.Add($"  Name: {name}");
+            Results.Add($"  AutomationId: {automationId}");
+            Results.Add($"  ClassName: {className}");
+            Results.Add($"  RuntimeId: {runtimeId}");
+            Results.Add("");
+            Results.Add("Recommended XPaths:");
+            if (!string.IsNullOrEmpty(automationId))
+                Results.Add($"  By AutomationId: Window[@Name=\"{windowName}\"]//{role}[@AutomationId='{automationId}']");
+            if (!string.IsNullOrEmpty(name))
+                Results.Add($"  By Name: Window[@Name=\"{windowName}\"]//{role}[@Name='{name}']");
+        }
+        catch (Exception ex)
+        {
+            Results.Add($"Error capturing element: {ex.Message}");
+            Debug.WriteLine($"Element capture error: {ex}");
+        }
+    }
+
+    private string GetWindowName(IUIAutomationElement element)
+    {
+        try
+        {
+            var walker = _automation.ControlViewWalker;
+            var parent = element;
+            while (parent != null)
+            {
+                if (Helper.GetRole(parent) == "Window")
+                    return parent.CurrentName;
+                parent = walker.GetParentElement(parent);
+            }
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine($"Error getting window name: {ex}");
+        }
+        return "Unknown";
     }
 
     private Dictionary<string, List<string>> _errorsByPropertyName = [];
@@ -296,4 +386,10 @@ public class MainWindowViewModel : ViewModelBase, INotifyDataErrorInfo
     }
 
     public bool HasErrors => throw new NotImplementedException();
+
+    public void ClearResults()
+    {
+        SearchResults.Clear();
+        LastError = "";
+    }
 }
