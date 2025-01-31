@@ -14,6 +14,8 @@ SPDX-License-Identifier: Apache-2.0
 ## Table of Contents
 
 - [Installation](#installation)
+- [Dependencies](#dependencies)
+- [Example](#example)
 - [License](#license)
 
 ## Installation
@@ -21,6 +23,9 @@ SPDX-License-Identifier: Apache-2.0
 ```console
 pip install robotframework-platynui
 ```
+## Dependencies
+
+## Example
 
 ## License
 
