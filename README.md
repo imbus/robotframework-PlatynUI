@@ -19,8 +19,8 @@ SPDX-License-Identifier: Apache-2.0
 - [Configuration](#configuration)
 - [Example](#example)
 - [Contributing](#contributing)
-- [Contact / Support](#contact-/-support)
-- [Versioning / Changelog](#versioning-/-changelog)
+- [Contact / Support](#contact--support)
+- [Versioning / Changelog](#versioning--changelog)
 - [License](#license)
 
 ## Project Description
