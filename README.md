@@ -90,7 +90,11 @@ pip install robotframework-platynui
 - Short examples or instructions on how to run the project.
 - Typical commands, code snippets, or screenshots
 
---
+## Usage of the Spy tool
+- Start the spy
+- Inspect the app
+- Build a valid Xpath
+
 ## Configuration
 
 - Information on which settings can be adjusted.
