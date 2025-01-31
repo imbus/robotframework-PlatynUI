@@ -14,6 +14,9 @@ SPDX-License-Identifier: Apache-2.0
 ## Table of Contents
 
 - [Project Description](#project-description)
+- [Key Features](#key-features)
+- [Testable Frameworks](#known-testable-frameworks-and-application-structures)
+- [Known Limitations](#known-limitations-or-unsupported-features)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Configuration](#configuration)
@@ -25,10 +28,54 @@ SPDX-License-Identifier: Apache-2.0
 
 ## Project Description
 
-- What does the project do?
-- What is its purpose?
-- Why might it be useful?
-  
+This repository extends Robot Framework by providing a cross-platform solution for automating desktop GUI tests. Its main goal is to make it easier for testers and developers to identify, interact with, and verify various UI elements, regardless of the underlying framework. By incorporating a built-in spy tool and low-level keywords that bridge directly with Robot Framework, it helps teams streamline their testing process, reduce manual effort, and maintain more consistent UI test coverage.
+
+## Key Features
+
+- Built-in Spy Tool
+
+    This repository includes an integrated spy tool that allows you to identify and inspect UI objects quickly and accurately.
+
+- Direct Integration with Robot Framework
+
+    It provides low-level keywords out of the box, ensuring a seamless link between the testing framework and the UI elements.
+
+- Broad Compatibility
+
+    Supports various application types and operating Systems, making it easier to automate tests across different environments.
+
+## Known (Testable) Frameworks and Application Structures
+
+- Desktop Applications
+    - Windows-based apps (e.g., Win32, .NET)
+    - Linux/X11 or Wayland apps
+- WPF (Windows Presentation Foundation)
+
+    - Often compatible through Microsoft UI Automation (UIA).
+
+    - WPF applications can be tested if the automation tool recognizes standard UIA interfaces.
+- Hybrid or Custom Frameworks
+    - Java-based GUIs (e.g., Swing, JavaFX)
+    - Other known UI technologies, as long as they are recognized by the spy tool
+- Avalonia
+
+## Known Limitations or Unsupported Features
+
+- Unrecognized UI Components
+
+    - Certain custom or highly specialized UI components may not be identifiable or automatable, due to missing hooks or limited accessibility APIs.
+
+- Operating System Restrictions
+
+    - Support for macOS 
+    - Limited support for specific Linux distributions?.
+    - Potential issues with newer or less common window managers (e.g., certain Wayland implementations).
+- Dependency Requirements
+    - Dependency to .Net, how does that inpact the use of the tool
+
+- Web Applications 
+    - Not optimized for Browsers or embedded web views
+
 ## Installation
 
 - What are the prerequisites (dependencies, versions, etc.)?
@@ -43,6 +90,7 @@ pip install robotframework-platynui
 - Short examples or instructions on how to run the project.
 - Typical commands, code snippets, or screenshots
 
+--
 ## Configuration
 
 - Information on which settings can be adjusted.
