@@ -33,6 +33,12 @@
             <On Options="Linux">
                 <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml" />
             </On>
+            <On Options="macOS">
+                <FluentTheme DensityStyle="Compact" />
+            </On>
+            <On Options="macOS">
+                <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml" />
+            </On>
         </OnPlatform>
     </Application.Styles>
 </Application>

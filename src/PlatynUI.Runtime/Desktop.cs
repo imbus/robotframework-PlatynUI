@@ -48,7 +48,7 @@ public class Desktop : INode, IAdapter, IElement
         _attributes ??= new List<IAttribute>()
         {
             new Attribute("Name", Environment.MachineName),
-            new Attribute("Platform", Environment.OSVersion.Platform.ToString()),
+            new Attribute("Platform", PlatformHelper.GetCurrentPlatform().ToString()),
             new Attribute("Version", Environment.OSVersion.VersionString),
             new Attribute("Role", "Desktop"),
             new Attribute("BoundingRectangle", DisplayDevice.GetBoundingRectangle()),

@@ -11,7 +11,7 @@ name = "robotframework-platynui"
 dynamic = ["version"]
 description = 'PlatynUI is a library for Robot Framework that enables easy and cross-platform desktop UI automation with a comprehensive set of keywords for interacting with desktop applications.'
 readme = "README.md"
-requires-python = ">=3.9, < 3.13"
+requires-python = ">=3.10"
 license = { text = "Apache-2.0" }
 keywords = []
 authors = [{ name = "Daniel Biehl", email = "daniel.biehl@imbus.de" }]
