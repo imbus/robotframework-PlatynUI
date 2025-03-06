@@ -1,0 +1,35 @@
+repos:
+  - repo: local
+    hooks:
+      - id: black-checks
+        name: Black Checks
+        entry: hatch run types:check-black
+        language: python
+
+      - id: mypy-checks
+        name: Mypy Checks
+        entry: hatch run types:check-mypy
+        language: python
+        types_or:
+          - python
+          - pyi
+
+      - id: robotidy-checks
+        name: Robotidy Checks
+        entry: hatch run types:check-robotidy
+        language: system
+
+      - id: robocop-checks
+        name: Robocop Checks
+        entry: hatch run types:check-robocop
+        language: system
+
+      - id: ruff-checks
+        name: Ruff Checks
+        entry: hatch run types:check-ruff
+        language: python
+
+      - id: pytest-checks
+        name: Pytest Checks
+        entry: hatch run types:check-pytest
+        language: python
