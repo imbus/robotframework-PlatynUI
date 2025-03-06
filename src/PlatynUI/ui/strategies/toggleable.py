@@ -7,7 +7,7 @@ from abc import abstractmethod
 from ...core import StrategyBase
 from ..togglestate import ToggleState
 
-__all__ = ["HasToggleState", "Toggleable", "ToggleState"]
+__all__ = ["HasToggleState", "ToggleState", "Toggleable"]
 
 
 class HasToggleState(StrategyBase):

@@ -17,7 +17,6 @@ class IXsltContextFunction(typing.Protocol):
     @abc.abstractmethod
     def Invoke(self, xsltContext: XsltContext, args: Array_1[typing.Any], docContext: XPathNavigator) -> typing.Any: ...
 
-
 class IXsltContextVariable(typing.Protocol):
     @property
     def IsLocal(self) -> bool: ...
@@ -27,7 +26,6 @@ class IXsltContextVariable(typing.Protocol):
     def VariableType(self) -> XPathResultType: ...
     @abc.abstractmethod
     def Evaluate(self, xsltContext: XsltContext) -> typing.Any: ...
-
 
 class XsltContext(XmlNamespaceManager, abc.ABC):
     @property
@@ -44,4 +42,3 @@ class XsltContext(XmlNamespaceManager, abc.ABC):
     def ResolveFunction(self, prefix: str, name: str, ArgTypes: Array_1[XPathResultType]) -> IXsltContextFunction: ...
     @abc.abstractmethod
     def ResolveVariable(self, prefix: str, name: str) -> IXsltContextVariable: ...
-

@@ -1,4 +1,4 @@
-from typing import Protocol, runtime_checkable
+from typing import Protocol
 
 
 class CanWalk(Protocol):

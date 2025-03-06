@@ -6,7 +6,7 @@ from abc import abstractmethod
 
 from ...core import StrategyBase
 
-__all__ = ["HasCanClose", "Closeable"]
+__all__ = ["Closeable", "HasCanClose"]
 
 
 class HasCanClose(StrategyBase):

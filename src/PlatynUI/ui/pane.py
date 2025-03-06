@@ -5,7 +5,7 @@
 from ..core import context
 from .control import Control
 
-__all__ = ["Pane", "Group"]
+__all__ = ["Group", "Pane"]
 
 
 @context

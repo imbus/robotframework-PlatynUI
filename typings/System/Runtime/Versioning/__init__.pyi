@@ -10,20 +10,18 @@ class ComponentGuaranteesAttribute(Attribute):
     @property
     def TypeId(self) -> typing.Any: ...
 
-
 class ComponentGuaranteesOptions(typing.SupportsInt):
     @typing.overload
-    def __init__(self, value : int) -> None: ...
+    def __init__(self, value: int) -> None: ...
     @typing.overload
-    def __init__(self, value : int, force_if_true: bool) -> None: ...
+    def __init__(self, value: int, force_if_true: bool) -> None: ...
     def __int__(self) -> int: ...
-    
-    # Values:
-    None_ : ComponentGuaranteesOptions # 0
-    Exchange : ComponentGuaranteesOptions # 1
-    Stable : ComponentGuaranteesOptions # 2
-    SideBySide : ComponentGuaranteesOptions # 4
 
+    # Values:
+    None_: ComponentGuaranteesOptions  # 0
+    Exchange: ComponentGuaranteesOptions  # 1
+    Stable: ComponentGuaranteesOptions  # 2
+    SideBySide: ComponentGuaranteesOptions  # 4
 
 class FrameworkName(IEquatable_1[FrameworkName]):
     @typing.overload
@@ -46,14 +44,13 @@ class FrameworkName(IEquatable_1[FrameworkName]):
     def ToString(self) -> str: ...
     # Skipped Equals due to it being static, abstract and generic.
 
-    Equals : Equals_MethodGroup
+    Equals: Equals_MethodGroup
+
     class Equals_MethodGroup:
         @typing.overload
-        def __call__(self, other: typing.Optional[FrameworkName]) -> bool:...
+        def __call__(self, other: typing.Optional[FrameworkName]) -> bool: ...
         @typing.overload
-        def __call__(self, obj: typing.Optional[typing.Any]) -> bool:...
-
-
+        def __call__(self, obj: typing.Optional[typing.Any]) -> bool: ...
 
 class ObsoletedOSPlatformAttribute(OSPlatformAttribute):
     @typing.overload
@@ -71,13 +68,11 @@ class ObsoletedOSPlatformAttribute(OSPlatformAttribute):
     @Url.setter
     def Url(self, value: typing.Optional[str]) -> typing.Optional[str]: ...
 
-
 class OSPlatformAttribute(Attribute):
     @property
     def PlatformName(self) -> str: ...
     @property
     def TypeId(self) -> typing.Any: ...
-
 
 class RequiresPreviewFeaturesAttribute(Attribute):
     @typing.overload
@@ -93,7 +88,6 @@ class RequiresPreviewFeaturesAttribute(Attribute):
     @Url.setter
     def Url(self, value: typing.Optional[str]) -> typing.Optional[str]: ...
 
-
 class ResourceConsumptionAttribute(Attribute):
     @typing.overload
     def __init__(self, resourceScope: ResourceScope) -> None: ...
@@ -106,7 +100,6 @@ class ResourceConsumptionAttribute(Attribute):
     @property
     def TypeId(self) -> typing.Any: ...
 
-
 class ResourceExposureAttribute(Attribute):
     def __init__(self, exposureLevel: ResourceScope) -> None: ...
     @property
@@ -114,23 +107,21 @@ class ResourceExposureAttribute(Attribute):
     @property
     def TypeId(self) -> typing.Any: ...
 
-
 class ResourceScope(typing.SupportsInt):
     @typing.overload
-    def __init__(self, value : int) -> None: ...
+    def __init__(self, value: int) -> None: ...
     @typing.overload
-    def __init__(self, value : int, force_if_true: bool) -> None: ...
+    def __init__(self, value: int, force_if_true: bool) -> None: ...
     def __int__(self) -> int: ...
-    
-    # Values:
-    None_ : ResourceScope # 0
-    Machine : ResourceScope # 1
-    Process : ResourceScope # 2
-    AppDomain : ResourceScope # 4
-    Library : ResourceScope # 8
-    Private : ResourceScope # 16
-    Assembly : ResourceScope # 32
 
+    # Values:
+    None_: ResourceScope  # 0
+    Machine: ResourceScope  # 1
+    Process: ResourceScope  # 2
+    AppDomain: ResourceScope  # 4
+    Library: ResourceScope  # 8
+    Private: ResourceScope  # 16
+    Assembly: ResourceScope  # 32
 
 class SupportedOSPlatformAttribute(OSPlatformAttribute):
     def __init__(self, platformName: str) -> None: ...
@@ -139,14 +130,12 @@ class SupportedOSPlatformAttribute(OSPlatformAttribute):
     @property
     def TypeId(self) -> typing.Any: ...
 
-
 class SupportedOSPlatformGuardAttribute(OSPlatformAttribute):
     def __init__(self, platformName: str) -> None: ...
     @property
     def PlatformName(self) -> str: ...
     @property
     def TypeId(self) -> typing.Any: ...
-
 
 class TargetFrameworkAttribute(Attribute):
     def __init__(self, frameworkName: str) -> None: ...
@@ -159,14 +148,12 @@ class TargetFrameworkAttribute(Attribute):
     @property
     def TypeId(self) -> typing.Any: ...
 
-
 class TargetPlatformAttribute(OSPlatformAttribute):
     def __init__(self, platformName: str) -> None: ...
     @property
     def PlatformName(self) -> str: ...
     @property
     def TypeId(self) -> typing.Any: ...
-
 
 class UnsupportedOSPlatformAttribute(OSPlatformAttribute):
     @typing.overload
@@ -180,7 +167,6 @@ class UnsupportedOSPlatformAttribute(OSPlatformAttribute):
     @property
     def TypeId(self) -> typing.Any: ...
 
-
 class UnsupportedOSPlatformGuardAttribute(OSPlatformAttribute):
     def __init__(self, platformName: str) -> None: ...
     @property
@@ -188,15 +174,19 @@ class UnsupportedOSPlatformGuardAttribute(OSPlatformAttribute):
     @property
     def TypeId(self) -> typing.Any: ...
 
-
 class VersioningHelper(abc.ABC):
     # Skipped MakeVersionSafeName due to it being static, abstract and generic.
 
-    MakeVersionSafeName : MakeVersionSafeName_MethodGroup
+    MakeVersionSafeName: MakeVersionSafeName_MethodGroup
+
     class MakeVersionSafeName_MethodGroup:
         @typing.overload
-        def __call__(self, name: typing.Optional[str], from_: ResourceScope, to: ResourceScope) -> str:...
+        def __call__(self, name: typing.Optional[str], from_: ResourceScope, to: ResourceScope) -> str: ...
         @typing.overload
-        def __call__(self, name: typing.Optional[str], from_: ResourceScope, to: ResourceScope, type: typing.Optional[typing.Type[typing.Any]]) -> str:...
-
-
+        def __call__(
+            self,
+            name: typing.Optional[str],
+            from_: ResourceScope,
+            to: ResourceScope,
+            type: typing.Optional[typing.Type[typing.Any]],
+        ) -> str: ...

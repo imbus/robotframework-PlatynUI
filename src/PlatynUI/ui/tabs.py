@@ -7,7 +7,7 @@ import typing
 from ..core import LocatorScope, context
 from . import Control, Item
 
-__all__ = ["TabList", "TabItem"]
+__all__ = ["TabItem", "TabList"]
 
 
 @context

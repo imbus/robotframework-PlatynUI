@@ -5,47 +5,42 @@ from System import __ComObject, Array_1, Guid
 
 class AutomationElementMode(typing.SupportsInt):
     @typing.overload
-    def __init__(self, value : int) -> None: ...
+    def __init__(self, value: int) -> None: ...
     @typing.overload
-    def __init__(self, value : int, force_if_true: bool) -> None: ...
+    def __init__(self, value: int, force_if_true: bool) -> None: ...
     def __int__(self) -> int: ...
-    
-    # Values:
-    AutomationElementMode_None : AutomationElementMode # 0
-    AutomationElementMode_Full : AutomationElementMode # 1
 
+    # Values:
+    AutomationElementMode_None: AutomationElementMode  # 0
+    AutomationElementMode_Full: AutomationElementMode  # 1
 
 class CoalesceEventsOptions(typing.SupportsInt):
     @typing.overload
-    def __init__(self, value : int) -> None: ...
+    def __init__(self, value: int) -> None: ...
     @typing.overload
-    def __init__(self, value : int, force_if_true: bool) -> None: ...
+    def __init__(self, value: int, force_if_true: bool) -> None: ...
     def __int__(self) -> int: ...
-    
-    # Values:
-    CoalesceEventsOptions_Disabled : CoalesceEventsOptions # 0
-    CoalesceEventsOptions_Enabled : CoalesceEventsOptions # 1
 
+    # Values:
+    CoalesceEventsOptions_Disabled: CoalesceEventsOptions  # 0
+    CoalesceEventsOptions_Enabled: CoalesceEventsOptions  # 1
 
 class ConnectionRecoveryBehaviorOptions(typing.SupportsInt):
     @typing.overload
-    def __init__(self, value : int) -> None: ...
+    def __init__(self, value: int) -> None: ...
     @typing.overload
-    def __init__(self, value : int, force_if_true: bool) -> None: ...
+    def __init__(self, value: int, force_if_true: bool) -> None: ...
     def __int__(self) -> int: ...
-    
-    # Values:
-    ConnectionRecoveryBehaviorOptions_Disabled : ConnectionRecoveryBehaviorOptions # 0
-    ConnectionRecoveryBehaviorOptions_Enabled : ConnectionRecoveryBehaviorOptions # 1
 
+    # Values:
+    ConnectionRecoveryBehaviorOptions_Disabled: ConnectionRecoveryBehaviorOptions  # 0
+    ConnectionRecoveryBehaviorOptions_Enabled: ConnectionRecoveryBehaviorOptions  # 1
 
 class CUIAutomation(IUIAutomation, typing.Protocol):
     pass
 
-
 class CUIAutomation8(IUIAutomation2, typing.Protocol):
     pass
-
 
 class CUIAutomation8Class(__ComObject, IUIAutomation6, CUIAutomation8):
     def __init__(self) -> None: ...
@@ -60,7 +55,9 @@ class CUIAutomation8Class(__ComObject, IUIAutomation6, CUIAutomation8):
     @property
     def ConnectionRecoveryBehavior(self) -> ConnectionRecoveryBehaviorOptions: ...
     @ConnectionRecoveryBehavior.setter
-    def ConnectionRecoveryBehavior(self, value: ConnectionRecoveryBehaviorOptions) -> ConnectionRecoveryBehaviorOptions: ...
+    def ConnectionRecoveryBehavior(
+        self, value: ConnectionRecoveryBehaviorOptions
+    ) -> ConnectionRecoveryBehaviorOptions: ...
     @property
     def ConnectionTimeout(self) -> int: ...
     @ConnectionTimeout.setter
@@ -207,40 +204,115 @@ class CUIAutomation8Class(__ComObject, IUIAutomation6, CUIAutomation8):
     def TransactionTimeout(self) -> int: ...
     @TransactionTimeout.setter
     def TransactionTimeout(self, value: int) -> int: ...
-    def AddActiveTextPositionChangedEventHandler(self, element: IUIAutomationElement, scope: TreeScope, cacheRequest: IUIAutomationCacheRequest, handler: IUIAutomationActiveTextPositionChangedEventHandler) -> None: ...
-    def AddAutomationEventHandler(self, eventId: int, element: IUIAutomationElement, scope: TreeScope, cacheRequest: IUIAutomationCacheRequest, handler: IUIAutomationEventHandler) -> None: ...
-    def AddChangesEventHandler(self, element: IUIAutomationElement, scope: TreeScope, changeTypes: clr.Reference[int], changesCount: int, pCacheRequest: IUIAutomationCacheRequest, handler: IUIAutomationChangesEventHandler) -> None: ...
-    def AddEventHandlerGroup(self, element: IUIAutomationElement, handlerGroup: IUIAutomationEventHandlerGroup) -> None: ...
-    def AddFocusChangedEventHandler(self, cacheRequest: IUIAutomationCacheRequest, handler: IUIAutomationFocusChangedEventHandler) -> None: ...
-    def AddNotificationEventHandler(self, element: IUIAutomationElement, scope: TreeScope, cacheRequest: IUIAutomationCacheRequest, handler: IUIAutomationNotificationEventHandler) -> None: ...
-    def AddPropertyChangedEventHandler(self, element: IUIAutomationElement, scope: TreeScope, cacheRequest: IUIAutomationCacheRequest, handler: IUIAutomationPropertyChangedEventHandler, propertyArray: Array_1[int]) -> None: ...
-    def AddPropertyChangedEventHandlerNativeArray(self, element: IUIAutomationElement, scope: TreeScope, cacheRequest: IUIAutomationCacheRequest, handler: IUIAutomationPropertyChangedEventHandler, propertyArray: clr.Reference[int], propertyCount: int) -> None: ...
-    def AddStructureChangedEventHandler(self, element: IUIAutomationElement, scope: TreeScope, cacheRequest: IUIAutomationCacheRequest, handler: IUIAutomationStructureChangedEventHandler) -> None: ...
-    def AddTextEditTextChangedEventHandler(self, element: IUIAutomationElement, scope: TreeScope, TextEditChangeType: TextEditChangeType, cacheRequest: IUIAutomationCacheRequest, handler: IUIAutomationTextEditTextChangedEventHandler) -> None: ...
+    def AddActiveTextPositionChangedEventHandler(
+        self,
+        element: IUIAutomationElement,
+        scope: TreeScope,
+        cacheRequest: IUIAutomationCacheRequest,
+        handler: IUIAutomationActiveTextPositionChangedEventHandler,
+    ) -> None: ...
+    def AddAutomationEventHandler(
+        self,
+        eventId: int,
+        element: IUIAutomationElement,
+        scope: TreeScope,
+        cacheRequest: IUIAutomationCacheRequest,
+        handler: IUIAutomationEventHandler,
+    ) -> None: ...
+    def AddChangesEventHandler(
+        self,
+        element: IUIAutomationElement,
+        scope: TreeScope,
+        changeTypes: clr.Reference[int],
+        changesCount: int,
+        pCacheRequest: IUIAutomationCacheRequest,
+        handler: IUIAutomationChangesEventHandler,
+    ) -> None: ...
+    def AddEventHandlerGroup(
+        self, element: IUIAutomationElement, handlerGroup: IUIAutomationEventHandlerGroup
+    ) -> None: ...
+    def AddFocusChangedEventHandler(
+        self, cacheRequest: IUIAutomationCacheRequest, handler: IUIAutomationFocusChangedEventHandler
+    ) -> None: ...
+    def AddNotificationEventHandler(
+        self,
+        element: IUIAutomationElement,
+        scope: TreeScope,
+        cacheRequest: IUIAutomationCacheRequest,
+        handler: IUIAutomationNotificationEventHandler,
+    ) -> None: ...
+    def AddPropertyChangedEventHandler(
+        self,
+        element: IUIAutomationElement,
+        scope: TreeScope,
+        cacheRequest: IUIAutomationCacheRequest,
+        handler: IUIAutomationPropertyChangedEventHandler,
+        propertyArray: Array_1[int],
+    ) -> None: ...
+    def AddPropertyChangedEventHandlerNativeArray(
+        self,
+        element: IUIAutomationElement,
+        scope: TreeScope,
+        cacheRequest: IUIAutomationCacheRequest,
+        handler: IUIAutomationPropertyChangedEventHandler,
+        propertyArray: clr.Reference[int],
+        propertyCount: int,
+    ) -> None: ...
+    def AddStructureChangedEventHandler(
+        self,
+        element: IUIAutomationElement,
+        scope: TreeScope,
+        cacheRequest: IUIAutomationCacheRequest,
+        handler: IUIAutomationStructureChangedEventHandler,
+    ) -> None: ...
+    def AddTextEditTextChangedEventHandler(
+        self,
+        element: IUIAutomationElement,
+        scope: TreeScope,
+        TextEditChangeType: TextEditChangeType,
+        cacheRequest: IUIAutomationCacheRequest,
+        handler: IUIAutomationTextEditTextChangedEventHandler,
+    ) -> None: ...
     def CheckNotSupported(self, value: typing.Any) -> int: ...
     def CompareElements(self, el1: IUIAutomationElement, el2: IUIAutomationElement) -> int: ...
     def CompareRuntimeIds(self, runtimeId1: Array_1[int], runtimeId2: Array_1[int]) -> int: ...
-    def CreateAndCondition(self, condition1: IUIAutomationCondition, condition2: IUIAutomationCondition) -> IUIAutomationCondition: ...
+    def CreateAndCondition(
+        self, condition1: IUIAutomationCondition, condition2: IUIAutomationCondition
+    ) -> IUIAutomationCondition: ...
     def CreateAndConditionFromArray(self, conditions: Array_1[IUIAutomationCondition]) -> IUIAutomationCondition: ...
-    def CreateAndConditionFromNativeArray(self, conditions: clr.Reference[IUIAutomationCondition], conditionCount: int) -> IUIAutomationCondition: ...
+    def CreateAndConditionFromNativeArray(
+        self, conditions: clr.Reference[IUIAutomationCondition], conditionCount: int
+    ) -> IUIAutomationCondition: ...
     def CreateCacheRequest(self) -> IUIAutomationCacheRequest: ...
     def CreateEventHandlerGroup(self, handlerGroup: clr.Reference[IUIAutomationEventHandlerGroup]) -> None: ...
     def CreateFalseCondition(self) -> IUIAutomationCondition: ...
     def CreateNotCondition(self, condition: IUIAutomationCondition) -> IUIAutomationCondition: ...
-    def CreateOrCondition(self, condition1: IUIAutomationCondition, condition2: IUIAutomationCondition) -> IUIAutomationCondition: ...
+    def CreateOrCondition(
+        self, condition1: IUIAutomationCondition, condition2: IUIAutomationCondition
+    ) -> IUIAutomationCondition: ...
     def CreateOrConditionFromArray(self, conditions: Array_1[IUIAutomationCondition]) -> IUIAutomationCondition: ...
-    def CreateOrConditionFromNativeArray(self, conditions: clr.Reference[IUIAutomationCondition], conditionCount: int) -> IUIAutomationCondition: ...
+    def CreateOrConditionFromNativeArray(
+        self, conditions: clr.Reference[IUIAutomationCondition], conditionCount: int
+    ) -> IUIAutomationCondition: ...
     def CreatePropertyCondition(self, propertyId: int, value: typing.Any) -> IUIAutomationCondition: ...
-    def CreatePropertyConditionEx(self, propertyId: int, value: typing.Any, flags: PropertyConditionFlags) -> IUIAutomationCondition: ...
+    def CreatePropertyConditionEx(
+        self, propertyId: int, value: typing.Any, flags: PropertyConditionFlags
+    ) -> IUIAutomationCondition: ...
     def CreateProxyFactoryEntry(self, factory: IUIAutomationProxyFactory) -> IUIAutomationProxyFactoryEntry: ...
     def CreateTreeWalker(self, pCondition: IUIAutomationCondition) -> IUIAutomationTreeWalker: ...
     def CreateTrueCondition(self) -> IUIAutomationCondition: ...
     def ElementFromHandle(self, hwnd: int) -> IUIAutomationElement: ...
-    def ElementFromHandleBuildCache(self, hwnd: int, cacheRequest: IUIAutomationCacheRequest) -> IUIAutomationElement: ...
+    def ElementFromHandleBuildCache(
+        self, hwnd: int, cacheRequest: IUIAutomationCacheRequest
+    ) -> IUIAutomationElement: ...
     def ElementFromIAccessible(self, accessible: IAccessible, childId: int) -> IUIAutomationElement: ...
-    def ElementFromIAccessibleBuildCache(self, accessible: IAccessible, childId: int, cacheRequest: IUIAutomationCacheRequest) -> IUIAutomationElement: ...
+    def ElementFromIAccessibleBuildCache(
+        self, accessible: IAccessible, childId: int, cacheRequest: IUIAutomationCacheRequest
+    ) -> IUIAutomationElement: ...
     def ElementFromPoint(self, pt: tagPOINT) -> IUIAutomationElement: ...
-    def ElementFromPointBuildCache(self, pt: tagPOINT, cacheRequest: IUIAutomationCacheRequest) -> IUIAutomationElement: ...
+    def ElementFromPointBuildCache(
+        self, pt: tagPOINT, cacheRequest: IUIAutomationCacheRequest
+    ) -> IUIAutomationElement: ...
     def GetFocusedElement(self) -> IUIAutomationElement: ...
     def GetFocusedElementBuildCache(self, cacheRequest: IUIAutomationCacheRequest) -> IUIAutomationElement: ...
     def GetPatternProgrammaticName(self, pattern: int) -> str: ...
@@ -249,218 +321,586 @@ class CUIAutomation8Class(__ComObject, IUIAutomation6, CUIAutomation8):
     def GetRootElementBuildCache(self, cacheRequest: IUIAutomationCacheRequest) -> IUIAutomationElement: ...
     def IntNativeArrayToSafeArray(self, array: clr.Reference[int], arrayCount: int) -> Array_1[int]: ...
     def IntSafeArrayToNativeArray(self, intArray: Array_1[int], array: int) -> int: ...
-    def IUIAutomation3_AddAutomationEventHandler(self, eventId: int, element: IUIAutomationElement, scope: TreeScope, cacheRequest: IUIAutomationCacheRequest, handler: IUIAutomationEventHandler) -> None: ...
-    def IUIAutomation3_AddFocusChangedEventHandler(self, cacheRequest: IUIAutomationCacheRequest, handler: IUIAutomationFocusChangedEventHandler) -> None: ...
-    def IUIAutomation3_AddPropertyChangedEventHandler(self, element: IUIAutomationElement, scope: TreeScope, cacheRequest: IUIAutomationCacheRequest, handler: IUIAutomationPropertyChangedEventHandler, propertyArray: Array_1[int]) -> None: ...
-    def IUIAutomation3_AddPropertyChangedEventHandlerNativeArray(self, element: IUIAutomationElement, scope: TreeScope, cacheRequest: IUIAutomationCacheRequest, handler: IUIAutomationPropertyChangedEventHandler, propertyArray: clr.Reference[int], propertyCount: int) -> None: ...
-    def IUIAutomation3_AddStructureChangedEventHandler(self, element: IUIAutomationElement, scope: TreeScope, cacheRequest: IUIAutomationCacheRequest, handler: IUIAutomationStructureChangedEventHandler) -> None: ...
+    def IUIAutomation3_AddAutomationEventHandler(
+        self,
+        eventId: int,
+        element: IUIAutomationElement,
+        scope: TreeScope,
+        cacheRequest: IUIAutomationCacheRequest,
+        handler: IUIAutomationEventHandler,
+    ) -> None: ...
+    def IUIAutomation3_AddFocusChangedEventHandler(
+        self, cacheRequest: IUIAutomationCacheRequest, handler: IUIAutomationFocusChangedEventHandler
+    ) -> None: ...
+    def IUIAutomation3_AddPropertyChangedEventHandler(
+        self,
+        element: IUIAutomationElement,
+        scope: TreeScope,
+        cacheRequest: IUIAutomationCacheRequest,
+        handler: IUIAutomationPropertyChangedEventHandler,
+        propertyArray: Array_1[int],
+    ) -> None: ...
+    def IUIAutomation3_AddPropertyChangedEventHandlerNativeArray(
+        self,
+        element: IUIAutomationElement,
+        scope: TreeScope,
+        cacheRequest: IUIAutomationCacheRequest,
+        handler: IUIAutomationPropertyChangedEventHandler,
+        propertyArray: clr.Reference[int],
+        propertyCount: int,
+    ) -> None: ...
+    def IUIAutomation3_AddStructureChangedEventHandler(
+        self,
+        element: IUIAutomationElement,
+        scope: TreeScope,
+        cacheRequest: IUIAutomationCacheRequest,
+        handler: IUIAutomationStructureChangedEventHandler,
+    ) -> None: ...
     def IUIAutomation3_CheckNotSupported(self, value: typing.Any) -> int: ...
     def IUIAutomation3_CompareElements(self, el1: IUIAutomationElement, el2: IUIAutomationElement) -> int: ...
     def IUIAutomation3_CompareRuntimeIds(self, runtimeId1: Array_1[int], runtimeId2: Array_1[int]) -> int: ...
-    def IUIAutomation3_CreateAndCondition(self, condition1: IUIAutomationCondition, condition2: IUIAutomationCondition) -> IUIAutomationCondition: ...
-    def IUIAutomation3_CreateAndConditionFromArray(self, conditions: Array_1[IUIAutomationCondition]) -> IUIAutomationCondition: ...
-    def IUIAutomation3_CreateAndConditionFromNativeArray(self, conditions: clr.Reference[IUIAutomationCondition], conditionCount: int) -> IUIAutomationCondition: ...
+    def IUIAutomation3_CreateAndCondition(
+        self, condition1: IUIAutomationCondition, condition2: IUIAutomationCondition
+    ) -> IUIAutomationCondition: ...
+    def IUIAutomation3_CreateAndConditionFromArray(
+        self, conditions: Array_1[IUIAutomationCondition]
+    ) -> IUIAutomationCondition: ...
+    def IUIAutomation3_CreateAndConditionFromNativeArray(
+        self, conditions: clr.Reference[IUIAutomationCondition], conditionCount: int
+    ) -> IUIAutomationCondition: ...
     def IUIAutomation3_CreateCacheRequest(self) -> IUIAutomationCacheRequest: ...
     def IUIAutomation3_CreateFalseCondition(self) -> IUIAutomationCondition: ...
     def IUIAutomation3_CreateNotCondition(self, condition: IUIAutomationCondition) -> IUIAutomationCondition: ...
-    def IUIAutomation3_CreateOrCondition(self, condition1: IUIAutomationCondition, condition2: IUIAutomationCondition) -> IUIAutomationCondition: ...
-    def IUIAutomation3_CreateOrConditionFromArray(self, conditions: Array_1[IUIAutomationCondition]) -> IUIAutomationCondition: ...
-    def IUIAutomation3_CreateOrConditionFromNativeArray(self, conditions: clr.Reference[IUIAutomationCondition], conditionCount: int) -> IUIAutomationCondition: ...
+    def IUIAutomation3_CreateOrCondition(
+        self, condition1: IUIAutomationCondition, condition2: IUIAutomationCondition
+    ) -> IUIAutomationCondition: ...
+    def IUIAutomation3_CreateOrConditionFromArray(
+        self, conditions: Array_1[IUIAutomationCondition]
+    ) -> IUIAutomationCondition: ...
+    def IUIAutomation3_CreateOrConditionFromNativeArray(
+        self, conditions: clr.Reference[IUIAutomationCondition], conditionCount: int
+    ) -> IUIAutomationCondition: ...
     def IUIAutomation3_CreatePropertyCondition(self, propertyId: int, value: typing.Any) -> IUIAutomationCondition: ...
-    def IUIAutomation3_CreatePropertyConditionEx(self, propertyId: int, value: typing.Any, flags: PropertyConditionFlags) -> IUIAutomationCondition: ...
-    def IUIAutomation3_CreateProxyFactoryEntry(self, factory: IUIAutomationProxyFactory) -> IUIAutomationProxyFactoryEntry: ...
+    def IUIAutomation3_CreatePropertyConditionEx(
+        self, propertyId: int, value: typing.Any, flags: PropertyConditionFlags
+    ) -> IUIAutomationCondition: ...
+    def IUIAutomation3_CreateProxyFactoryEntry(
+        self, factory: IUIAutomationProxyFactory
+    ) -> IUIAutomationProxyFactoryEntry: ...
     def IUIAutomation3_CreateTreeWalker(self, pCondition: IUIAutomationCondition) -> IUIAutomationTreeWalker: ...
     def IUIAutomation3_CreateTrueCondition(self) -> IUIAutomationCondition: ...
     def IUIAutomation3_ElementFromHandle(self, hwnd: int) -> IUIAutomationElement: ...
-    def IUIAutomation3_ElementFromHandleBuildCache(self, hwnd: int, cacheRequest: IUIAutomationCacheRequest) -> IUIAutomationElement: ...
+    def IUIAutomation3_ElementFromHandleBuildCache(
+        self, hwnd: int, cacheRequest: IUIAutomationCacheRequest
+    ) -> IUIAutomationElement: ...
     def IUIAutomation3_ElementFromIAccessible(self, accessible: IAccessible, childId: int) -> IUIAutomationElement: ...
-    def IUIAutomation3_ElementFromIAccessibleBuildCache(self, accessible: IAccessible, childId: int, cacheRequest: IUIAutomationCacheRequest) -> IUIAutomationElement: ...
+    def IUIAutomation3_ElementFromIAccessibleBuildCache(
+        self, accessible: IAccessible, childId: int, cacheRequest: IUIAutomationCacheRequest
+    ) -> IUIAutomationElement: ...
     def IUIAutomation3_ElementFromPoint(self, pt: tagPOINT) -> IUIAutomationElement: ...
-    def IUIAutomation3_ElementFromPointBuildCache(self, pt: tagPOINT, cacheRequest: IUIAutomationCacheRequest) -> IUIAutomationElement: ...
+    def IUIAutomation3_ElementFromPointBuildCache(
+        self, pt: tagPOINT, cacheRequest: IUIAutomationCacheRequest
+    ) -> IUIAutomationElement: ...
     def IUIAutomation3_GetFocusedElement(self) -> IUIAutomationElement: ...
-    def IUIAutomation3_GetFocusedElementBuildCache(self, cacheRequest: IUIAutomationCacheRequest) -> IUIAutomationElement: ...
+    def IUIAutomation3_GetFocusedElementBuildCache(
+        self, cacheRequest: IUIAutomationCacheRequest
+    ) -> IUIAutomationElement: ...
     def IUIAutomation3_GetPatternProgrammaticName(self, pattern: int) -> str: ...
     def IUIAutomation3_GetPropertyProgrammaticName(self, property: int) -> str: ...
     def IUIAutomation3_GetRootElement(self) -> IUIAutomationElement: ...
-    def IUIAutomation3_GetRootElementBuildCache(self, cacheRequest: IUIAutomationCacheRequest) -> IUIAutomationElement: ...
+    def IUIAutomation3_GetRootElementBuildCache(
+        self, cacheRequest: IUIAutomationCacheRequest
+    ) -> IUIAutomationElement: ...
     def IUIAutomation3_IntNativeArrayToSafeArray(self, array: clr.Reference[int], arrayCount: int) -> Array_1[int]: ...
     def IUIAutomation3_IntSafeArrayToNativeArray(self, intArray: Array_1[int], array: int) -> int: ...
-    def IUIAutomation3_PollForPotentialSupportedPatterns(self, pElement: IUIAutomationElement, patternIds: clr.Reference[Array_1[int]], patternNames: clr.Reference[Array_1[str]]) -> None: ...
-    def IUIAutomation3_PollForPotentialSupportedProperties(self, pElement: IUIAutomationElement, propertyIds: clr.Reference[Array_1[int]], propertyNames: clr.Reference[Array_1[str]]) -> None: ...
+    def IUIAutomation3_PollForPotentialSupportedPatterns(
+        self,
+        pElement: IUIAutomationElement,
+        patternIds: clr.Reference[Array_1[int]],
+        patternNames: clr.Reference[Array_1[str]],
+    ) -> None: ...
+    def IUIAutomation3_PollForPotentialSupportedProperties(
+        self,
+        pElement: IUIAutomationElement,
+        propertyIds: clr.Reference[Array_1[int]],
+        propertyNames: clr.Reference[Array_1[str]],
+    ) -> None: ...
     def IUIAutomation3_RectToVariant(self, rc: tagRECT) -> typing.Any: ...
     def IUIAutomation3_RemoveAllEventHandlers(self) -> None: ...
-    def IUIAutomation3_RemoveAutomationEventHandler(self, eventId: int, element: IUIAutomationElement, handler: IUIAutomationEventHandler) -> None: ...
+    def IUIAutomation3_RemoveAutomationEventHandler(
+        self, eventId: int, element: IUIAutomationElement, handler: IUIAutomationEventHandler
+    ) -> None: ...
     def IUIAutomation3_RemoveFocusChangedEventHandler(self, handler: IUIAutomationFocusChangedEventHandler) -> None: ...
-    def IUIAutomation3_RemovePropertyChangedEventHandler(self, element: IUIAutomationElement, handler: IUIAutomationPropertyChangedEventHandler) -> None: ...
-    def IUIAutomation3_RemoveStructureChangedEventHandler(self, element: IUIAutomationElement, handler: IUIAutomationStructureChangedEventHandler) -> None: ...
+    def IUIAutomation3_RemovePropertyChangedEventHandler(
+        self, element: IUIAutomationElement, handler: IUIAutomationPropertyChangedEventHandler
+    ) -> None: ...
+    def IUIAutomation3_RemoveStructureChangedEventHandler(
+        self, element: IUIAutomationElement, handler: IUIAutomationStructureChangedEventHandler
+    ) -> None: ...
     def IUIAutomation3_SafeArrayToRectNativeArray(self, rects: Array_1[float], rectArray: int) -> int: ...
     def IUIAutomation3_VariantToRect(self, var: typing.Any) -> tagRECT: ...
-    def IUIAutomation4_AddAutomationEventHandler(self, eventId: int, element: IUIAutomationElement, scope: TreeScope, cacheRequest: IUIAutomationCacheRequest, handler: IUIAutomationEventHandler) -> None: ...
-    def IUIAutomation4_AddFocusChangedEventHandler(self, cacheRequest: IUIAutomationCacheRequest, handler: IUIAutomationFocusChangedEventHandler) -> None: ...
-    def IUIAutomation4_AddPropertyChangedEventHandler(self, element: IUIAutomationElement, scope: TreeScope, cacheRequest: IUIAutomationCacheRequest, handler: IUIAutomationPropertyChangedEventHandler, propertyArray: Array_1[int]) -> None: ...
-    def IUIAutomation4_AddPropertyChangedEventHandlerNativeArray(self, element: IUIAutomationElement, scope: TreeScope, cacheRequest: IUIAutomationCacheRequest, handler: IUIAutomationPropertyChangedEventHandler, propertyArray: clr.Reference[int], propertyCount: int) -> None: ...
-    def IUIAutomation4_AddStructureChangedEventHandler(self, element: IUIAutomationElement, scope: TreeScope, cacheRequest: IUIAutomationCacheRequest, handler: IUIAutomationStructureChangedEventHandler) -> None: ...
-    def IUIAutomation4_AddTextEditTextChangedEventHandler(self, element: IUIAutomationElement, scope: TreeScope, TextEditChangeType: TextEditChangeType, cacheRequest: IUIAutomationCacheRequest, handler: IUIAutomationTextEditTextChangedEventHandler) -> None: ...
+    def IUIAutomation4_AddAutomationEventHandler(
+        self,
+        eventId: int,
+        element: IUIAutomationElement,
+        scope: TreeScope,
+        cacheRequest: IUIAutomationCacheRequest,
+        handler: IUIAutomationEventHandler,
+    ) -> None: ...
+    def IUIAutomation4_AddFocusChangedEventHandler(
+        self, cacheRequest: IUIAutomationCacheRequest, handler: IUIAutomationFocusChangedEventHandler
+    ) -> None: ...
+    def IUIAutomation4_AddPropertyChangedEventHandler(
+        self,
+        element: IUIAutomationElement,
+        scope: TreeScope,
+        cacheRequest: IUIAutomationCacheRequest,
+        handler: IUIAutomationPropertyChangedEventHandler,
+        propertyArray: Array_1[int],
+    ) -> None: ...
+    def IUIAutomation4_AddPropertyChangedEventHandlerNativeArray(
+        self,
+        element: IUIAutomationElement,
+        scope: TreeScope,
+        cacheRequest: IUIAutomationCacheRequest,
+        handler: IUIAutomationPropertyChangedEventHandler,
+        propertyArray: clr.Reference[int],
+        propertyCount: int,
+    ) -> None: ...
+    def IUIAutomation4_AddStructureChangedEventHandler(
+        self,
+        element: IUIAutomationElement,
+        scope: TreeScope,
+        cacheRequest: IUIAutomationCacheRequest,
+        handler: IUIAutomationStructureChangedEventHandler,
+    ) -> None: ...
+    def IUIAutomation4_AddTextEditTextChangedEventHandler(
+        self,
+        element: IUIAutomationElement,
+        scope: TreeScope,
+        TextEditChangeType: TextEditChangeType,
+        cacheRequest: IUIAutomationCacheRequest,
+        handler: IUIAutomationTextEditTextChangedEventHandler,
+    ) -> None: ...
     def IUIAutomation4_CheckNotSupported(self, value: typing.Any) -> int: ...
     def IUIAutomation4_CompareElements(self, el1: IUIAutomationElement, el2: IUIAutomationElement) -> int: ...
     def IUIAutomation4_CompareRuntimeIds(self, runtimeId1: Array_1[int], runtimeId2: Array_1[int]) -> int: ...
-    def IUIAutomation4_CreateAndCondition(self, condition1: IUIAutomationCondition, condition2: IUIAutomationCondition) -> IUIAutomationCondition: ...
-    def IUIAutomation4_CreateAndConditionFromArray(self, conditions: Array_1[IUIAutomationCondition]) -> IUIAutomationCondition: ...
-    def IUIAutomation4_CreateAndConditionFromNativeArray(self, conditions: clr.Reference[IUIAutomationCondition], conditionCount: int) -> IUIAutomationCondition: ...
+    def IUIAutomation4_CreateAndCondition(
+        self, condition1: IUIAutomationCondition, condition2: IUIAutomationCondition
+    ) -> IUIAutomationCondition: ...
+    def IUIAutomation4_CreateAndConditionFromArray(
+        self, conditions: Array_1[IUIAutomationCondition]
+    ) -> IUIAutomationCondition: ...
+    def IUIAutomation4_CreateAndConditionFromNativeArray(
+        self, conditions: clr.Reference[IUIAutomationCondition], conditionCount: int
+    ) -> IUIAutomationCondition: ...
     def IUIAutomation4_CreateCacheRequest(self) -> IUIAutomationCacheRequest: ...
     def IUIAutomation4_CreateFalseCondition(self) -> IUIAutomationCondition: ...
     def IUIAutomation4_CreateNotCondition(self, condition: IUIAutomationCondition) -> IUIAutomationCondition: ...
-    def IUIAutomation4_CreateOrCondition(self, condition1: IUIAutomationCondition, condition2: IUIAutomationCondition) -> IUIAutomationCondition: ...
-    def IUIAutomation4_CreateOrConditionFromArray(self, conditions: Array_1[IUIAutomationCondition]) -> IUIAutomationCondition: ...
-    def IUIAutomation4_CreateOrConditionFromNativeArray(self, conditions: clr.Reference[IUIAutomationCondition], conditionCount: int) -> IUIAutomationCondition: ...
+    def IUIAutomation4_CreateOrCondition(
+        self, condition1: IUIAutomationCondition, condition2: IUIAutomationCondition
+    ) -> IUIAutomationCondition: ...
+    def IUIAutomation4_CreateOrConditionFromArray(
+        self, conditions: Array_1[IUIAutomationCondition]
+    ) -> IUIAutomationCondition: ...
+    def IUIAutomation4_CreateOrConditionFromNativeArray(
+        self, conditions: clr.Reference[IUIAutomationCondition], conditionCount: int
+    ) -> IUIAutomationCondition: ...
     def IUIAutomation4_CreatePropertyCondition(self, propertyId: int, value: typing.Any) -> IUIAutomationCondition: ...
-    def IUIAutomation4_CreatePropertyConditionEx(self, propertyId: int, value: typing.Any, flags: PropertyConditionFlags) -> IUIAutomationCondition: ...
-    def IUIAutomation4_CreateProxyFactoryEntry(self, factory: IUIAutomationProxyFactory) -> IUIAutomationProxyFactoryEntry: ...
+    def IUIAutomation4_CreatePropertyConditionEx(
+        self, propertyId: int, value: typing.Any, flags: PropertyConditionFlags
+    ) -> IUIAutomationCondition: ...
+    def IUIAutomation4_CreateProxyFactoryEntry(
+        self, factory: IUIAutomationProxyFactory
+    ) -> IUIAutomationProxyFactoryEntry: ...
     def IUIAutomation4_CreateTreeWalker(self, pCondition: IUIAutomationCondition) -> IUIAutomationTreeWalker: ...
     def IUIAutomation4_CreateTrueCondition(self) -> IUIAutomationCondition: ...
     def IUIAutomation4_ElementFromHandle(self, hwnd: int) -> IUIAutomationElement: ...
-    def IUIAutomation4_ElementFromHandleBuildCache(self, hwnd: int, cacheRequest: IUIAutomationCacheRequest) -> IUIAutomationElement: ...
+    def IUIAutomation4_ElementFromHandleBuildCache(
+        self, hwnd: int, cacheRequest: IUIAutomationCacheRequest
+    ) -> IUIAutomationElement: ...
     def IUIAutomation4_ElementFromIAccessible(self, accessible: IAccessible, childId: int) -> IUIAutomationElement: ...
-    def IUIAutomation4_ElementFromIAccessibleBuildCache(self, accessible: IAccessible, childId: int, cacheRequest: IUIAutomationCacheRequest) -> IUIAutomationElement: ...
+    def IUIAutomation4_ElementFromIAccessibleBuildCache(
+        self, accessible: IAccessible, childId: int, cacheRequest: IUIAutomationCacheRequest
+    ) -> IUIAutomationElement: ...
     def IUIAutomation4_ElementFromPoint(self, pt: tagPOINT) -> IUIAutomationElement: ...
-    def IUIAutomation4_ElementFromPointBuildCache(self, pt: tagPOINT, cacheRequest: IUIAutomationCacheRequest) -> IUIAutomationElement: ...
+    def IUIAutomation4_ElementFromPointBuildCache(
+        self, pt: tagPOINT, cacheRequest: IUIAutomationCacheRequest
+    ) -> IUIAutomationElement: ...
     def IUIAutomation4_GetFocusedElement(self) -> IUIAutomationElement: ...
-    def IUIAutomation4_GetFocusedElementBuildCache(self, cacheRequest: IUIAutomationCacheRequest) -> IUIAutomationElement: ...
+    def IUIAutomation4_GetFocusedElementBuildCache(
+        self, cacheRequest: IUIAutomationCacheRequest
+    ) -> IUIAutomationElement: ...
     def IUIAutomation4_GetPatternProgrammaticName(self, pattern: int) -> str: ...
     def IUIAutomation4_GetPropertyProgrammaticName(self, property: int) -> str: ...
     def IUIAutomation4_GetRootElement(self) -> IUIAutomationElement: ...
-    def IUIAutomation4_GetRootElementBuildCache(self, cacheRequest: IUIAutomationCacheRequest) -> IUIAutomationElement: ...
+    def IUIAutomation4_GetRootElementBuildCache(
+        self, cacheRequest: IUIAutomationCacheRequest
+    ) -> IUIAutomationElement: ...
     def IUIAutomation4_IntNativeArrayToSafeArray(self, array: clr.Reference[int], arrayCount: int) -> Array_1[int]: ...
     def IUIAutomation4_IntSafeArrayToNativeArray(self, intArray: Array_1[int], array: int) -> int: ...
-    def IUIAutomation4_PollForPotentialSupportedPatterns(self, pElement: IUIAutomationElement, patternIds: clr.Reference[Array_1[int]], patternNames: clr.Reference[Array_1[str]]) -> None: ...
-    def IUIAutomation4_PollForPotentialSupportedProperties(self, pElement: IUIAutomationElement, propertyIds: clr.Reference[Array_1[int]], propertyNames: clr.Reference[Array_1[str]]) -> None: ...
+    def IUIAutomation4_PollForPotentialSupportedPatterns(
+        self,
+        pElement: IUIAutomationElement,
+        patternIds: clr.Reference[Array_1[int]],
+        patternNames: clr.Reference[Array_1[str]],
+    ) -> None: ...
+    def IUIAutomation4_PollForPotentialSupportedProperties(
+        self,
+        pElement: IUIAutomationElement,
+        propertyIds: clr.Reference[Array_1[int]],
+        propertyNames: clr.Reference[Array_1[str]],
+    ) -> None: ...
     def IUIAutomation4_RectToVariant(self, rc: tagRECT) -> typing.Any: ...
     def IUIAutomation4_RemoveAllEventHandlers(self) -> None: ...
-    def IUIAutomation4_RemoveAutomationEventHandler(self, eventId: int, element: IUIAutomationElement, handler: IUIAutomationEventHandler) -> None: ...
+    def IUIAutomation4_RemoveAutomationEventHandler(
+        self, eventId: int, element: IUIAutomationElement, handler: IUIAutomationEventHandler
+    ) -> None: ...
     def IUIAutomation4_RemoveFocusChangedEventHandler(self, handler: IUIAutomationFocusChangedEventHandler) -> None: ...
-    def IUIAutomation4_RemovePropertyChangedEventHandler(self, element: IUIAutomationElement, handler: IUIAutomationPropertyChangedEventHandler) -> None: ...
-    def IUIAutomation4_RemoveStructureChangedEventHandler(self, element: IUIAutomationElement, handler: IUIAutomationStructureChangedEventHandler) -> None: ...
-    def IUIAutomation4_RemoveTextEditTextChangedEventHandler(self, element: IUIAutomationElement, handler: IUIAutomationTextEditTextChangedEventHandler) -> None: ...
+    def IUIAutomation4_RemovePropertyChangedEventHandler(
+        self, element: IUIAutomationElement, handler: IUIAutomationPropertyChangedEventHandler
+    ) -> None: ...
+    def IUIAutomation4_RemoveStructureChangedEventHandler(
+        self, element: IUIAutomationElement, handler: IUIAutomationStructureChangedEventHandler
+    ) -> None: ...
+    def IUIAutomation4_RemoveTextEditTextChangedEventHandler(
+        self, element: IUIAutomationElement, handler: IUIAutomationTextEditTextChangedEventHandler
+    ) -> None: ...
     def IUIAutomation4_SafeArrayToRectNativeArray(self, rects: Array_1[float], rectArray: int) -> int: ...
     def IUIAutomation4_VariantToRect(self, var: typing.Any) -> tagRECT: ...
-    def IUIAutomation5_AddAutomationEventHandler(self, eventId: int, element: IUIAutomationElement, scope: TreeScope, cacheRequest: IUIAutomationCacheRequest, handler: IUIAutomationEventHandler) -> None: ...
-    def IUIAutomation5_AddChangesEventHandler(self, element: IUIAutomationElement, scope: TreeScope, changeTypes: clr.Reference[int], changesCount: int, pCacheRequest: IUIAutomationCacheRequest, handler: IUIAutomationChangesEventHandler) -> None: ...
-    def IUIAutomation5_AddFocusChangedEventHandler(self, cacheRequest: IUIAutomationCacheRequest, handler: IUIAutomationFocusChangedEventHandler) -> None: ...
-    def IUIAutomation5_AddPropertyChangedEventHandler(self, element: IUIAutomationElement, scope: TreeScope, cacheRequest: IUIAutomationCacheRequest, handler: IUIAutomationPropertyChangedEventHandler, propertyArray: Array_1[int]) -> None: ...
-    def IUIAutomation5_AddPropertyChangedEventHandlerNativeArray(self, element: IUIAutomationElement, scope: TreeScope, cacheRequest: IUIAutomationCacheRequest, handler: IUIAutomationPropertyChangedEventHandler, propertyArray: clr.Reference[int], propertyCount: int) -> None: ...
-    def IUIAutomation5_AddStructureChangedEventHandler(self, element: IUIAutomationElement, scope: TreeScope, cacheRequest: IUIAutomationCacheRequest, handler: IUIAutomationStructureChangedEventHandler) -> None: ...
-    def IUIAutomation5_AddTextEditTextChangedEventHandler(self, element: IUIAutomationElement, scope: TreeScope, TextEditChangeType: TextEditChangeType, cacheRequest: IUIAutomationCacheRequest, handler: IUIAutomationTextEditTextChangedEventHandler) -> None: ...
+    def IUIAutomation5_AddAutomationEventHandler(
+        self,
+        eventId: int,
+        element: IUIAutomationElement,
+        scope: TreeScope,
+        cacheRequest: IUIAutomationCacheRequest,
+        handler: IUIAutomationEventHandler,
+    ) -> None: ...
+    def IUIAutomation5_AddChangesEventHandler(
+        self,
+        element: IUIAutomationElement,
+        scope: TreeScope,
+        changeTypes: clr.Reference[int],
+        changesCount: int,
+        pCacheRequest: IUIAutomationCacheRequest,
+        handler: IUIAutomationChangesEventHandler,
+    ) -> None: ...
+    def IUIAutomation5_AddFocusChangedEventHandler(
+        self, cacheRequest: IUIAutomationCacheRequest, handler: IUIAutomationFocusChangedEventHandler
+    ) -> None: ...
+    def IUIAutomation5_AddPropertyChangedEventHandler(
+        self,
+        element: IUIAutomationElement,
+        scope: TreeScope,
+        cacheRequest: IUIAutomationCacheRequest,
+        handler: IUIAutomationPropertyChangedEventHandler,
+        propertyArray: Array_1[int],
+    ) -> None: ...
+    def IUIAutomation5_AddPropertyChangedEventHandlerNativeArray(
+        self,
+        element: IUIAutomationElement,
+        scope: TreeScope,
+        cacheRequest: IUIAutomationCacheRequest,
+        handler: IUIAutomationPropertyChangedEventHandler,
+        propertyArray: clr.Reference[int],
+        propertyCount: int,
+    ) -> None: ...
+    def IUIAutomation5_AddStructureChangedEventHandler(
+        self,
+        element: IUIAutomationElement,
+        scope: TreeScope,
+        cacheRequest: IUIAutomationCacheRequest,
+        handler: IUIAutomationStructureChangedEventHandler,
+    ) -> None: ...
+    def IUIAutomation5_AddTextEditTextChangedEventHandler(
+        self,
+        element: IUIAutomationElement,
+        scope: TreeScope,
+        TextEditChangeType: TextEditChangeType,
+        cacheRequest: IUIAutomationCacheRequest,
+        handler: IUIAutomationTextEditTextChangedEventHandler,
+    ) -> None: ...
     def IUIAutomation5_CheckNotSupported(self, value: typing.Any) -> int: ...
     def IUIAutomation5_CompareElements(self, el1: IUIAutomationElement, el2: IUIAutomationElement) -> int: ...
     def IUIAutomation5_CompareRuntimeIds(self, runtimeId1: Array_1[int], runtimeId2: Array_1[int]) -> int: ...
-    def IUIAutomation5_CreateAndCondition(self, condition1: IUIAutomationCondition, condition2: IUIAutomationCondition) -> IUIAutomationCondition: ...
-    def IUIAutomation5_CreateAndConditionFromArray(self, conditions: Array_1[IUIAutomationCondition]) -> IUIAutomationCondition: ...
-    def IUIAutomation5_CreateAndConditionFromNativeArray(self, conditions: clr.Reference[IUIAutomationCondition], conditionCount: int) -> IUIAutomationCondition: ...
+    def IUIAutomation5_CreateAndCondition(
+        self, condition1: IUIAutomationCondition, condition2: IUIAutomationCondition
+    ) -> IUIAutomationCondition: ...
+    def IUIAutomation5_CreateAndConditionFromArray(
+        self, conditions: Array_1[IUIAutomationCondition]
+    ) -> IUIAutomationCondition: ...
+    def IUIAutomation5_CreateAndConditionFromNativeArray(
+        self, conditions: clr.Reference[IUIAutomationCondition], conditionCount: int
+    ) -> IUIAutomationCondition: ...
     def IUIAutomation5_CreateCacheRequest(self) -> IUIAutomationCacheRequest: ...
     def IUIAutomation5_CreateFalseCondition(self) -> IUIAutomationCondition: ...
     def IUIAutomation5_CreateNotCondition(self, condition: IUIAutomationCondition) -> IUIAutomationCondition: ...
-    def IUIAutomation5_CreateOrCondition(self, condition1: IUIAutomationCondition, condition2: IUIAutomationCondition) -> IUIAutomationCondition: ...
-    def IUIAutomation5_CreateOrConditionFromArray(self, conditions: Array_1[IUIAutomationCondition]) -> IUIAutomationCondition: ...
-    def IUIAutomation5_CreateOrConditionFromNativeArray(self, conditions: clr.Reference[IUIAutomationCondition], conditionCount: int) -> IUIAutomationCondition: ...
+    def IUIAutomation5_CreateOrCondition(
+        self, condition1: IUIAutomationCondition, condition2: IUIAutomationCondition
+    ) -> IUIAutomationCondition: ...
+    def IUIAutomation5_CreateOrConditionFromArray(
+        self, conditions: Array_1[IUIAutomationCondition]
+    ) -> IUIAutomationCondition: ...
+    def IUIAutomation5_CreateOrConditionFromNativeArray(
+        self, conditions: clr.Reference[IUIAutomationCondition], conditionCount: int
+    ) -> IUIAutomationCondition: ...
     def IUIAutomation5_CreatePropertyCondition(self, propertyId: int, value: typing.Any) -> IUIAutomationCondition: ...
-    def IUIAutomation5_CreatePropertyConditionEx(self, propertyId: int, value: typing.Any, flags: PropertyConditionFlags) -> IUIAutomationCondition: ...
-    def IUIAutomation5_CreateProxyFactoryEntry(self, factory: IUIAutomationProxyFactory) -> IUIAutomationProxyFactoryEntry: ...
+    def IUIAutomation5_CreatePropertyConditionEx(
+        self, propertyId: int, value: typing.Any, flags: PropertyConditionFlags
+    ) -> IUIAutomationCondition: ...
+    def IUIAutomation5_CreateProxyFactoryEntry(
+        self, factory: IUIAutomationProxyFactory
+    ) -> IUIAutomationProxyFactoryEntry: ...
     def IUIAutomation5_CreateTreeWalker(self, pCondition: IUIAutomationCondition) -> IUIAutomationTreeWalker: ...
     def IUIAutomation5_CreateTrueCondition(self) -> IUIAutomationCondition: ...
     def IUIAutomation5_ElementFromHandle(self, hwnd: int) -> IUIAutomationElement: ...
-    def IUIAutomation5_ElementFromHandleBuildCache(self, hwnd: int, cacheRequest: IUIAutomationCacheRequest) -> IUIAutomationElement: ...
+    def IUIAutomation5_ElementFromHandleBuildCache(
+        self, hwnd: int, cacheRequest: IUIAutomationCacheRequest
+    ) -> IUIAutomationElement: ...
     def IUIAutomation5_ElementFromIAccessible(self, accessible: IAccessible, childId: int) -> IUIAutomationElement: ...
-    def IUIAutomation5_ElementFromIAccessibleBuildCache(self, accessible: IAccessible, childId: int, cacheRequest: IUIAutomationCacheRequest) -> IUIAutomationElement: ...
+    def IUIAutomation5_ElementFromIAccessibleBuildCache(
+        self, accessible: IAccessible, childId: int, cacheRequest: IUIAutomationCacheRequest
+    ) -> IUIAutomationElement: ...
     def IUIAutomation5_ElementFromPoint(self, pt: tagPOINT) -> IUIAutomationElement: ...
-    def IUIAutomation5_ElementFromPointBuildCache(self, pt: tagPOINT, cacheRequest: IUIAutomationCacheRequest) -> IUIAutomationElement: ...
+    def IUIAutomation5_ElementFromPointBuildCache(
+        self, pt: tagPOINT, cacheRequest: IUIAutomationCacheRequest
+    ) -> IUIAutomationElement: ...
     def IUIAutomation5_GetFocusedElement(self) -> IUIAutomationElement: ...
-    def IUIAutomation5_GetFocusedElementBuildCache(self, cacheRequest: IUIAutomationCacheRequest) -> IUIAutomationElement: ...
+    def IUIAutomation5_GetFocusedElementBuildCache(
+        self, cacheRequest: IUIAutomationCacheRequest
+    ) -> IUIAutomationElement: ...
     def IUIAutomation5_GetPatternProgrammaticName(self, pattern: int) -> str: ...
     def IUIAutomation5_GetPropertyProgrammaticName(self, property: int) -> str: ...
     def IUIAutomation5_GetRootElement(self) -> IUIAutomationElement: ...
-    def IUIAutomation5_GetRootElementBuildCache(self, cacheRequest: IUIAutomationCacheRequest) -> IUIAutomationElement: ...
+    def IUIAutomation5_GetRootElementBuildCache(
+        self, cacheRequest: IUIAutomationCacheRequest
+    ) -> IUIAutomationElement: ...
     def IUIAutomation5_IntNativeArrayToSafeArray(self, array: clr.Reference[int], arrayCount: int) -> Array_1[int]: ...
     def IUIAutomation5_IntSafeArrayToNativeArray(self, intArray: Array_1[int], array: int) -> int: ...
-    def IUIAutomation5_PollForPotentialSupportedPatterns(self, pElement: IUIAutomationElement, patternIds: clr.Reference[Array_1[int]], patternNames: clr.Reference[Array_1[str]]) -> None: ...
-    def IUIAutomation5_PollForPotentialSupportedProperties(self, pElement: IUIAutomationElement, propertyIds: clr.Reference[Array_1[int]], propertyNames: clr.Reference[Array_1[str]]) -> None: ...
+    def IUIAutomation5_PollForPotentialSupportedPatterns(
+        self,
+        pElement: IUIAutomationElement,
+        patternIds: clr.Reference[Array_1[int]],
+        patternNames: clr.Reference[Array_1[str]],
+    ) -> None: ...
+    def IUIAutomation5_PollForPotentialSupportedProperties(
+        self,
+        pElement: IUIAutomationElement,
+        propertyIds: clr.Reference[Array_1[int]],
+        propertyNames: clr.Reference[Array_1[str]],
+    ) -> None: ...
     def IUIAutomation5_RectToVariant(self, rc: tagRECT) -> typing.Any: ...
     def IUIAutomation5_RemoveAllEventHandlers(self) -> None: ...
-    def IUIAutomation5_RemoveAutomationEventHandler(self, eventId: int, element: IUIAutomationElement, handler: IUIAutomationEventHandler) -> None: ...
-    def IUIAutomation5_RemoveChangesEventHandler(self, element: IUIAutomationElement, handler: IUIAutomationChangesEventHandler) -> None: ...
+    def IUIAutomation5_RemoveAutomationEventHandler(
+        self, eventId: int, element: IUIAutomationElement, handler: IUIAutomationEventHandler
+    ) -> None: ...
+    def IUIAutomation5_RemoveChangesEventHandler(
+        self, element: IUIAutomationElement, handler: IUIAutomationChangesEventHandler
+    ) -> None: ...
     def IUIAutomation5_RemoveFocusChangedEventHandler(self, handler: IUIAutomationFocusChangedEventHandler) -> None: ...
-    def IUIAutomation5_RemovePropertyChangedEventHandler(self, element: IUIAutomationElement, handler: IUIAutomationPropertyChangedEventHandler) -> None: ...
-    def IUIAutomation5_RemoveStructureChangedEventHandler(self, element: IUIAutomationElement, handler: IUIAutomationStructureChangedEventHandler) -> None: ...
-    def IUIAutomation5_RemoveTextEditTextChangedEventHandler(self, element: IUIAutomationElement, handler: IUIAutomationTextEditTextChangedEventHandler) -> None: ...
+    def IUIAutomation5_RemovePropertyChangedEventHandler(
+        self, element: IUIAutomationElement, handler: IUIAutomationPropertyChangedEventHandler
+    ) -> None: ...
+    def IUIAutomation5_RemoveStructureChangedEventHandler(
+        self, element: IUIAutomationElement, handler: IUIAutomationStructureChangedEventHandler
+    ) -> None: ...
+    def IUIAutomation5_RemoveTextEditTextChangedEventHandler(
+        self, element: IUIAutomationElement, handler: IUIAutomationTextEditTextChangedEventHandler
+    ) -> None: ...
     def IUIAutomation5_SafeArrayToRectNativeArray(self, rects: Array_1[float], rectArray: int) -> int: ...
     def IUIAutomation5_VariantToRect(self, var: typing.Any) -> tagRECT: ...
-    def IUIAutomation6_AddAutomationEventHandler(self, eventId: int, element: IUIAutomationElement, scope: TreeScope, cacheRequest: IUIAutomationCacheRequest, handler: IUIAutomationEventHandler) -> None: ...
-    def IUIAutomation6_AddChangesEventHandler(self, element: IUIAutomationElement, scope: TreeScope, changeTypes: clr.Reference[int], changesCount: int, pCacheRequest: IUIAutomationCacheRequest, handler: IUIAutomationChangesEventHandler) -> None: ...
-    def IUIAutomation6_AddFocusChangedEventHandler(self, cacheRequest: IUIAutomationCacheRequest, handler: IUIAutomationFocusChangedEventHandler) -> None: ...
-    def IUIAutomation6_AddNotificationEventHandler(self, element: IUIAutomationElement, scope: TreeScope, cacheRequest: IUIAutomationCacheRequest, handler: IUIAutomationNotificationEventHandler) -> None: ...
-    def IUIAutomation6_AddPropertyChangedEventHandler(self, element: IUIAutomationElement, scope: TreeScope, cacheRequest: IUIAutomationCacheRequest, handler: IUIAutomationPropertyChangedEventHandler, propertyArray: Array_1[int]) -> None: ...
-    def IUIAutomation6_AddPropertyChangedEventHandlerNativeArray(self, element: IUIAutomationElement, scope: TreeScope, cacheRequest: IUIAutomationCacheRequest, handler: IUIAutomationPropertyChangedEventHandler, propertyArray: clr.Reference[int], propertyCount: int) -> None: ...
-    def IUIAutomation6_AddStructureChangedEventHandler(self, element: IUIAutomationElement, scope: TreeScope, cacheRequest: IUIAutomationCacheRequest, handler: IUIAutomationStructureChangedEventHandler) -> None: ...
-    def IUIAutomation6_AddTextEditTextChangedEventHandler(self, element: IUIAutomationElement, scope: TreeScope, TextEditChangeType: TextEditChangeType, cacheRequest: IUIAutomationCacheRequest, handler: IUIAutomationTextEditTextChangedEventHandler) -> None: ...
+    def IUIAutomation6_AddAutomationEventHandler(
+        self,
+        eventId: int,
+        element: IUIAutomationElement,
+        scope: TreeScope,
+        cacheRequest: IUIAutomationCacheRequest,
+        handler: IUIAutomationEventHandler,
+    ) -> None: ...
+    def IUIAutomation6_AddChangesEventHandler(
+        self,
+        element: IUIAutomationElement,
+        scope: TreeScope,
+        changeTypes: clr.Reference[int],
+        changesCount: int,
+        pCacheRequest: IUIAutomationCacheRequest,
+        handler: IUIAutomationChangesEventHandler,
+    ) -> None: ...
+    def IUIAutomation6_AddFocusChangedEventHandler(
+        self, cacheRequest: IUIAutomationCacheRequest, handler: IUIAutomationFocusChangedEventHandler
+    ) -> None: ...
+    def IUIAutomation6_AddNotificationEventHandler(
+        self,
+        element: IUIAutomationElement,
+        scope: TreeScope,
+        cacheRequest: IUIAutomationCacheRequest,
+        handler: IUIAutomationNotificationEventHandler,
+    ) -> None: ...
+    def IUIAutomation6_AddPropertyChangedEventHandler(
+        self,
+        element: IUIAutomationElement,
+        scope: TreeScope,
+        cacheRequest: IUIAutomationCacheRequest,
+        handler: IUIAutomationPropertyChangedEventHandler,
+        propertyArray: Array_1[int],
+    ) -> None: ...
+    def IUIAutomation6_AddPropertyChangedEventHandlerNativeArray(
+        self,
+        element: IUIAutomationElement,
+        scope: TreeScope,
+        cacheRequest: IUIAutomationCacheRequest,
+        handler: IUIAutomationPropertyChangedEventHandler,
+        propertyArray: clr.Reference[int],
+        propertyCount: int,
+    ) -> None: ...
+    def IUIAutomation6_AddStructureChangedEventHandler(
+        self,
+        element: IUIAutomationElement,
+        scope: TreeScope,
+        cacheRequest: IUIAutomationCacheRequest,
+        handler: IUIAutomationStructureChangedEventHandler,
+    ) -> None: ...
+    def IUIAutomation6_AddTextEditTextChangedEventHandler(
+        self,
+        element: IUIAutomationElement,
+        scope: TreeScope,
+        TextEditChangeType: TextEditChangeType,
+        cacheRequest: IUIAutomationCacheRequest,
+        handler: IUIAutomationTextEditTextChangedEventHandler,
+    ) -> None: ...
     def IUIAutomation6_CheckNotSupported(self, value: typing.Any) -> int: ...
     def IUIAutomation6_CompareElements(self, el1: IUIAutomationElement, el2: IUIAutomationElement) -> int: ...
     def IUIAutomation6_CompareRuntimeIds(self, runtimeId1: Array_1[int], runtimeId2: Array_1[int]) -> int: ...
-    def IUIAutomation6_CreateAndCondition(self, condition1: IUIAutomationCondition, condition2: IUIAutomationCondition) -> IUIAutomationCondition: ...
-    def IUIAutomation6_CreateAndConditionFromArray(self, conditions: Array_1[IUIAutomationCondition]) -> IUIAutomationCondition: ...
-    def IUIAutomation6_CreateAndConditionFromNativeArray(self, conditions: clr.Reference[IUIAutomationCondition], conditionCount: int) -> IUIAutomationCondition: ...
+    def IUIAutomation6_CreateAndCondition(
+        self, condition1: IUIAutomationCondition, condition2: IUIAutomationCondition
+    ) -> IUIAutomationCondition: ...
+    def IUIAutomation6_CreateAndConditionFromArray(
+        self, conditions: Array_1[IUIAutomationCondition]
+    ) -> IUIAutomationCondition: ...
+    def IUIAutomation6_CreateAndConditionFromNativeArray(
+        self, conditions: clr.Reference[IUIAutomationCondition], conditionCount: int
+    ) -> IUIAutomationCondition: ...
     def IUIAutomation6_CreateCacheRequest(self) -> IUIAutomationCacheRequest: ...
     def IUIAutomation6_CreateFalseCondition(self) -> IUIAutomationCondition: ...
     def IUIAutomation6_CreateNotCondition(self, condition: IUIAutomationCondition) -> IUIAutomationCondition: ...
-    def IUIAutomation6_CreateOrCondition(self, condition1: IUIAutomationCondition, condition2: IUIAutomationCondition) -> IUIAutomationCondition: ...
-    def IUIAutomation6_CreateOrConditionFromArray(self, conditions: Array_1[IUIAutomationCondition]) -> IUIAutomationCondition: ...
-    def IUIAutomation6_CreateOrConditionFromNativeArray(self, conditions: clr.Reference[IUIAutomationCondition], conditionCount: int) -> IUIAutomationCondition: ...
+    def IUIAutomation6_CreateOrCondition(
+        self, condition1: IUIAutomationCondition, condition2: IUIAutomationCondition
+    ) -> IUIAutomationCondition: ...
+    def IUIAutomation6_CreateOrConditionFromArray(
+        self, conditions: Array_1[IUIAutomationCondition]
+    ) -> IUIAutomationCondition: ...
+    def IUIAutomation6_CreateOrConditionFromNativeArray(
+        self, conditions: clr.Reference[IUIAutomationCondition], conditionCount: int
+    ) -> IUIAutomationCondition: ...
     def IUIAutomation6_CreatePropertyCondition(self, propertyId: int, value: typing.Any) -> IUIAutomationCondition: ...
-    def IUIAutomation6_CreatePropertyConditionEx(self, propertyId: int, value: typing.Any, flags: PropertyConditionFlags) -> IUIAutomationCondition: ...
-    def IUIAutomation6_CreateProxyFactoryEntry(self, factory: IUIAutomationProxyFactory) -> IUIAutomationProxyFactoryEntry: ...
+    def IUIAutomation6_CreatePropertyConditionEx(
+        self, propertyId: int, value: typing.Any, flags: PropertyConditionFlags
+    ) -> IUIAutomationCondition: ...
+    def IUIAutomation6_CreateProxyFactoryEntry(
+        self, factory: IUIAutomationProxyFactory
+    ) -> IUIAutomationProxyFactoryEntry: ...
     def IUIAutomation6_CreateTreeWalker(self, pCondition: IUIAutomationCondition) -> IUIAutomationTreeWalker: ...
     def IUIAutomation6_CreateTrueCondition(self) -> IUIAutomationCondition: ...
     def IUIAutomation6_ElementFromHandle(self, hwnd: int) -> IUIAutomationElement: ...
-    def IUIAutomation6_ElementFromHandleBuildCache(self, hwnd: int, cacheRequest: IUIAutomationCacheRequest) -> IUIAutomationElement: ...
+    def IUIAutomation6_ElementFromHandleBuildCache(
+        self, hwnd: int, cacheRequest: IUIAutomationCacheRequest
+    ) -> IUIAutomationElement: ...
     def IUIAutomation6_ElementFromIAccessible(self, accessible: IAccessible, childId: int) -> IUIAutomationElement: ...
-    def IUIAutomation6_ElementFromIAccessibleBuildCache(self, accessible: IAccessible, childId: int, cacheRequest: IUIAutomationCacheRequest) -> IUIAutomationElement: ...
+    def IUIAutomation6_ElementFromIAccessibleBuildCache(
+        self, accessible: IAccessible, childId: int, cacheRequest: IUIAutomationCacheRequest
+    ) -> IUIAutomationElement: ...
     def IUIAutomation6_ElementFromPoint(self, pt: tagPOINT) -> IUIAutomationElement: ...
-    def IUIAutomation6_ElementFromPointBuildCache(self, pt: tagPOINT, cacheRequest: IUIAutomationCacheRequest) -> IUIAutomationElement: ...
+    def IUIAutomation6_ElementFromPointBuildCache(
+        self, pt: tagPOINT, cacheRequest: IUIAutomationCacheRequest
+    ) -> IUIAutomationElement: ...
     def IUIAutomation6_GetFocusedElement(self) -> IUIAutomationElement: ...
-    def IUIAutomation6_GetFocusedElementBuildCache(self, cacheRequest: IUIAutomationCacheRequest) -> IUIAutomationElement: ...
+    def IUIAutomation6_GetFocusedElementBuildCache(
+        self, cacheRequest: IUIAutomationCacheRequest
+    ) -> IUIAutomationElement: ...
     def IUIAutomation6_GetPatternProgrammaticName(self, pattern: int) -> str: ...
     def IUIAutomation6_GetPropertyProgrammaticName(self, property: int) -> str: ...
     def IUIAutomation6_GetRootElement(self) -> IUIAutomationElement: ...
-    def IUIAutomation6_GetRootElementBuildCache(self, cacheRequest: IUIAutomationCacheRequest) -> IUIAutomationElement: ...
+    def IUIAutomation6_GetRootElementBuildCache(
+        self, cacheRequest: IUIAutomationCacheRequest
+    ) -> IUIAutomationElement: ...
     def IUIAutomation6_IntNativeArrayToSafeArray(self, array: clr.Reference[int], arrayCount: int) -> Array_1[int]: ...
     def IUIAutomation6_IntSafeArrayToNativeArray(self, intArray: Array_1[int], array: int) -> int: ...
-    def IUIAutomation6_PollForPotentialSupportedPatterns(self, pElement: IUIAutomationElement, patternIds: clr.Reference[Array_1[int]], patternNames: clr.Reference[Array_1[str]]) -> None: ...
-    def IUIAutomation6_PollForPotentialSupportedProperties(self, pElement: IUIAutomationElement, propertyIds: clr.Reference[Array_1[int]], propertyNames: clr.Reference[Array_1[str]]) -> None: ...
+    def IUIAutomation6_PollForPotentialSupportedPatterns(
+        self,
+        pElement: IUIAutomationElement,
+        patternIds: clr.Reference[Array_1[int]],
+        patternNames: clr.Reference[Array_1[str]],
+    ) -> None: ...
+    def IUIAutomation6_PollForPotentialSupportedProperties(
+        self,
+        pElement: IUIAutomationElement,
+        propertyIds: clr.Reference[Array_1[int]],
+        propertyNames: clr.Reference[Array_1[str]],
+    ) -> None: ...
     def IUIAutomation6_RectToVariant(self, rc: tagRECT) -> typing.Any: ...
     def IUIAutomation6_RemoveAllEventHandlers(self) -> None: ...
-    def IUIAutomation6_RemoveAutomationEventHandler(self, eventId: int, element: IUIAutomationElement, handler: IUIAutomationEventHandler) -> None: ...
-    def IUIAutomation6_RemoveChangesEventHandler(self, element: IUIAutomationElement, handler: IUIAutomationChangesEventHandler) -> None: ...
+    def IUIAutomation6_RemoveAutomationEventHandler(
+        self, eventId: int, element: IUIAutomationElement, handler: IUIAutomationEventHandler
+    ) -> None: ...
+    def IUIAutomation6_RemoveChangesEventHandler(
+        self, element: IUIAutomationElement, handler: IUIAutomationChangesEventHandler
+    ) -> None: ...
     def IUIAutomation6_RemoveFocusChangedEventHandler(self, handler: IUIAutomationFocusChangedEventHandler) -> None: ...
-    def IUIAutomation6_RemoveNotificationEventHandler(self, element: IUIAutomationElement, handler: IUIAutomationNotificationEventHandler) -> None: ...
-    def IUIAutomation6_RemovePropertyChangedEventHandler(self, element: IUIAutomationElement, handler: IUIAutomationPropertyChangedEventHandler) -> None: ...
-    def IUIAutomation6_RemoveStructureChangedEventHandler(self, element: IUIAutomationElement, handler: IUIAutomationStructureChangedEventHandler) -> None: ...
-    def IUIAutomation6_RemoveTextEditTextChangedEventHandler(self, element: IUIAutomationElement, handler: IUIAutomationTextEditTextChangedEventHandler) -> None: ...
+    def IUIAutomation6_RemoveNotificationEventHandler(
+        self, element: IUIAutomationElement, handler: IUIAutomationNotificationEventHandler
+    ) -> None: ...
+    def IUIAutomation6_RemovePropertyChangedEventHandler(
+        self, element: IUIAutomationElement, handler: IUIAutomationPropertyChangedEventHandler
+    ) -> None: ...
+    def IUIAutomation6_RemoveStructureChangedEventHandler(
+        self, element: IUIAutomationElement, handler: IUIAutomationStructureChangedEventHandler
+    ) -> None: ...
+    def IUIAutomation6_RemoveTextEditTextChangedEventHandler(
+        self, element: IUIAutomationElement, handler: IUIAutomationTextEditTextChangedEventHandler
+    ) -> None: ...
     def IUIAutomation6_SafeArrayToRectNativeArray(self, rects: Array_1[float], rectArray: int) -> int: ...
     def IUIAutomation6_VariantToRect(self, var: typing.Any) -> tagRECT: ...
-    def PollForPotentialSupportedPatterns(self, pElement: IUIAutomationElement, patternIds: clr.Reference[Array_1[int]], patternNames: clr.Reference[Array_1[str]]) -> None: ...
-    def PollForPotentialSupportedProperties(self, pElement: IUIAutomationElement, propertyIds: clr.Reference[Array_1[int]], propertyNames: clr.Reference[Array_1[str]]) -> None: ...
+    def PollForPotentialSupportedPatterns(
+        self,
+        pElement: IUIAutomationElement,
+        patternIds: clr.Reference[Array_1[int]],
+        patternNames: clr.Reference[Array_1[str]],
+    ) -> None: ...
+    def PollForPotentialSupportedProperties(
+        self,
+        pElement: IUIAutomationElement,
+        propertyIds: clr.Reference[Array_1[int]],
+        propertyNames: clr.Reference[Array_1[str]],
+    ) -> None: ...
     def RectToVariant(self, rc: tagRECT) -> typing.Any: ...
-    def RemoveActiveTextPositionChangedEventHandler(self, element: IUIAutomationElement, handler: IUIAutomationActiveTextPositionChangedEventHandler) -> None: ...
+    def RemoveActiveTextPositionChangedEventHandler(
+        self, element: IUIAutomationElement, handler: IUIAutomationActiveTextPositionChangedEventHandler
+    ) -> None: ...
     def RemoveAllEventHandlers(self) -> None: ...
-    def RemoveAutomationEventHandler(self, eventId: int, element: IUIAutomationElement, handler: IUIAutomationEventHandler) -> None: ...
-    def RemoveChangesEventHandler(self, element: IUIAutomationElement, handler: IUIAutomationChangesEventHandler) -> None: ...
-    def RemoveEventHandlerGroup(self, element: IUIAutomationElement, handlerGroup: IUIAutomationEventHandlerGroup) -> None: ...
+    def RemoveAutomationEventHandler(
+        self, eventId: int, element: IUIAutomationElement, handler: IUIAutomationEventHandler
+    ) -> None: ...
+    def RemoveChangesEventHandler(
+        self, element: IUIAutomationElement, handler: IUIAutomationChangesEventHandler
+    ) -> None: ...
+    def RemoveEventHandlerGroup(
+        self, element: IUIAutomationElement, handlerGroup: IUIAutomationEventHandlerGroup
+    ) -> None: ...
     def RemoveFocusChangedEventHandler(self, handler: IUIAutomationFocusChangedEventHandler) -> None: ...
-    def RemoveNotificationEventHandler(self, element: IUIAutomationElement, handler: IUIAutomationNotificationEventHandler) -> None: ...
-    def RemovePropertyChangedEventHandler(self, element: IUIAutomationElement, handler: IUIAutomationPropertyChangedEventHandler) -> None: ...
-    def RemoveStructureChangedEventHandler(self, element: IUIAutomationElement, handler: IUIAutomationStructureChangedEventHandler) -> None: ...
-    def RemoveTextEditTextChangedEventHandler(self, element: IUIAutomationElement, handler: IUIAutomationTextEditTextChangedEventHandler) -> None: ...
+    def RemoveNotificationEventHandler(
+        self, element: IUIAutomationElement, handler: IUIAutomationNotificationEventHandler
+    ) -> None: ...
+    def RemovePropertyChangedEventHandler(
+        self, element: IUIAutomationElement, handler: IUIAutomationPropertyChangedEventHandler
+    ) -> None: ...
+    def RemoveStructureChangedEventHandler(
+        self, element: IUIAutomationElement, handler: IUIAutomationStructureChangedEventHandler
+    ) -> None: ...
+    def RemoveTextEditTextChangedEventHandler(
+        self, element: IUIAutomationElement, handler: IUIAutomationTextEditTextChangedEventHandler
+    ) -> None: ...
     def SafeArrayToRectNativeArray(self, rects: Array_1[float], rectArray: int) -> int: ...
     def VariantToRect(self, var: typing.Any) -> tagRECT: ...
-
 
 class CUIAutomationClass(__ComObject, CUIAutomation):
     def __init__(self) -> None: ...
@@ -482,34 +922,80 @@ class CUIAutomationClass(__ComObject, CUIAutomation):
     def ReservedMixedAttributeValue(self) -> typing.Any: ...
     @property
     def ReservedNotSupportedValue(self) -> typing.Any: ...
-    def AddAutomationEventHandler(self, eventId: int, element: IUIAutomationElement, scope: TreeScope, cacheRequest: IUIAutomationCacheRequest, handler: IUIAutomationEventHandler) -> None: ...
-    def AddFocusChangedEventHandler(self, cacheRequest: IUIAutomationCacheRequest, handler: IUIAutomationFocusChangedEventHandler) -> None: ...
-    def AddPropertyChangedEventHandler(self, element: IUIAutomationElement, scope: TreeScope, cacheRequest: IUIAutomationCacheRequest, handler: IUIAutomationPropertyChangedEventHandler, propertyArray: Array_1[int]) -> None: ...
-    def AddPropertyChangedEventHandlerNativeArray(self, element: IUIAutomationElement, scope: TreeScope, cacheRequest: IUIAutomationCacheRequest, handler: IUIAutomationPropertyChangedEventHandler, propertyArray: clr.Reference[int], propertyCount: int) -> None: ...
-    def AddStructureChangedEventHandler(self, element: IUIAutomationElement, scope: TreeScope, cacheRequest: IUIAutomationCacheRequest, handler: IUIAutomationStructureChangedEventHandler) -> None: ...
+    def AddAutomationEventHandler(
+        self,
+        eventId: int,
+        element: IUIAutomationElement,
+        scope: TreeScope,
+        cacheRequest: IUIAutomationCacheRequest,
+        handler: IUIAutomationEventHandler,
+    ) -> None: ...
+    def AddFocusChangedEventHandler(
+        self, cacheRequest: IUIAutomationCacheRequest, handler: IUIAutomationFocusChangedEventHandler
+    ) -> None: ...
+    def AddPropertyChangedEventHandler(
+        self,
+        element: IUIAutomationElement,
+        scope: TreeScope,
+        cacheRequest: IUIAutomationCacheRequest,
+        handler: IUIAutomationPropertyChangedEventHandler,
+        propertyArray: Array_1[int],
+    ) -> None: ...
+    def AddPropertyChangedEventHandlerNativeArray(
+        self,
+        element: IUIAutomationElement,
+        scope: TreeScope,
+        cacheRequest: IUIAutomationCacheRequest,
+        handler: IUIAutomationPropertyChangedEventHandler,
+        propertyArray: clr.Reference[int],
+        propertyCount: int,
+    ) -> None: ...
+    def AddStructureChangedEventHandler(
+        self,
+        element: IUIAutomationElement,
+        scope: TreeScope,
+        cacheRequest: IUIAutomationCacheRequest,
+        handler: IUIAutomationStructureChangedEventHandler,
+    ) -> None: ...
     def CheckNotSupported(self, value: typing.Any) -> int: ...
     def CompareElements(self, el1: IUIAutomationElement, el2: IUIAutomationElement) -> int: ...
     def CompareRuntimeIds(self, runtimeId1: Array_1[int], runtimeId2: Array_1[int]) -> int: ...
-    def CreateAndCondition(self, condition1: IUIAutomationCondition, condition2: IUIAutomationCondition) -> IUIAutomationCondition: ...
+    def CreateAndCondition(
+        self, condition1: IUIAutomationCondition, condition2: IUIAutomationCondition
+    ) -> IUIAutomationCondition: ...
     def CreateAndConditionFromArray(self, conditions: Array_1[IUIAutomationCondition]) -> IUIAutomationCondition: ...
-    def CreateAndConditionFromNativeArray(self, conditions: clr.Reference[IUIAutomationCondition], conditionCount: int) -> IUIAutomationCondition: ...
+    def CreateAndConditionFromNativeArray(
+        self, conditions: clr.Reference[IUIAutomationCondition], conditionCount: int
+    ) -> IUIAutomationCondition: ...
     def CreateCacheRequest(self) -> IUIAutomationCacheRequest: ...
     def CreateFalseCondition(self) -> IUIAutomationCondition: ...
     def CreateNotCondition(self, condition: IUIAutomationCondition) -> IUIAutomationCondition: ...
-    def CreateOrCondition(self, condition1: IUIAutomationCondition, condition2: IUIAutomationCondition) -> IUIAutomationCondition: ...
+    def CreateOrCondition(
+        self, condition1: IUIAutomationCondition, condition2: IUIAutomationCondition
+    ) -> IUIAutomationCondition: ...
     def CreateOrConditionFromArray(self, conditions: Array_1[IUIAutomationCondition]) -> IUIAutomationCondition: ...
-    def CreateOrConditionFromNativeArray(self, conditions: clr.Reference[IUIAutomationCondition], conditionCount: int) -> IUIAutomationCondition: ...
+    def CreateOrConditionFromNativeArray(
+        self, conditions: clr.Reference[IUIAutomationCondition], conditionCount: int
+    ) -> IUIAutomationCondition: ...
     def CreatePropertyCondition(self, propertyId: int, value: typing.Any) -> IUIAutomationCondition: ...
-    def CreatePropertyConditionEx(self, propertyId: int, value: typing.Any, flags: PropertyConditionFlags) -> IUIAutomationCondition: ...
+    def CreatePropertyConditionEx(
+        self, propertyId: int, value: typing.Any, flags: PropertyConditionFlags
+    ) -> IUIAutomationCondition: ...
     def CreateProxyFactoryEntry(self, factory: IUIAutomationProxyFactory) -> IUIAutomationProxyFactoryEntry: ...
     def CreateTreeWalker(self, pCondition: IUIAutomationCondition) -> IUIAutomationTreeWalker: ...
     def CreateTrueCondition(self) -> IUIAutomationCondition: ...
     def ElementFromHandle(self, hwnd: int) -> IUIAutomationElement: ...
-    def ElementFromHandleBuildCache(self, hwnd: int, cacheRequest: IUIAutomationCacheRequest) -> IUIAutomationElement: ...
+    def ElementFromHandleBuildCache(
+        self, hwnd: int, cacheRequest: IUIAutomationCacheRequest
+    ) -> IUIAutomationElement: ...
     def ElementFromIAccessible(self, accessible: IAccessible, childId: int) -> IUIAutomationElement: ...
-    def ElementFromIAccessibleBuildCache(self, accessible: IAccessible, childId: int, cacheRequest: IUIAutomationCacheRequest) -> IUIAutomationElement: ...
+    def ElementFromIAccessibleBuildCache(
+        self, accessible: IAccessible, childId: int, cacheRequest: IUIAutomationCacheRequest
+    ) -> IUIAutomationElement: ...
     def ElementFromPoint(self, pt: tagPOINT) -> IUIAutomationElement: ...
-    def ElementFromPointBuildCache(self, pt: tagPOINT, cacheRequest: IUIAutomationCacheRequest) -> IUIAutomationElement: ...
+    def ElementFromPointBuildCache(
+        self, pt: tagPOINT, cacheRequest: IUIAutomationCacheRequest
+    ) -> IUIAutomationElement: ...
     def GetFocusedElement(self) -> IUIAutomationElement: ...
     def GetFocusedElementBuildCache(self, cacheRequest: IUIAutomationCacheRequest) -> IUIAutomationElement: ...
     def GetPatternProgrammaticName(self, pattern: int) -> str: ...
@@ -518,52 +1004,64 @@ class CUIAutomationClass(__ComObject, CUIAutomation):
     def GetRootElementBuildCache(self, cacheRequest: IUIAutomationCacheRequest) -> IUIAutomationElement: ...
     def IntNativeArrayToSafeArray(self, array: clr.Reference[int], arrayCount: int) -> Array_1[int]: ...
     def IntSafeArrayToNativeArray(self, intArray: Array_1[int], array: int) -> int: ...
-    def PollForPotentialSupportedPatterns(self, pElement: IUIAutomationElement, patternIds: clr.Reference[Array_1[int]], patternNames: clr.Reference[Array_1[str]]) -> None: ...
-    def PollForPotentialSupportedProperties(self, pElement: IUIAutomationElement, propertyIds: clr.Reference[Array_1[int]], propertyNames: clr.Reference[Array_1[str]]) -> None: ...
+    def PollForPotentialSupportedPatterns(
+        self,
+        pElement: IUIAutomationElement,
+        patternIds: clr.Reference[Array_1[int]],
+        patternNames: clr.Reference[Array_1[str]],
+    ) -> None: ...
+    def PollForPotentialSupportedProperties(
+        self,
+        pElement: IUIAutomationElement,
+        propertyIds: clr.Reference[Array_1[int]],
+        propertyNames: clr.Reference[Array_1[str]],
+    ) -> None: ...
     def RectToVariant(self, rc: tagRECT) -> typing.Any: ...
     def RemoveAllEventHandlers(self) -> None: ...
-    def RemoveAutomationEventHandler(self, eventId: int, element: IUIAutomationElement, handler: IUIAutomationEventHandler) -> None: ...
+    def RemoveAutomationEventHandler(
+        self, eventId: int, element: IUIAutomationElement, handler: IUIAutomationEventHandler
+    ) -> None: ...
     def RemoveFocusChangedEventHandler(self, handler: IUIAutomationFocusChangedEventHandler) -> None: ...
-    def RemovePropertyChangedEventHandler(self, element: IUIAutomationElement, handler: IUIAutomationPropertyChangedEventHandler) -> None: ...
-    def RemoveStructureChangedEventHandler(self, element: IUIAutomationElement, handler: IUIAutomationStructureChangedEventHandler) -> None: ...
+    def RemovePropertyChangedEventHandler(
+        self, element: IUIAutomationElement, handler: IUIAutomationPropertyChangedEventHandler
+    ) -> None: ...
+    def RemoveStructureChangedEventHandler(
+        self, element: IUIAutomationElement, handler: IUIAutomationStructureChangedEventHandler
+    ) -> None: ...
     def SafeArrayToRectNativeArray(self, rects: Array_1[float], rectArray: int) -> int: ...
     def VariantToRect(self, var: typing.Any) -> tagRECT: ...
 
-
 class DockPosition(typing.SupportsInt):
     @typing.overload
-    def __init__(self, value : int) -> None: ...
+    def __init__(self, value: int) -> None: ...
     @typing.overload
-    def __init__(self, value : int, force_if_true: bool) -> None: ...
+    def __init__(self, value: int, force_if_true: bool) -> None: ...
     def __int__(self) -> int: ...
-    
-    # Values:
-    DockPosition_Top : DockPosition # 0
-    DockPosition_Left : DockPosition # 1
-    DockPosition_Bottom : DockPosition # 2
-    DockPosition_Right : DockPosition # 3
-    DockPosition_Fill : DockPosition # 4
-    DockPosition_None : DockPosition # 5
 
+    # Values:
+    DockPosition_Top: DockPosition  # 0
+    DockPosition_Left: DockPosition  # 1
+    DockPosition_Bottom: DockPosition  # 2
+    DockPosition_Right: DockPosition  # 3
+    DockPosition_Fill: DockPosition  # 4
+    DockPosition_None: DockPosition  # 5
 
 class ExpandCollapseState(typing.SupportsInt):
     @typing.overload
-    def __init__(self, value : int) -> None: ...
+    def __init__(self, value: int) -> None: ...
     @typing.overload
-    def __init__(self, value : int, force_if_true: bool) -> None: ...
+    def __init__(self, value: int, force_if_true: bool) -> None: ...
     def __int__(self) -> int: ...
-    
-    # Values:
-    ExpandCollapseState_Collapsed : ExpandCollapseState # 0
-    ExpandCollapseState_Expanded : ExpandCollapseState # 1
-    ExpandCollapseState_PartiallyExpanded : ExpandCollapseState # 2
-    ExpandCollapseState_LeafNode : ExpandCollapseState # 3
 
+    # Values:
+    ExpandCollapseState_Collapsed: ExpandCollapseState  # 0
+    ExpandCollapseState_Expanded: ExpandCollapseState  # 1
+    ExpandCollapseState_PartiallyExpanded: ExpandCollapseState  # 2
+    ExpandCollapseState_LeafNode: ExpandCollapseState  # 3
 
 class ExtendedProperty:
-    PropertyName : str
-    PropertyValue : str
-
+    PropertyName: str
+    PropertyValue: str
 
 class IAccessible(typing.Protocol):
     @property
@@ -579,7 +1077,14 @@ class IAccessible(typing.Protocol):
     @abc.abstractmethod
     def accHitTest(self, xLeft: int, yTop: int) -> typing.Any: ...
     @abc.abstractmethod
-    def accLocation(self, pxLeft: clr.Reference[int], pyTop: clr.Reference[int], pcxWidth: clr.Reference[int], pcyHeight: clr.Reference[int], varChild: typing.Any) -> None: ...
+    def accLocation(
+        self,
+        pxLeft: clr.Reference[int],
+        pyTop: clr.Reference[int],
+        pcxWidth: clr.Reference[int],
+        pcyHeight: clr.Reference[int],
+        varChild: typing.Any,
+    ) -> None: ...
     @abc.abstractmethod
     def accNavigate(self, navDir: int, varStart: typing.Any) -> typing.Any: ...
     @abc.abstractmethod
@@ -609,7 +1114,6 @@ class IAccessible(typing.Protocol):
     @abc.abstractmethod
     def set_accValue(self, varChild: typing.Any, pszValue: str) -> None: ...
 
-
 class IRawElementProviderSimple(typing.Protocol):
     @property
     def HostRawElementProvider(self) -> IRawElementProviderSimple: ...
@@ -619,7 +1123,6 @@ class IRawElementProviderSimple(typing.Protocol):
     def GetPatternProvider(self, patternId: int) -> typing.Any: ...
     @abc.abstractmethod
     def GetPropertyValue(self, propertyId: int) -> typing.Any: ...
-
 
 class IUIAutomation(typing.Protocol):
     @property
@@ -641,15 +1144,45 @@ class IUIAutomation(typing.Protocol):
     @property
     def ReservedNotSupportedValue(self) -> typing.Any: ...
     @abc.abstractmethod
-    def AddAutomationEventHandler(self, eventId: int, element: IUIAutomationElement, scope: TreeScope, cacheRequest: IUIAutomationCacheRequest, handler: IUIAutomationEventHandler) -> None: ...
+    def AddAutomationEventHandler(
+        self,
+        eventId: int,
+        element: IUIAutomationElement,
+        scope: TreeScope,
+        cacheRequest: IUIAutomationCacheRequest,
+        handler: IUIAutomationEventHandler,
+    ) -> None: ...
     @abc.abstractmethod
-    def AddFocusChangedEventHandler(self, cacheRequest: IUIAutomationCacheRequest, handler: IUIAutomationFocusChangedEventHandler) -> None: ...
+    def AddFocusChangedEventHandler(
+        self, cacheRequest: IUIAutomationCacheRequest, handler: IUIAutomationFocusChangedEventHandler
+    ) -> None: ...
     @abc.abstractmethod
-    def AddPropertyChangedEventHandler(self, element: IUIAutomationElement, scope: TreeScope, cacheRequest: IUIAutomationCacheRequest, handler: IUIAutomationPropertyChangedEventHandler, propertyArray: Array_1[int]) -> None: ...
+    def AddPropertyChangedEventHandler(
+        self,
+        element: IUIAutomationElement,
+        scope: TreeScope,
+        cacheRequest: IUIAutomationCacheRequest,
+        handler: IUIAutomationPropertyChangedEventHandler,
+        propertyArray: Array_1[int],
+    ) -> None: ...
     @abc.abstractmethod
-    def AddPropertyChangedEventHandlerNativeArray(self, element: IUIAutomationElement, scope: TreeScope, cacheRequest: IUIAutomationCacheRequest, handler: IUIAutomationPropertyChangedEventHandler, propertyArray: clr.Reference[int], propertyCount: int) -> None: ...
+    def AddPropertyChangedEventHandlerNativeArray(
+        self,
+        element: IUIAutomationElement,
+        scope: TreeScope,
+        cacheRequest: IUIAutomationCacheRequest,
+        handler: IUIAutomationPropertyChangedEventHandler,
+        propertyArray: clr.Reference[int],
+        propertyCount: int,
+    ) -> None: ...
     @abc.abstractmethod
-    def AddStructureChangedEventHandler(self, element: IUIAutomationElement, scope: TreeScope, cacheRequest: IUIAutomationCacheRequest, handler: IUIAutomationStructureChangedEventHandler) -> None: ...
+    def AddStructureChangedEventHandler(
+        self,
+        element: IUIAutomationElement,
+        scope: TreeScope,
+        cacheRequest: IUIAutomationCacheRequest,
+        handler: IUIAutomationStructureChangedEventHandler,
+    ) -> None: ...
     @abc.abstractmethod
     def CheckNotSupported(self, value: typing.Any) -> int: ...
     @abc.abstractmethod
@@ -657,11 +1190,15 @@ class IUIAutomation(typing.Protocol):
     @abc.abstractmethod
     def CompareRuntimeIds(self, runtimeId1: Array_1[int], runtimeId2: Array_1[int]) -> int: ...
     @abc.abstractmethod
-    def CreateAndCondition(self, condition1: IUIAutomationCondition, condition2: IUIAutomationCondition) -> IUIAutomationCondition: ...
+    def CreateAndCondition(
+        self, condition1: IUIAutomationCondition, condition2: IUIAutomationCondition
+    ) -> IUIAutomationCondition: ...
     @abc.abstractmethod
     def CreateAndConditionFromArray(self, conditions: Array_1[IUIAutomationCondition]) -> IUIAutomationCondition: ...
     @abc.abstractmethod
-    def CreateAndConditionFromNativeArray(self, conditions: clr.Reference[IUIAutomationCondition], conditionCount: int) -> IUIAutomationCondition: ...
+    def CreateAndConditionFromNativeArray(
+        self, conditions: clr.Reference[IUIAutomationCondition], conditionCount: int
+    ) -> IUIAutomationCondition: ...
     @abc.abstractmethod
     def CreateCacheRequest(self) -> IUIAutomationCacheRequest: ...
     @abc.abstractmethod
@@ -669,15 +1206,21 @@ class IUIAutomation(typing.Protocol):
     @abc.abstractmethod
     def CreateNotCondition(self, condition: IUIAutomationCondition) -> IUIAutomationCondition: ...
     @abc.abstractmethod
-    def CreateOrCondition(self, condition1: IUIAutomationCondition, condition2: IUIAutomationCondition) -> IUIAutomationCondition: ...
+    def CreateOrCondition(
+        self, condition1: IUIAutomationCondition, condition2: IUIAutomationCondition
+    ) -> IUIAutomationCondition: ...
     @abc.abstractmethod
     def CreateOrConditionFromArray(self, conditions: Array_1[IUIAutomationCondition]) -> IUIAutomationCondition: ...
     @abc.abstractmethod
-    def CreateOrConditionFromNativeArray(self, conditions: clr.Reference[IUIAutomationCondition], conditionCount: int) -> IUIAutomationCondition: ...
+    def CreateOrConditionFromNativeArray(
+        self, conditions: clr.Reference[IUIAutomationCondition], conditionCount: int
+    ) -> IUIAutomationCondition: ...
     @abc.abstractmethod
     def CreatePropertyCondition(self, propertyId: int, value: typing.Any) -> IUIAutomationCondition: ...
     @abc.abstractmethod
-    def CreatePropertyConditionEx(self, propertyId: int, value: typing.Any, flags: PropertyConditionFlags) -> IUIAutomationCondition: ...
+    def CreatePropertyConditionEx(
+        self, propertyId: int, value: typing.Any, flags: PropertyConditionFlags
+    ) -> IUIAutomationCondition: ...
     @abc.abstractmethod
     def CreateProxyFactoryEntry(self, factory: IUIAutomationProxyFactory) -> IUIAutomationProxyFactoryEntry: ...
     @abc.abstractmethod
@@ -687,15 +1230,21 @@ class IUIAutomation(typing.Protocol):
     @abc.abstractmethod
     def ElementFromHandle(self, hwnd: int) -> IUIAutomationElement: ...
     @abc.abstractmethod
-    def ElementFromHandleBuildCache(self, hwnd: int, cacheRequest: IUIAutomationCacheRequest) -> IUIAutomationElement: ...
+    def ElementFromHandleBuildCache(
+        self, hwnd: int, cacheRequest: IUIAutomationCacheRequest
+    ) -> IUIAutomationElement: ...
     @abc.abstractmethod
     def ElementFromIAccessible(self, accessible: IAccessible, childId: int) -> IUIAutomationElement: ...
     @abc.abstractmethod
-    def ElementFromIAccessibleBuildCache(self, accessible: IAccessible, childId: int, cacheRequest: IUIAutomationCacheRequest) -> IUIAutomationElement: ...
+    def ElementFromIAccessibleBuildCache(
+        self, accessible: IAccessible, childId: int, cacheRequest: IUIAutomationCacheRequest
+    ) -> IUIAutomationElement: ...
     @abc.abstractmethod
     def ElementFromPoint(self, pt: tagPOINT) -> IUIAutomationElement: ...
     @abc.abstractmethod
-    def ElementFromPointBuildCache(self, pt: tagPOINT, cacheRequest: IUIAutomationCacheRequest) -> IUIAutomationElement: ...
+    def ElementFromPointBuildCache(
+        self, pt: tagPOINT, cacheRequest: IUIAutomationCacheRequest
+    ) -> IUIAutomationElement: ...
     @abc.abstractmethod
     def GetFocusedElement(self) -> IUIAutomationElement: ...
     @abc.abstractmethod
@@ -713,26 +1262,41 @@ class IUIAutomation(typing.Protocol):
     @abc.abstractmethod
     def IntSafeArrayToNativeArray(self, intArray: Array_1[int], array: int) -> int: ...
     @abc.abstractmethod
-    def PollForPotentialSupportedPatterns(self, pElement: IUIAutomationElement, patternIds: clr.Reference[Array_1[int]], patternNames: clr.Reference[Array_1[str]]) -> None: ...
+    def PollForPotentialSupportedPatterns(
+        self,
+        pElement: IUIAutomationElement,
+        patternIds: clr.Reference[Array_1[int]],
+        patternNames: clr.Reference[Array_1[str]],
+    ) -> None: ...
     @abc.abstractmethod
-    def PollForPotentialSupportedProperties(self, pElement: IUIAutomationElement, propertyIds: clr.Reference[Array_1[int]], propertyNames: clr.Reference[Array_1[str]]) -> None: ...
+    def PollForPotentialSupportedProperties(
+        self,
+        pElement: IUIAutomationElement,
+        propertyIds: clr.Reference[Array_1[int]],
+        propertyNames: clr.Reference[Array_1[str]],
+    ) -> None: ...
     @abc.abstractmethod
     def RectToVariant(self, rc: tagRECT) -> typing.Any: ...
     @abc.abstractmethod
     def RemoveAllEventHandlers(self) -> None: ...
     @abc.abstractmethod
-    def RemoveAutomationEventHandler(self, eventId: int, element: IUIAutomationElement, handler: IUIAutomationEventHandler) -> None: ...
+    def RemoveAutomationEventHandler(
+        self, eventId: int, element: IUIAutomationElement, handler: IUIAutomationEventHandler
+    ) -> None: ...
     @abc.abstractmethod
     def RemoveFocusChangedEventHandler(self, handler: IUIAutomationFocusChangedEventHandler) -> None: ...
     @abc.abstractmethod
-    def RemovePropertyChangedEventHandler(self, element: IUIAutomationElement, handler: IUIAutomationPropertyChangedEventHandler) -> None: ...
+    def RemovePropertyChangedEventHandler(
+        self, element: IUIAutomationElement, handler: IUIAutomationPropertyChangedEventHandler
+    ) -> None: ...
     @abc.abstractmethod
-    def RemoveStructureChangedEventHandler(self, element: IUIAutomationElement, handler: IUIAutomationStructureChangedEventHandler) -> None: ...
+    def RemoveStructureChangedEventHandler(
+        self, element: IUIAutomationElement, handler: IUIAutomationStructureChangedEventHandler
+    ) -> None: ...
     @abc.abstractmethod
     def SafeArrayToRectNativeArray(self, rects: Array_1[float], rectArray: int) -> int: ...
     @abc.abstractmethod
     def VariantToRect(self, var: typing.Any) -> tagRECT: ...
-
 
 class IUIAutomation2(IUIAutomation, typing.Protocol):
     @property
@@ -766,15 +1330,45 @@ class IUIAutomation2(IUIAutomation, typing.Protocol):
     @TransactionTimeout.setter
     def TransactionTimeout(self, value: int) -> int: ...
     @abc.abstractmethod
-    def AddAutomationEventHandler(self, eventId: int, element: IUIAutomationElement, scope: TreeScope, cacheRequest: IUIAutomationCacheRequest, handler: IUIAutomationEventHandler) -> None: ...
+    def AddAutomationEventHandler(
+        self,
+        eventId: int,
+        element: IUIAutomationElement,
+        scope: TreeScope,
+        cacheRequest: IUIAutomationCacheRequest,
+        handler: IUIAutomationEventHandler,
+    ) -> None: ...
     @abc.abstractmethod
-    def AddFocusChangedEventHandler(self, cacheRequest: IUIAutomationCacheRequest, handler: IUIAutomationFocusChangedEventHandler) -> None: ...
+    def AddFocusChangedEventHandler(
+        self, cacheRequest: IUIAutomationCacheRequest, handler: IUIAutomationFocusChangedEventHandler
+    ) -> None: ...
     @abc.abstractmethod
-    def AddPropertyChangedEventHandler(self, element: IUIAutomationElement, scope: TreeScope, cacheRequest: IUIAutomationCacheRequest, handler: IUIAutomationPropertyChangedEventHandler, propertyArray: Array_1[int]) -> None: ...
+    def AddPropertyChangedEventHandler(
+        self,
+        element: IUIAutomationElement,
+        scope: TreeScope,
+        cacheRequest: IUIAutomationCacheRequest,
+        handler: IUIAutomationPropertyChangedEventHandler,
+        propertyArray: Array_1[int],
+    ) -> None: ...
     @abc.abstractmethod
-    def AddPropertyChangedEventHandlerNativeArray(self, element: IUIAutomationElement, scope: TreeScope, cacheRequest: IUIAutomationCacheRequest, handler: IUIAutomationPropertyChangedEventHandler, propertyArray: clr.Reference[int], propertyCount: int) -> None: ...
+    def AddPropertyChangedEventHandlerNativeArray(
+        self,
+        element: IUIAutomationElement,
+        scope: TreeScope,
+        cacheRequest: IUIAutomationCacheRequest,
+        handler: IUIAutomationPropertyChangedEventHandler,
+        propertyArray: clr.Reference[int],
+        propertyCount: int,
+    ) -> None: ...
     @abc.abstractmethod
-    def AddStructureChangedEventHandler(self, element: IUIAutomationElement, scope: TreeScope, cacheRequest: IUIAutomationCacheRequest, handler: IUIAutomationStructureChangedEventHandler) -> None: ...
+    def AddStructureChangedEventHandler(
+        self,
+        element: IUIAutomationElement,
+        scope: TreeScope,
+        cacheRequest: IUIAutomationCacheRequest,
+        handler: IUIAutomationStructureChangedEventHandler,
+    ) -> None: ...
     @abc.abstractmethod
     def CheckNotSupported(self, value: typing.Any) -> int: ...
     @abc.abstractmethod
@@ -782,11 +1376,15 @@ class IUIAutomation2(IUIAutomation, typing.Protocol):
     @abc.abstractmethod
     def CompareRuntimeIds(self, runtimeId1: Array_1[int], runtimeId2: Array_1[int]) -> int: ...
     @abc.abstractmethod
-    def CreateAndCondition(self, condition1: IUIAutomationCondition, condition2: IUIAutomationCondition) -> IUIAutomationCondition: ...
+    def CreateAndCondition(
+        self, condition1: IUIAutomationCondition, condition2: IUIAutomationCondition
+    ) -> IUIAutomationCondition: ...
     @abc.abstractmethod
     def CreateAndConditionFromArray(self, conditions: Array_1[IUIAutomationCondition]) -> IUIAutomationCondition: ...
     @abc.abstractmethod
-    def CreateAndConditionFromNativeArray(self, conditions: clr.Reference[IUIAutomationCondition], conditionCount: int) -> IUIAutomationCondition: ...
+    def CreateAndConditionFromNativeArray(
+        self, conditions: clr.Reference[IUIAutomationCondition], conditionCount: int
+    ) -> IUIAutomationCondition: ...
     @abc.abstractmethod
     def CreateCacheRequest(self) -> IUIAutomationCacheRequest: ...
     @abc.abstractmethod
@@ -794,15 +1392,21 @@ class IUIAutomation2(IUIAutomation, typing.Protocol):
     @abc.abstractmethod
     def CreateNotCondition(self, condition: IUIAutomationCondition) -> IUIAutomationCondition: ...
     @abc.abstractmethod
-    def CreateOrCondition(self, condition1: IUIAutomationCondition, condition2: IUIAutomationCondition) -> IUIAutomationCondition: ...
+    def CreateOrCondition(
+        self, condition1: IUIAutomationCondition, condition2: IUIAutomationCondition
+    ) -> IUIAutomationCondition: ...
     @abc.abstractmethod
     def CreateOrConditionFromArray(self, conditions: Array_1[IUIAutomationCondition]) -> IUIAutomationCondition: ...
     @abc.abstractmethod
-    def CreateOrConditionFromNativeArray(self, conditions: clr.Reference[IUIAutomationCondition], conditionCount: int) -> IUIAutomationCondition: ...
+    def CreateOrConditionFromNativeArray(
+        self, conditions: clr.Reference[IUIAutomationCondition], conditionCount: int
+    ) -> IUIAutomationCondition: ...
     @abc.abstractmethod
     def CreatePropertyCondition(self, propertyId: int, value: typing.Any) -> IUIAutomationCondition: ...
     @abc.abstractmethod
-    def CreatePropertyConditionEx(self, propertyId: int, value: typing.Any, flags: PropertyConditionFlags) -> IUIAutomationCondition: ...
+    def CreatePropertyConditionEx(
+        self, propertyId: int, value: typing.Any, flags: PropertyConditionFlags
+    ) -> IUIAutomationCondition: ...
     @abc.abstractmethod
     def CreateProxyFactoryEntry(self, factory: IUIAutomationProxyFactory) -> IUIAutomationProxyFactoryEntry: ...
     @abc.abstractmethod
@@ -812,15 +1416,21 @@ class IUIAutomation2(IUIAutomation, typing.Protocol):
     @abc.abstractmethod
     def ElementFromHandle(self, hwnd: int) -> IUIAutomationElement: ...
     @abc.abstractmethod
-    def ElementFromHandleBuildCache(self, hwnd: int, cacheRequest: IUIAutomationCacheRequest) -> IUIAutomationElement: ...
+    def ElementFromHandleBuildCache(
+        self, hwnd: int, cacheRequest: IUIAutomationCacheRequest
+    ) -> IUIAutomationElement: ...
     @abc.abstractmethod
     def ElementFromIAccessible(self, accessible: IAccessible, childId: int) -> IUIAutomationElement: ...
     @abc.abstractmethod
-    def ElementFromIAccessibleBuildCache(self, accessible: IAccessible, childId: int, cacheRequest: IUIAutomationCacheRequest) -> IUIAutomationElement: ...
+    def ElementFromIAccessibleBuildCache(
+        self, accessible: IAccessible, childId: int, cacheRequest: IUIAutomationCacheRequest
+    ) -> IUIAutomationElement: ...
     @abc.abstractmethod
     def ElementFromPoint(self, pt: tagPOINT) -> IUIAutomationElement: ...
     @abc.abstractmethod
-    def ElementFromPointBuildCache(self, pt: tagPOINT, cacheRequest: IUIAutomationCacheRequest) -> IUIAutomationElement: ...
+    def ElementFromPointBuildCache(
+        self, pt: tagPOINT, cacheRequest: IUIAutomationCacheRequest
+    ) -> IUIAutomationElement: ...
     @abc.abstractmethod
     def GetFocusedElement(self) -> IUIAutomationElement: ...
     @abc.abstractmethod
@@ -838,26 +1448,41 @@ class IUIAutomation2(IUIAutomation, typing.Protocol):
     @abc.abstractmethod
     def IntSafeArrayToNativeArray(self, intArray: Array_1[int], array: int) -> int: ...
     @abc.abstractmethod
-    def PollForPotentialSupportedPatterns(self, pElement: IUIAutomationElement, patternIds: clr.Reference[Array_1[int]], patternNames: clr.Reference[Array_1[str]]) -> None: ...
+    def PollForPotentialSupportedPatterns(
+        self,
+        pElement: IUIAutomationElement,
+        patternIds: clr.Reference[Array_1[int]],
+        patternNames: clr.Reference[Array_1[str]],
+    ) -> None: ...
     @abc.abstractmethod
-    def PollForPotentialSupportedProperties(self, pElement: IUIAutomationElement, propertyIds: clr.Reference[Array_1[int]], propertyNames: clr.Reference[Array_1[str]]) -> None: ...
+    def PollForPotentialSupportedProperties(
+        self,
+        pElement: IUIAutomationElement,
+        propertyIds: clr.Reference[Array_1[int]],
+        propertyNames: clr.Reference[Array_1[str]],
+    ) -> None: ...
     @abc.abstractmethod
     def RectToVariant(self, rc: tagRECT) -> typing.Any: ...
     @abc.abstractmethod
     def RemoveAllEventHandlers(self) -> None: ...
     @abc.abstractmethod
-    def RemoveAutomationEventHandler(self, eventId: int, element: IUIAutomationElement, handler: IUIAutomationEventHandler) -> None: ...
+    def RemoveAutomationEventHandler(
+        self, eventId: int, element: IUIAutomationElement, handler: IUIAutomationEventHandler
+    ) -> None: ...
     @abc.abstractmethod
     def RemoveFocusChangedEventHandler(self, handler: IUIAutomationFocusChangedEventHandler) -> None: ...
     @abc.abstractmethod
-    def RemovePropertyChangedEventHandler(self, element: IUIAutomationElement, handler: IUIAutomationPropertyChangedEventHandler) -> None: ...
+    def RemovePropertyChangedEventHandler(
+        self, element: IUIAutomationElement, handler: IUIAutomationPropertyChangedEventHandler
+    ) -> None: ...
     @abc.abstractmethod
-    def RemoveStructureChangedEventHandler(self, element: IUIAutomationElement, handler: IUIAutomationStructureChangedEventHandler) -> None: ...
+    def RemoveStructureChangedEventHandler(
+        self, element: IUIAutomationElement, handler: IUIAutomationStructureChangedEventHandler
+    ) -> None: ...
     @abc.abstractmethod
     def SafeArrayToRectNativeArray(self, rects: Array_1[float], rectArray: int) -> int: ...
     @abc.abstractmethod
     def VariantToRect(self, var: typing.Any) -> tagRECT: ...
-
 
 class IUIAutomation3(IUIAutomation2, typing.Protocol):
     @property
@@ -891,17 +1516,54 @@ class IUIAutomation3(IUIAutomation2, typing.Protocol):
     @TransactionTimeout.setter
     def TransactionTimeout(self, value: int) -> int: ...
     @abc.abstractmethod
-    def AddAutomationEventHandler(self, eventId: int, element: IUIAutomationElement, scope: TreeScope, cacheRequest: IUIAutomationCacheRequest, handler: IUIAutomationEventHandler) -> None: ...
+    def AddAutomationEventHandler(
+        self,
+        eventId: int,
+        element: IUIAutomationElement,
+        scope: TreeScope,
+        cacheRequest: IUIAutomationCacheRequest,
+        handler: IUIAutomationEventHandler,
+    ) -> None: ...
     @abc.abstractmethod
-    def AddFocusChangedEventHandler(self, cacheRequest: IUIAutomationCacheRequest, handler: IUIAutomationFocusChangedEventHandler) -> None: ...
+    def AddFocusChangedEventHandler(
+        self, cacheRequest: IUIAutomationCacheRequest, handler: IUIAutomationFocusChangedEventHandler
+    ) -> None: ...
     @abc.abstractmethod
-    def AddPropertyChangedEventHandler(self, element: IUIAutomationElement, scope: TreeScope, cacheRequest: IUIAutomationCacheRequest, handler: IUIAutomationPropertyChangedEventHandler, propertyArray: Array_1[int]) -> None: ...
+    def AddPropertyChangedEventHandler(
+        self,
+        element: IUIAutomationElement,
+        scope: TreeScope,
+        cacheRequest: IUIAutomationCacheRequest,
+        handler: IUIAutomationPropertyChangedEventHandler,
+        propertyArray: Array_1[int],
+    ) -> None: ...
     @abc.abstractmethod
-    def AddPropertyChangedEventHandlerNativeArray(self, element: IUIAutomationElement, scope: TreeScope, cacheRequest: IUIAutomationCacheRequest, handler: IUIAutomationPropertyChangedEventHandler, propertyArray: clr.Reference[int], propertyCount: int) -> None: ...
+    def AddPropertyChangedEventHandlerNativeArray(
+        self,
+        element: IUIAutomationElement,
+        scope: TreeScope,
+        cacheRequest: IUIAutomationCacheRequest,
+        handler: IUIAutomationPropertyChangedEventHandler,
+        propertyArray: clr.Reference[int],
+        propertyCount: int,
+    ) -> None: ...
     @abc.abstractmethod
-    def AddStructureChangedEventHandler(self, element: IUIAutomationElement, scope: TreeScope, cacheRequest: IUIAutomationCacheRequest, handler: IUIAutomationStructureChangedEventHandler) -> None: ...
+    def AddStructureChangedEventHandler(
+        self,
+        element: IUIAutomationElement,
+        scope: TreeScope,
+        cacheRequest: IUIAutomationCacheRequest,
+        handler: IUIAutomationStructureChangedEventHandler,
+    ) -> None: ...
     @abc.abstractmethod
-    def AddTextEditTextChangedEventHandler(self, element: IUIAutomationElement, scope: TreeScope, TextEditChangeType: TextEditChangeType, cacheRequest: IUIAutomationCacheRequest, handler: IUIAutomationTextEditTextChangedEventHandler) -> None: ...
+    def AddTextEditTextChangedEventHandler(
+        self,
+        element: IUIAutomationElement,
+        scope: TreeScope,
+        TextEditChangeType: TextEditChangeType,
+        cacheRequest: IUIAutomationCacheRequest,
+        handler: IUIAutomationTextEditTextChangedEventHandler,
+    ) -> None: ...
     @abc.abstractmethod
     def CheckNotSupported(self, value: typing.Any) -> int: ...
     @abc.abstractmethod
@@ -909,11 +1571,15 @@ class IUIAutomation3(IUIAutomation2, typing.Protocol):
     @abc.abstractmethod
     def CompareRuntimeIds(self, runtimeId1: Array_1[int], runtimeId2: Array_1[int]) -> int: ...
     @abc.abstractmethod
-    def CreateAndCondition(self, condition1: IUIAutomationCondition, condition2: IUIAutomationCondition) -> IUIAutomationCondition: ...
+    def CreateAndCondition(
+        self, condition1: IUIAutomationCondition, condition2: IUIAutomationCondition
+    ) -> IUIAutomationCondition: ...
     @abc.abstractmethod
     def CreateAndConditionFromArray(self, conditions: Array_1[IUIAutomationCondition]) -> IUIAutomationCondition: ...
     @abc.abstractmethod
-    def CreateAndConditionFromNativeArray(self, conditions: clr.Reference[IUIAutomationCondition], conditionCount: int) -> IUIAutomationCondition: ...
+    def CreateAndConditionFromNativeArray(
+        self, conditions: clr.Reference[IUIAutomationCondition], conditionCount: int
+    ) -> IUIAutomationCondition: ...
     @abc.abstractmethod
     def CreateCacheRequest(self) -> IUIAutomationCacheRequest: ...
     @abc.abstractmethod
@@ -921,15 +1587,21 @@ class IUIAutomation3(IUIAutomation2, typing.Protocol):
     @abc.abstractmethod
     def CreateNotCondition(self, condition: IUIAutomationCondition) -> IUIAutomationCondition: ...
     @abc.abstractmethod
-    def CreateOrCondition(self, condition1: IUIAutomationCondition, condition2: IUIAutomationCondition) -> IUIAutomationCondition: ...
+    def CreateOrCondition(
+        self, condition1: IUIAutomationCondition, condition2: IUIAutomationCondition
+    ) -> IUIAutomationCondition: ...
     @abc.abstractmethod
     def CreateOrConditionFromArray(self, conditions: Array_1[IUIAutomationCondition]) -> IUIAutomationCondition: ...
     @abc.abstractmethod
-    def CreateOrConditionFromNativeArray(self, conditions: clr.Reference[IUIAutomationCondition], conditionCount: int) -> IUIAutomationCondition: ...
+    def CreateOrConditionFromNativeArray(
+        self, conditions: clr.Reference[IUIAutomationCondition], conditionCount: int
+    ) -> IUIAutomationCondition: ...
     @abc.abstractmethod
     def CreatePropertyCondition(self, propertyId: int, value: typing.Any) -> IUIAutomationCondition: ...
     @abc.abstractmethod
-    def CreatePropertyConditionEx(self, propertyId: int, value: typing.Any, flags: PropertyConditionFlags) -> IUIAutomationCondition: ...
+    def CreatePropertyConditionEx(
+        self, propertyId: int, value: typing.Any, flags: PropertyConditionFlags
+    ) -> IUIAutomationCondition: ...
     @abc.abstractmethod
     def CreateProxyFactoryEntry(self, factory: IUIAutomationProxyFactory) -> IUIAutomationProxyFactoryEntry: ...
     @abc.abstractmethod
@@ -939,15 +1611,21 @@ class IUIAutomation3(IUIAutomation2, typing.Protocol):
     @abc.abstractmethod
     def ElementFromHandle(self, hwnd: int) -> IUIAutomationElement: ...
     @abc.abstractmethod
-    def ElementFromHandleBuildCache(self, hwnd: int, cacheRequest: IUIAutomationCacheRequest) -> IUIAutomationElement: ...
+    def ElementFromHandleBuildCache(
+        self, hwnd: int, cacheRequest: IUIAutomationCacheRequest
+    ) -> IUIAutomationElement: ...
     @abc.abstractmethod
     def ElementFromIAccessible(self, accessible: IAccessible, childId: int) -> IUIAutomationElement: ...
     @abc.abstractmethod
-    def ElementFromIAccessibleBuildCache(self, accessible: IAccessible, childId: int, cacheRequest: IUIAutomationCacheRequest) -> IUIAutomationElement: ...
+    def ElementFromIAccessibleBuildCache(
+        self, accessible: IAccessible, childId: int, cacheRequest: IUIAutomationCacheRequest
+    ) -> IUIAutomationElement: ...
     @abc.abstractmethod
     def ElementFromPoint(self, pt: tagPOINT) -> IUIAutomationElement: ...
     @abc.abstractmethod
-    def ElementFromPointBuildCache(self, pt: tagPOINT, cacheRequest: IUIAutomationCacheRequest) -> IUIAutomationElement: ...
+    def ElementFromPointBuildCache(
+        self, pt: tagPOINT, cacheRequest: IUIAutomationCacheRequest
+    ) -> IUIAutomationElement: ...
     @abc.abstractmethod
     def GetFocusedElement(self) -> IUIAutomationElement: ...
     @abc.abstractmethod
@@ -965,28 +1643,45 @@ class IUIAutomation3(IUIAutomation2, typing.Protocol):
     @abc.abstractmethod
     def IntSafeArrayToNativeArray(self, intArray: Array_1[int], array: int) -> int: ...
     @abc.abstractmethod
-    def PollForPotentialSupportedPatterns(self, pElement: IUIAutomationElement, patternIds: clr.Reference[Array_1[int]], patternNames: clr.Reference[Array_1[str]]) -> None: ...
+    def PollForPotentialSupportedPatterns(
+        self,
+        pElement: IUIAutomationElement,
+        patternIds: clr.Reference[Array_1[int]],
+        patternNames: clr.Reference[Array_1[str]],
+    ) -> None: ...
     @abc.abstractmethod
-    def PollForPotentialSupportedProperties(self, pElement: IUIAutomationElement, propertyIds: clr.Reference[Array_1[int]], propertyNames: clr.Reference[Array_1[str]]) -> None: ...
+    def PollForPotentialSupportedProperties(
+        self,
+        pElement: IUIAutomationElement,
+        propertyIds: clr.Reference[Array_1[int]],
+        propertyNames: clr.Reference[Array_1[str]],
+    ) -> None: ...
     @abc.abstractmethod
     def RectToVariant(self, rc: tagRECT) -> typing.Any: ...
     @abc.abstractmethod
     def RemoveAllEventHandlers(self) -> None: ...
     @abc.abstractmethod
-    def RemoveAutomationEventHandler(self, eventId: int, element: IUIAutomationElement, handler: IUIAutomationEventHandler) -> None: ...
+    def RemoveAutomationEventHandler(
+        self, eventId: int, element: IUIAutomationElement, handler: IUIAutomationEventHandler
+    ) -> None: ...
     @abc.abstractmethod
     def RemoveFocusChangedEventHandler(self, handler: IUIAutomationFocusChangedEventHandler) -> None: ...
     @abc.abstractmethod
-    def RemovePropertyChangedEventHandler(self, element: IUIAutomationElement, handler: IUIAutomationPropertyChangedEventHandler) -> None: ...
+    def RemovePropertyChangedEventHandler(
+        self, element: IUIAutomationElement, handler: IUIAutomationPropertyChangedEventHandler
+    ) -> None: ...
     @abc.abstractmethod
-    def RemoveStructureChangedEventHandler(self, element: IUIAutomationElement, handler: IUIAutomationStructureChangedEventHandler) -> None: ...
+    def RemoveStructureChangedEventHandler(
+        self, element: IUIAutomationElement, handler: IUIAutomationStructureChangedEventHandler
+    ) -> None: ...
     @abc.abstractmethod
-    def RemoveTextEditTextChangedEventHandler(self, element: IUIAutomationElement, handler: IUIAutomationTextEditTextChangedEventHandler) -> None: ...
+    def RemoveTextEditTextChangedEventHandler(
+        self, element: IUIAutomationElement, handler: IUIAutomationTextEditTextChangedEventHandler
+    ) -> None: ...
     @abc.abstractmethod
     def SafeArrayToRectNativeArray(self, rects: Array_1[float], rectArray: int) -> int: ...
     @abc.abstractmethod
     def VariantToRect(self, var: typing.Any) -> tagRECT: ...
-
 
 class IUIAutomation4(IUIAutomation3, typing.Protocol):
     @property
@@ -1020,19 +1715,64 @@ class IUIAutomation4(IUIAutomation3, typing.Protocol):
     @TransactionTimeout.setter
     def TransactionTimeout(self, value: int) -> int: ...
     @abc.abstractmethod
-    def AddAutomationEventHandler(self, eventId: int, element: IUIAutomationElement, scope: TreeScope, cacheRequest: IUIAutomationCacheRequest, handler: IUIAutomationEventHandler) -> None: ...
+    def AddAutomationEventHandler(
+        self,
+        eventId: int,
+        element: IUIAutomationElement,
+        scope: TreeScope,
+        cacheRequest: IUIAutomationCacheRequest,
+        handler: IUIAutomationEventHandler,
+    ) -> None: ...
     @abc.abstractmethod
-    def AddChangesEventHandler(self, element: IUIAutomationElement, scope: TreeScope, changeTypes: clr.Reference[int], changesCount: int, pCacheRequest: IUIAutomationCacheRequest, handler: IUIAutomationChangesEventHandler) -> None: ...
+    def AddChangesEventHandler(
+        self,
+        element: IUIAutomationElement,
+        scope: TreeScope,
+        changeTypes: clr.Reference[int],
+        changesCount: int,
+        pCacheRequest: IUIAutomationCacheRequest,
+        handler: IUIAutomationChangesEventHandler,
+    ) -> None: ...
     @abc.abstractmethod
-    def AddFocusChangedEventHandler(self, cacheRequest: IUIAutomationCacheRequest, handler: IUIAutomationFocusChangedEventHandler) -> None: ...
+    def AddFocusChangedEventHandler(
+        self, cacheRequest: IUIAutomationCacheRequest, handler: IUIAutomationFocusChangedEventHandler
+    ) -> None: ...
     @abc.abstractmethod
-    def AddPropertyChangedEventHandler(self, element: IUIAutomationElement, scope: TreeScope, cacheRequest: IUIAutomationCacheRequest, handler: IUIAutomationPropertyChangedEventHandler, propertyArray: Array_1[int]) -> None: ...
+    def AddPropertyChangedEventHandler(
+        self,
+        element: IUIAutomationElement,
+        scope: TreeScope,
+        cacheRequest: IUIAutomationCacheRequest,
+        handler: IUIAutomationPropertyChangedEventHandler,
+        propertyArray: Array_1[int],
+    ) -> None: ...
     @abc.abstractmethod
-    def AddPropertyChangedEventHandlerNativeArray(self, element: IUIAutomationElement, scope: TreeScope, cacheRequest: IUIAutomationCacheRequest, handler: IUIAutomationPropertyChangedEventHandler, propertyArray: clr.Reference[int], propertyCount: int) -> None: ...
+    def AddPropertyChangedEventHandlerNativeArray(
+        self,
+        element: IUIAutomationElement,
+        scope: TreeScope,
+        cacheRequest: IUIAutomationCacheRequest,
+        handler: IUIAutomationPropertyChangedEventHandler,
+        propertyArray: clr.Reference[int],
+        propertyCount: int,
+    ) -> None: ...
     @abc.abstractmethod
-    def AddStructureChangedEventHandler(self, element: IUIAutomationElement, scope: TreeScope, cacheRequest: IUIAutomationCacheRequest, handler: IUIAutomationStructureChangedEventHandler) -> None: ...
+    def AddStructureChangedEventHandler(
+        self,
+        element: IUIAutomationElement,
+        scope: TreeScope,
+        cacheRequest: IUIAutomationCacheRequest,
+        handler: IUIAutomationStructureChangedEventHandler,
+    ) -> None: ...
     @abc.abstractmethod
-    def AddTextEditTextChangedEventHandler(self, element: IUIAutomationElement, scope: TreeScope, TextEditChangeType: TextEditChangeType, cacheRequest: IUIAutomationCacheRequest, handler: IUIAutomationTextEditTextChangedEventHandler) -> None: ...
+    def AddTextEditTextChangedEventHandler(
+        self,
+        element: IUIAutomationElement,
+        scope: TreeScope,
+        TextEditChangeType: TextEditChangeType,
+        cacheRequest: IUIAutomationCacheRequest,
+        handler: IUIAutomationTextEditTextChangedEventHandler,
+    ) -> None: ...
     @abc.abstractmethod
     def CheckNotSupported(self, value: typing.Any) -> int: ...
     @abc.abstractmethod
@@ -1040,11 +1780,15 @@ class IUIAutomation4(IUIAutomation3, typing.Protocol):
     @abc.abstractmethod
     def CompareRuntimeIds(self, runtimeId1: Array_1[int], runtimeId2: Array_1[int]) -> int: ...
     @abc.abstractmethod
-    def CreateAndCondition(self, condition1: IUIAutomationCondition, condition2: IUIAutomationCondition) -> IUIAutomationCondition: ...
+    def CreateAndCondition(
+        self, condition1: IUIAutomationCondition, condition2: IUIAutomationCondition
+    ) -> IUIAutomationCondition: ...
     @abc.abstractmethod
     def CreateAndConditionFromArray(self, conditions: Array_1[IUIAutomationCondition]) -> IUIAutomationCondition: ...
     @abc.abstractmethod
-    def CreateAndConditionFromNativeArray(self, conditions: clr.Reference[IUIAutomationCondition], conditionCount: int) -> IUIAutomationCondition: ...
+    def CreateAndConditionFromNativeArray(
+        self, conditions: clr.Reference[IUIAutomationCondition], conditionCount: int
+    ) -> IUIAutomationCondition: ...
     @abc.abstractmethod
     def CreateCacheRequest(self) -> IUIAutomationCacheRequest: ...
     @abc.abstractmethod
@@ -1052,15 +1796,21 @@ class IUIAutomation4(IUIAutomation3, typing.Protocol):
     @abc.abstractmethod
     def CreateNotCondition(self, condition: IUIAutomationCondition) -> IUIAutomationCondition: ...
     @abc.abstractmethod
-    def CreateOrCondition(self, condition1: IUIAutomationCondition, condition2: IUIAutomationCondition) -> IUIAutomationCondition: ...
+    def CreateOrCondition(
+        self, condition1: IUIAutomationCondition, condition2: IUIAutomationCondition
+    ) -> IUIAutomationCondition: ...
     @abc.abstractmethod
     def CreateOrConditionFromArray(self, conditions: Array_1[IUIAutomationCondition]) -> IUIAutomationCondition: ...
     @abc.abstractmethod
-    def CreateOrConditionFromNativeArray(self, conditions: clr.Reference[IUIAutomationCondition], conditionCount: int) -> IUIAutomationCondition: ...
+    def CreateOrConditionFromNativeArray(
+        self, conditions: clr.Reference[IUIAutomationCondition], conditionCount: int
+    ) -> IUIAutomationCondition: ...
     @abc.abstractmethod
     def CreatePropertyCondition(self, propertyId: int, value: typing.Any) -> IUIAutomationCondition: ...
     @abc.abstractmethod
-    def CreatePropertyConditionEx(self, propertyId: int, value: typing.Any, flags: PropertyConditionFlags) -> IUIAutomationCondition: ...
+    def CreatePropertyConditionEx(
+        self, propertyId: int, value: typing.Any, flags: PropertyConditionFlags
+    ) -> IUIAutomationCondition: ...
     @abc.abstractmethod
     def CreateProxyFactoryEntry(self, factory: IUIAutomationProxyFactory) -> IUIAutomationProxyFactoryEntry: ...
     @abc.abstractmethod
@@ -1070,15 +1820,21 @@ class IUIAutomation4(IUIAutomation3, typing.Protocol):
     @abc.abstractmethod
     def ElementFromHandle(self, hwnd: int) -> IUIAutomationElement: ...
     @abc.abstractmethod
-    def ElementFromHandleBuildCache(self, hwnd: int, cacheRequest: IUIAutomationCacheRequest) -> IUIAutomationElement: ...
+    def ElementFromHandleBuildCache(
+        self, hwnd: int, cacheRequest: IUIAutomationCacheRequest
+    ) -> IUIAutomationElement: ...
     @abc.abstractmethod
     def ElementFromIAccessible(self, accessible: IAccessible, childId: int) -> IUIAutomationElement: ...
     @abc.abstractmethod
-    def ElementFromIAccessibleBuildCache(self, accessible: IAccessible, childId: int, cacheRequest: IUIAutomationCacheRequest) -> IUIAutomationElement: ...
+    def ElementFromIAccessibleBuildCache(
+        self, accessible: IAccessible, childId: int, cacheRequest: IUIAutomationCacheRequest
+    ) -> IUIAutomationElement: ...
     @abc.abstractmethod
     def ElementFromPoint(self, pt: tagPOINT) -> IUIAutomationElement: ...
     @abc.abstractmethod
-    def ElementFromPointBuildCache(self, pt: tagPOINT, cacheRequest: IUIAutomationCacheRequest) -> IUIAutomationElement: ...
+    def ElementFromPointBuildCache(
+        self, pt: tagPOINT, cacheRequest: IUIAutomationCacheRequest
+    ) -> IUIAutomationElement: ...
     @abc.abstractmethod
     def GetFocusedElement(self) -> IUIAutomationElement: ...
     @abc.abstractmethod
@@ -1096,30 +1852,49 @@ class IUIAutomation4(IUIAutomation3, typing.Protocol):
     @abc.abstractmethod
     def IntSafeArrayToNativeArray(self, intArray: Array_1[int], array: int) -> int: ...
     @abc.abstractmethod
-    def PollForPotentialSupportedPatterns(self, pElement: IUIAutomationElement, patternIds: clr.Reference[Array_1[int]], patternNames: clr.Reference[Array_1[str]]) -> None: ...
+    def PollForPotentialSupportedPatterns(
+        self,
+        pElement: IUIAutomationElement,
+        patternIds: clr.Reference[Array_1[int]],
+        patternNames: clr.Reference[Array_1[str]],
+    ) -> None: ...
     @abc.abstractmethod
-    def PollForPotentialSupportedProperties(self, pElement: IUIAutomationElement, propertyIds: clr.Reference[Array_1[int]], propertyNames: clr.Reference[Array_1[str]]) -> None: ...
+    def PollForPotentialSupportedProperties(
+        self,
+        pElement: IUIAutomationElement,
+        propertyIds: clr.Reference[Array_1[int]],
+        propertyNames: clr.Reference[Array_1[str]],
+    ) -> None: ...
     @abc.abstractmethod
     def RectToVariant(self, rc: tagRECT) -> typing.Any: ...
     @abc.abstractmethod
     def RemoveAllEventHandlers(self) -> None: ...
     @abc.abstractmethod
-    def RemoveAutomationEventHandler(self, eventId: int, element: IUIAutomationElement, handler: IUIAutomationEventHandler) -> None: ...
+    def RemoveAutomationEventHandler(
+        self, eventId: int, element: IUIAutomationElement, handler: IUIAutomationEventHandler
+    ) -> None: ...
     @abc.abstractmethod
-    def RemoveChangesEventHandler(self, element: IUIAutomationElement, handler: IUIAutomationChangesEventHandler) -> None: ...
+    def RemoveChangesEventHandler(
+        self, element: IUIAutomationElement, handler: IUIAutomationChangesEventHandler
+    ) -> None: ...
     @abc.abstractmethod
     def RemoveFocusChangedEventHandler(self, handler: IUIAutomationFocusChangedEventHandler) -> None: ...
     @abc.abstractmethod
-    def RemovePropertyChangedEventHandler(self, element: IUIAutomationElement, handler: IUIAutomationPropertyChangedEventHandler) -> None: ...
+    def RemovePropertyChangedEventHandler(
+        self, element: IUIAutomationElement, handler: IUIAutomationPropertyChangedEventHandler
+    ) -> None: ...
     @abc.abstractmethod
-    def RemoveStructureChangedEventHandler(self, element: IUIAutomationElement, handler: IUIAutomationStructureChangedEventHandler) -> None: ...
+    def RemoveStructureChangedEventHandler(
+        self, element: IUIAutomationElement, handler: IUIAutomationStructureChangedEventHandler
+    ) -> None: ...
     @abc.abstractmethod
-    def RemoveTextEditTextChangedEventHandler(self, element: IUIAutomationElement, handler: IUIAutomationTextEditTextChangedEventHandler) -> None: ...
+    def RemoveTextEditTextChangedEventHandler(
+        self, element: IUIAutomationElement, handler: IUIAutomationTextEditTextChangedEventHandler
+    ) -> None: ...
     @abc.abstractmethod
     def SafeArrayToRectNativeArray(self, rects: Array_1[float], rectArray: int) -> int: ...
     @abc.abstractmethod
     def VariantToRect(self, var: typing.Any) -> tagRECT: ...
-
 
 class IUIAutomation5(IUIAutomation4, typing.Protocol):
     @property
@@ -1153,21 +1928,72 @@ class IUIAutomation5(IUIAutomation4, typing.Protocol):
     @TransactionTimeout.setter
     def TransactionTimeout(self, value: int) -> int: ...
     @abc.abstractmethod
-    def AddAutomationEventHandler(self, eventId: int, element: IUIAutomationElement, scope: TreeScope, cacheRequest: IUIAutomationCacheRequest, handler: IUIAutomationEventHandler) -> None: ...
+    def AddAutomationEventHandler(
+        self,
+        eventId: int,
+        element: IUIAutomationElement,
+        scope: TreeScope,
+        cacheRequest: IUIAutomationCacheRequest,
+        handler: IUIAutomationEventHandler,
+    ) -> None: ...
     @abc.abstractmethod
-    def AddChangesEventHandler(self, element: IUIAutomationElement, scope: TreeScope, changeTypes: clr.Reference[int], changesCount: int, pCacheRequest: IUIAutomationCacheRequest, handler: IUIAutomationChangesEventHandler) -> None: ...
+    def AddChangesEventHandler(
+        self,
+        element: IUIAutomationElement,
+        scope: TreeScope,
+        changeTypes: clr.Reference[int],
+        changesCount: int,
+        pCacheRequest: IUIAutomationCacheRequest,
+        handler: IUIAutomationChangesEventHandler,
+    ) -> None: ...
     @abc.abstractmethod
-    def AddFocusChangedEventHandler(self, cacheRequest: IUIAutomationCacheRequest, handler: IUIAutomationFocusChangedEventHandler) -> None: ...
+    def AddFocusChangedEventHandler(
+        self, cacheRequest: IUIAutomationCacheRequest, handler: IUIAutomationFocusChangedEventHandler
+    ) -> None: ...
     @abc.abstractmethod
-    def AddNotificationEventHandler(self, element: IUIAutomationElement, scope: TreeScope, cacheRequest: IUIAutomationCacheRequest, handler: IUIAutomationNotificationEventHandler) -> None: ...
+    def AddNotificationEventHandler(
+        self,
+        element: IUIAutomationElement,
+        scope: TreeScope,
+        cacheRequest: IUIAutomationCacheRequest,
+        handler: IUIAutomationNotificationEventHandler,
+    ) -> None: ...
     @abc.abstractmethod
-    def AddPropertyChangedEventHandler(self, element: IUIAutomationElement, scope: TreeScope, cacheRequest: IUIAutomationCacheRequest, handler: IUIAutomationPropertyChangedEventHandler, propertyArray: Array_1[int]) -> None: ...
+    def AddPropertyChangedEventHandler(
+        self,
+        element: IUIAutomationElement,
+        scope: TreeScope,
+        cacheRequest: IUIAutomationCacheRequest,
+        handler: IUIAutomationPropertyChangedEventHandler,
+        propertyArray: Array_1[int],
+    ) -> None: ...
     @abc.abstractmethod
-    def AddPropertyChangedEventHandlerNativeArray(self, element: IUIAutomationElement, scope: TreeScope, cacheRequest: IUIAutomationCacheRequest, handler: IUIAutomationPropertyChangedEventHandler, propertyArray: clr.Reference[int], propertyCount: int) -> None: ...
+    def AddPropertyChangedEventHandlerNativeArray(
+        self,
+        element: IUIAutomationElement,
+        scope: TreeScope,
+        cacheRequest: IUIAutomationCacheRequest,
+        handler: IUIAutomationPropertyChangedEventHandler,
+        propertyArray: clr.Reference[int],
+        propertyCount: int,
+    ) -> None: ...
     @abc.abstractmethod
-    def AddStructureChangedEventHandler(self, element: IUIAutomationElement, scope: TreeScope, cacheRequest: IUIAutomationCacheRequest, handler: IUIAutomationStructureChangedEventHandler) -> None: ...
+    def AddStructureChangedEventHandler(
+        self,
+        element: IUIAutomationElement,
+        scope: TreeScope,
+        cacheRequest: IUIAutomationCacheRequest,
+        handler: IUIAutomationStructureChangedEventHandler,
+    ) -> None: ...
     @abc.abstractmethod
-    def AddTextEditTextChangedEventHandler(self, element: IUIAutomationElement, scope: TreeScope, TextEditChangeType: TextEditChangeType, cacheRequest: IUIAutomationCacheRequest, handler: IUIAutomationTextEditTextChangedEventHandler) -> None: ...
+    def AddTextEditTextChangedEventHandler(
+        self,
+        element: IUIAutomationElement,
+        scope: TreeScope,
+        TextEditChangeType: TextEditChangeType,
+        cacheRequest: IUIAutomationCacheRequest,
+        handler: IUIAutomationTextEditTextChangedEventHandler,
+    ) -> None: ...
     @abc.abstractmethod
     def CheckNotSupported(self, value: typing.Any) -> int: ...
     @abc.abstractmethod
@@ -1175,11 +2001,15 @@ class IUIAutomation5(IUIAutomation4, typing.Protocol):
     @abc.abstractmethod
     def CompareRuntimeIds(self, runtimeId1: Array_1[int], runtimeId2: Array_1[int]) -> int: ...
     @abc.abstractmethod
-    def CreateAndCondition(self, condition1: IUIAutomationCondition, condition2: IUIAutomationCondition) -> IUIAutomationCondition: ...
+    def CreateAndCondition(
+        self, condition1: IUIAutomationCondition, condition2: IUIAutomationCondition
+    ) -> IUIAutomationCondition: ...
     @abc.abstractmethod
     def CreateAndConditionFromArray(self, conditions: Array_1[IUIAutomationCondition]) -> IUIAutomationCondition: ...
     @abc.abstractmethod
-    def CreateAndConditionFromNativeArray(self, conditions: clr.Reference[IUIAutomationCondition], conditionCount: int) -> IUIAutomationCondition: ...
+    def CreateAndConditionFromNativeArray(
+        self, conditions: clr.Reference[IUIAutomationCondition], conditionCount: int
+    ) -> IUIAutomationCondition: ...
     @abc.abstractmethod
     def CreateCacheRequest(self) -> IUIAutomationCacheRequest: ...
     @abc.abstractmethod
@@ -1187,15 +2017,21 @@ class IUIAutomation5(IUIAutomation4, typing.Protocol):
     @abc.abstractmethod
     def CreateNotCondition(self, condition: IUIAutomationCondition) -> IUIAutomationCondition: ...
     @abc.abstractmethod
-    def CreateOrCondition(self, condition1: IUIAutomationCondition, condition2: IUIAutomationCondition) -> IUIAutomationCondition: ...
+    def CreateOrCondition(
+        self, condition1: IUIAutomationCondition, condition2: IUIAutomationCondition
+    ) -> IUIAutomationCondition: ...
     @abc.abstractmethod
     def CreateOrConditionFromArray(self, conditions: Array_1[IUIAutomationCondition]) -> IUIAutomationCondition: ...
     @abc.abstractmethod
-    def CreateOrConditionFromNativeArray(self, conditions: clr.Reference[IUIAutomationCondition], conditionCount: int) -> IUIAutomationCondition: ...
+    def CreateOrConditionFromNativeArray(
+        self, conditions: clr.Reference[IUIAutomationCondition], conditionCount: int
+    ) -> IUIAutomationCondition: ...
     @abc.abstractmethod
     def CreatePropertyCondition(self, propertyId: int, value: typing.Any) -> IUIAutomationCondition: ...
     @abc.abstractmethod
-    def CreatePropertyConditionEx(self, propertyId: int, value: typing.Any, flags: PropertyConditionFlags) -> IUIAutomationCondition: ...
+    def CreatePropertyConditionEx(
+        self, propertyId: int, value: typing.Any, flags: PropertyConditionFlags
+    ) -> IUIAutomationCondition: ...
     @abc.abstractmethod
     def CreateProxyFactoryEntry(self, factory: IUIAutomationProxyFactory) -> IUIAutomationProxyFactoryEntry: ...
     @abc.abstractmethod
@@ -1205,15 +2041,21 @@ class IUIAutomation5(IUIAutomation4, typing.Protocol):
     @abc.abstractmethod
     def ElementFromHandle(self, hwnd: int) -> IUIAutomationElement: ...
     @abc.abstractmethod
-    def ElementFromHandleBuildCache(self, hwnd: int, cacheRequest: IUIAutomationCacheRequest) -> IUIAutomationElement: ...
+    def ElementFromHandleBuildCache(
+        self, hwnd: int, cacheRequest: IUIAutomationCacheRequest
+    ) -> IUIAutomationElement: ...
     @abc.abstractmethod
     def ElementFromIAccessible(self, accessible: IAccessible, childId: int) -> IUIAutomationElement: ...
     @abc.abstractmethod
-    def ElementFromIAccessibleBuildCache(self, accessible: IAccessible, childId: int, cacheRequest: IUIAutomationCacheRequest) -> IUIAutomationElement: ...
+    def ElementFromIAccessibleBuildCache(
+        self, accessible: IAccessible, childId: int, cacheRequest: IUIAutomationCacheRequest
+    ) -> IUIAutomationElement: ...
     @abc.abstractmethod
     def ElementFromPoint(self, pt: tagPOINT) -> IUIAutomationElement: ...
     @abc.abstractmethod
-    def ElementFromPointBuildCache(self, pt: tagPOINT, cacheRequest: IUIAutomationCacheRequest) -> IUIAutomationElement: ...
+    def ElementFromPointBuildCache(
+        self, pt: tagPOINT, cacheRequest: IUIAutomationCacheRequest
+    ) -> IUIAutomationElement: ...
     @abc.abstractmethod
     def GetFocusedElement(self) -> IUIAutomationElement: ...
     @abc.abstractmethod
@@ -1231,32 +2073,53 @@ class IUIAutomation5(IUIAutomation4, typing.Protocol):
     @abc.abstractmethod
     def IntSafeArrayToNativeArray(self, intArray: Array_1[int], array: int) -> int: ...
     @abc.abstractmethod
-    def PollForPotentialSupportedPatterns(self, pElement: IUIAutomationElement, patternIds: clr.Reference[Array_1[int]], patternNames: clr.Reference[Array_1[str]]) -> None: ...
+    def PollForPotentialSupportedPatterns(
+        self,
+        pElement: IUIAutomationElement,
+        patternIds: clr.Reference[Array_1[int]],
+        patternNames: clr.Reference[Array_1[str]],
+    ) -> None: ...
     @abc.abstractmethod
-    def PollForPotentialSupportedProperties(self, pElement: IUIAutomationElement, propertyIds: clr.Reference[Array_1[int]], propertyNames: clr.Reference[Array_1[str]]) -> None: ...
+    def PollForPotentialSupportedProperties(
+        self,
+        pElement: IUIAutomationElement,
+        propertyIds: clr.Reference[Array_1[int]],
+        propertyNames: clr.Reference[Array_1[str]],
+    ) -> None: ...
     @abc.abstractmethod
     def RectToVariant(self, rc: tagRECT) -> typing.Any: ...
     @abc.abstractmethod
     def RemoveAllEventHandlers(self) -> None: ...
     @abc.abstractmethod
-    def RemoveAutomationEventHandler(self, eventId: int, element: IUIAutomationElement, handler: IUIAutomationEventHandler) -> None: ...
+    def RemoveAutomationEventHandler(
+        self, eventId: int, element: IUIAutomationElement, handler: IUIAutomationEventHandler
+    ) -> None: ...
     @abc.abstractmethod
-    def RemoveChangesEventHandler(self, element: IUIAutomationElement, handler: IUIAutomationChangesEventHandler) -> None: ...
+    def RemoveChangesEventHandler(
+        self, element: IUIAutomationElement, handler: IUIAutomationChangesEventHandler
+    ) -> None: ...
     @abc.abstractmethod
     def RemoveFocusChangedEventHandler(self, handler: IUIAutomationFocusChangedEventHandler) -> None: ...
     @abc.abstractmethod
-    def RemoveNotificationEventHandler(self, element: IUIAutomationElement, handler: IUIAutomationNotificationEventHandler) -> None: ...
+    def RemoveNotificationEventHandler(
+        self, element: IUIAutomationElement, handler: IUIAutomationNotificationEventHandler
+    ) -> None: ...
     @abc.abstractmethod
-    def RemovePropertyChangedEventHandler(self, element: IUIAutomationElement, handler: IUIAutomationPropertyChangedEventHandler) -> None: ...
+    def RemovePropertyChangedEventHandler(
+        self, element: IUIAutomationElement, handler: IUIAutomationPropertyChangedEventHandler
+    ) -> None: ...
     @abc.abstractmethod
-    def RemoveStructureChangedEventHandler(self, element: IUIAutomationElement, handler: IUIAutomationStructureChangedEventHandler) -> None: ...
+    def RemoveStructureChangedEventHandler(
+        self, element: IUIAutomationElement, handler: IUIAutomationStructureChangedEventHandler
+    ) -> None: ...
     @abc.abstractmethod
-    def RemoveTextEditTextChangedEventHandler(self, element: IUIAutomationElement, handler: IUIAutomationTextEditTextChangedEventHandler) -> None: ...
+    def RemoveTextEditTextChangedEventHandler(
+        self, element: IUIAutomationElement, handler: IUIAutomationTextEditTextChangedEventHandler
+    ) -> None: ...
     @abc.abstractmethod
     def SafeArrayToRectNativeArray(self, rects: Array_1[float], rectArray: int) -> int: ...
     @abc.abstractmethod
     def VariantToRect(self, var: typing.Any) -> tagRECT: ...
-
 
 class IUIAutomation6(IUIAutomation5, typing.Protocol):
     @property
@@ -1270,7 +2133,9 @@ class IUIAutomation6(IUIAutomation5, typing.Protocol):
     @property
     def ConnectionRecoveryBehavior(self) -> ConnectionRecoveryBehaviorOptions: ...
     @ConnectionRecoveryBehavior.setter
-    def ConnectionRecoveryBehavior(self, value: ConnectionRecoveryBehaviorOptions) -> ConnectionRecoveryBehaviorOptions: ...
+    def ConnectionRecoveryBehavior(
+        self, value: ConnectionRecoveryBehaviorOptions
+    ) -> ConnectionRecoveryBehaviorOptions: ...
     @property
     def ConnectionTimeout(self) -> int: ...
     @ConnectionTimeout.setter
@@ -1298,25 +2163,84 @@ class IUIAutomation6(IUIAutomation5, typing.Protocol):
     @TransactionTimeout.setter
     def TransactionTimeout(self, value: int) -> int: ...
     @abc.abstractmethod
-    def AddActiveTextPositionChangedEventHandler(self, element: IUIAutomationElement, scope: TreeScope, cacheRequest: IUIAutomationCacheRequest, handler: IUIAutomationActiveTextPositionChangedEventHandler) -> None: ...
+    def AddActiveTextPositionChangedEventHandler(
+        self,
+        element: IUIAutomationElement,
+        scope: TreeScope,
+        cacheRequest: IUIAutomationCacheRequest,
+        handler: IUIAutomationActiveTextPositionChangedEventHandler,
+    ) -> None: ...
     @abc.abstractmethod
-    def AddAutomationEventHandler(self, eventId: int, element: IUIAutomationElement, scope: TreeScope, cacheRequest: IUIAutomationCacheRequest, handler: IUIAutomationEventHandler) -> None: ...
+    def AddAutomationEventHandler(
+        self,
+        eventId: int,
+        element: IUIAutomationElement,
+        scope: TreeScope,
+        cacheRequest: IUIAutomationCacheRequest,
+        handler: IUIAutomationEventHandler,
+    ) -> None: ...
     @abc.abstractmethod
-    def AddChangesEventHandler(self, element: IUIAutomationElement, scope: TreeScope, changeTypes: clr.Reference[int], changesCount: int, pCacheRequest: IUIAutomationCacheRequest, handler: IUIAutomationChangesEventHandler) -> None: ...
+    def AddChangesEventHandler(
+        self,
+        element: IUIAutomationElement,
+        scope: TreeScope,
+        changeTypes: clr.Reference[int],
+        changesCount: int,
+        pCacheRequest: IUIAutomationCacheRequest,
+        handler: IUIAutomationChangesEventHandler,
+    ) -> None: ...
     @abc.abstractmethod
-    def AddEventHandlerGroup(self, element: IUIAutomationElement, handlerGroup: IUIAutomationEventHandlerGroup) -> None: ...
+    def AddEventHandlerGroup(
+        self, element: IUIAutomationElement, handlerGroup: IUIAutomationEventHandlerGroup
+    ) -> None: ...
     @abc.abstractmethod
-    def AddFocusChangedEventHandler(self, cacheRequest: IUIAutomationCacheRequest, handler: IUIAutomationFocusChangedEventHandler) -> None: ...
+    def AddFocusChangedEventHandler(
+        self, cacheRequest: IUIAutomationCacheRequest, handler: IUIAutomationFocusChangedEventHandler
+    ) -> None: ...
     @abc.abstractmethod
-    def AddNotificationEventHandler(self, element: IUIAutomationElement, scope: TreeScope, cacheRequest: IUIAutomationCacheRequest, handler: IUIAutomationNotificationEventHandler) -> None: ...
+    def AddNotificationEventHandler(
+        self,
+        element: IUIAutomationElement,
+        scope: TreeScope,
+        cacheRequest: IUIAutomationCacheRequest,
+        handler: IUIAutomationNotificationEventHandler,
+    ) -> None: ...
     @abc.abstractmethod
-    def AddPropertyChangedEventHandler(self, element: IUIAutomationElement, scope: TreeScope, cacheRequest: IUIAutomationCacheRequest, handler: IUIAutomationPropertyChangedEventHandler, propertyArray: Array_1[int]) -> None: ...
+    def AddPropertyChangedEventHandler(
+        self,
+        element: IUIAutomationElement,
+        scope: TreeScope,
+        cacheRequest: IUIAutomationCacheRequest,
+        handler: IUIAutomationPropertyChangedEventHandler,
+        propertyArray: Array_1[int],
+    ) -> None: ...
     @abc.abstractmethod
-    def AddPropertyChangedEventHandlerNativeArray(self, element: IUIAutomationElement, scope: TreeScope, cacheRequest: IUIAutomationCacheRequest, handler: IUIAutomationPropertyChangedEventHandler, propertyArray: clr.Reference[int], propertyCount: int) -> None: ...
+    def AddPropertyChangedEventHandlerNativeArray(
+        self,
+        element: IUIAutomationElement,
+        scope: TreeScope,
+        cacheRequest: IUIAutomationCacheRequest,
+        handler: IUIAutomationPropertyChangedEventHandler,
+        propertyArray: clr.Reference[int],
+        propertyCount: int,
+    ) -> None: ...
     @abc.abstractmethod
-    def AddStructureChangedEventHandler(self, element: IUIAutomationElement, scope: TreeScope, cacheRequest: IUIAutomationCacheRequest, handler: IUIAutomationStructureChangedEventHandler) -> None: ...
+    def AddStructureChangedEventHandler(
+        self,
+        element: IUIAutomationElement,
+        scope: TreeScope,
+        cacheRequest: IUIAutomationCacheRequest,
+        handler: IUIAutomationStructureChangedEventHandler,
+    ) -> None: ...
     @abc.abstractmethod
-    def AddTextEditTextChangedEventHandler(self, element: IUIAutomationElement, scope: TreeScope, TextEditChangeType: TextEditChangeType, cacheRequest: IUIAutomationCacheRequest, handler: IUIAutomationTextEditTextChangedEventHandler) -> None: ...
+    def AddTextEditTextChangedEventHandler(
+        self,
+        element: IUIAutomationElement,
+        scope: TreeScope,
+        TextEditChangeType: TextEditChangeType,
+        cacheRequest: IUIAutomationCacheRequest,
+        handler: IUIAutomationTextEditTextChangedEventHandler,
+    ) -> None: ...
     @abc.abstractmethod
     def CheckNotSupported(self, value: typing.Any) -> int: ...
     @abc.abstractmethod
@@ -1324,11 +2248,15 @@ class IUIAutomation6(IUIAutomation5, typing.Protocol):
     @abc.abstractmethod
     def CompareRuntimeIds(self, runtimeId1: Array_1[int], runtimeId2: Array_1[int]) -> int: ...
     @abc.abstractmethod
-    def CreateAndCondition(self, condition1: IUIAutomationCondition, condition2: IUIAutomationCondition) -> IUIAutomationCondition: ...
+    def CreateAndCondition(
+        self, condition1: IUIAutomationCondition, condition2: IUIAutomationCondition
+    ) -> IUIAutomationCondition: ...
     @abc.abstractmethod
     def CreateAndConditionFromArray(self, conditions: Array_1[IUIAutomationCondition]) -> IUIAutomationCondition: ...
     @abc.abstractmethod
-    def CreateAndConditionFromNativeArray(self, conditions: clr.Reference[IUIAutomationCondition], conditionCount: int) -> IUIAutomationCondition: ...
+    def CreateAndConditionFromNativeArray(
+        self, conditions: clr.Reference[IUIAutomationCondition], conditionCount: int
+    ) -> IUIAutomationCondition: ...
     @abc.abstractmethod
     def CreateCacheRequest(self) -> IUIAutomationCacheRequest: ...
     @abc.abstractmethod
@@ -1338,15 +2266,21 @@ class IUIAutomation6(IUIAutomation5, typing.Protocol):
     @abc.abstractmethod
     def CreateNotCondition(self, condition: IUIAutomationCondition) -> IUIAutomationCondition: ...
     @abc.abstractmethod
-    def CreateOrCondition(self, condition1: IUIAutomationCondition, condition2: IUIAutomationCondition) -> IUIAutomationCondition: ...
+    def CreateOrCondition(
+        self, condition1: IUIAutomationCondition, condition2: IUIAutomationCondition
+    ) -> IUIAutomationCondition: ...
     @abc.abstractmethod
     def CreateOrConditionFromArray(self, conditions: Array_1[IUIAutomationCondition]) -> IUIAutomationCondition: ...
     @abc.abstractmethod
-    def CreateOrConditionFromNativeArray(self, conditions: clr.Reference[IUIAutomationCondition], conditionCount: int) -> IUIAutomationCondition: ...
+    def CreateOrConditionFromNativeArray(
+        self, conditions: clr.Reference[IUIAutomationCondition], conditionCount: int
+    ) -> IUIAutomationCondition: ...
     @abc.abstractmethod
     def CreatePropertyCondition(self, propertyId: int, value: typing.Any) -> IUIAutomationCondition: ...
     @abc.abstractmethod
-    def CreatePropertyConditionEx(self, propertyId: int, value: typing.Any, flags: PropertyConditionFlags) -> IUIAutomationCondition: ...
+    def CreatePropertyConditionEx(
+        self, propertyId: int, value: typing.Any, flags: PropertyConditionFlags
+    ) -> IUIAutomationCondition: ...
     @abc.abstractmethod
     def CreateProxyFactoryEntry(self, factory: IUIAutomationProxyFactory) -> IUIAutomationProxyFactoryEntry: ...
     @abc.abstractmethod
@@ -1356,15 +2290,21 @@ class IUIAutomation6(IUIAutomation5, typing.Protocol):
     @abc.abstractmethod
     def ElementFromHandle(self, hwnd: int) -> IUIAutomationElement: ...
     @abc.abstractmethod
-    def ElementFromHandleBuildCache(self, hwnd: int, cacheRequest: IUIAutomationCacheRequest) -> IUIAutomationElement: ...
+    def ElementFromHandleBuildCache(
+        self, hwnd: int, cacheRequest: IUIAutomationCacheRequest
+    ) -> IUIAutomationElement: ...
     @abc.abstractmethod
     def ElementFromIAccessible(self, accessible: IAccessible, childId: int) -> IUIAutomationElement: ...
     @abc.abstractmethod
-    def ElementFromIAccessibleBuildCache(self, accessible: IAccessible, childId: int, cacheRequest: IUIAutomationCacheRequest) -> IUIAutomationElement: ...
+    def ElementFromIAccessibleBuildCache(
+        self, accessible: IAccessible, childId: int, cacheRequest: IUIAutomationCacheRequest
+    ) -> IUIAutomationElement: ...
     @abc.abstractmethod
     def ElementFromPoint(self, pt: tagPOINT) -> IUIAutomationElement: ...
     @abc.abstractmethod
-    def ElementFromPointBuildCache(self, pt: tagPOINT, cacheRequest: IUIAutomationCacheRequest) -> IUIAutomationElement: ...
+    def ElementFromPointBuildCache(
+        self, pt: tagPOINT, cacheRequest: IUIAutomationCacheRequest
+    ) -> IUIAutomationElement: ...
     @abc.abstractmethod
     def GetFocusedElement(self) -> IUIAutomationElement: ...
     @abc.abstractmethod
@@ -1382,41 +2322,67 @@ class IUIAutomation6(IUIAutomation5, typing.Protocol):
     @abc.abstractmethod
     def IntSafeArrayToNativeArray(self, intArray: Array_1[int], array: int) -> int: ...
     @abc.abstractmethod
-    def PollForPotentialSupportedPatterns(self, pElement: IUIAutomationElement, patternIds: clr.Reference[Array_1[int]], patternNames: clr.Reference[Array_1[str]]) -> None: ...
+    def PollForPotentialSupportedPatterns(
+        self,
+        pElement: IUIAutomationElement,
+        patternIds: clr.Reference[Array_1[int]],
+        patternNames: clr.Reference[Array_1[str]],
+    ) -> None: ...
     @abc.abstractmethod
-    def PollForPotentialSupportedProperties(self, pElement: IUIAutomationElement, propertyIds: clr.Reference[Array_1[int]], propertyNames: clr.Reference[Array_1[str]]) -> None: ...
+    def PollForPotentialSupportedProperties(
+        self,
+        pElement: IUIAutomationElement,
+        propertyIds: clr.Reference[Array_1[int]],
+        propertyNames: clr.Reference[Array_1[str]],
+    ) -> None: ...
     @abc.abstractmethod
     def RectToVariant(self, rc: tagRECT) -> typing.Any: ...
     @abc.abstractmethod
-    def RemoveActiveTextPositionChangedEventHandler(self, element: IUIAutomationElement, handler: IUIAutomationActiveTextPositionChangedEventHandler) -> None: ...
+    def RemoveActiveTextPositionChangedEventHandler(
+        self, element: IUIAutomationElement, handler: IUIAutomationActiveTextPositionChangedEventHandler
+    ) -> None: ...
     @abc.abstractmethod
     def RemoveAllEventHandlers(self) -> None: ...
     @abc.abstractmethod
-    def RemoveAutomationEventHandler(self, eventId: int, element: IUIAutomationElement, handler: IUIAutomationEventHandler) -> None: ...
+    def RemoveAutomationEventHandler(
+        self, eventId: int, element: IUIAutomationElement, handler: IUIAutomationEventHandler
+    ) -> None: ...
     @abc.abstractmethod
-    def RemoveChangesEventHandler(self, element: IUIAutomationElement, handler: IUIAutomationChangesEventHandler) -> None: ...
+    def RemoveChangesEventHandler(
+        self, element: IUIAutomationElement, handler: IUIAutomationChangesEventHandler
+    ) -> None: ...
     @abc.abstractmethod
-    def RemoveEventHandlerGroup(self, element: IUIAutomationElement, handlerGroup: IUIAutomationEventHandlerGroup) -> None: ...
+    def RemoveEventHandlerGroup(
+        self, element: IUIAutomationElement, handlerGroup: IUIAutomationEventHandlerGroup
+    ) -> None: ...
     @abc.abstractmethod
     def RemoveFocusChangedEventHandler(self, handler: IUIAutomationFocusChangedEventHandler) -> None: ...
     @abc.abstractmethod
-    def RemoveNotificationEventHandler(self, element: IUIAutomationElement, handler: IUIAutomationNotificationEventHandler) -> None: ...
+    def RemoveNotificationEventHandler(
+        self, element: IUIAutomationElement, handler: IUIAutomationNotificationEventHandler
+    ) -> None: ...
     @abc.abstractmethod
-    def RemovePropertyChangedEventHandler(self, element: IUIAutomationElement, handler: IUIAutomationPropertyChangedEventHandler) -> None: ...
+    def RemovePropertyChangedEventHandler(
+        self, element: IUIAutomationElement, handler: IUIAutomationPropertyChangedEventHandler
+    ) -> None: ...
     @abc.abstractmethod
-    def RemoveStructureChangedEventHandler(self, element: IUIAutomationElement, handler: IUIAutomationStructureChangedEventHandler) -> None: ...
+    def RemoveStructureChangedEventHandler(
+        self, element: IUIAutomationElement, handler: IUIAutomationStructureChangedEventHandler
+    ) -> None: ...
     @abc.abstractmethod
-    def RemoveTextEditTextChangedEventHandler(self, element: IUIAutomationElement, handler: IUIAutomationTextEditTextChangedEventHandler) -> None: ...
+    def RemoveTextEditTextChangedEventHandler(
+        self, element: IUIAutomationElement, handler: IUIAutomationTextEditTextChangedEventHandler
+    ) -> None: ...
     @abc.abstractmethod
     def SafeArrayToRectNativeArray(self, rects: Array_1[float], rectArray: int) -> int: ...
     @abc.abstractmethod
     def VariantToRect(self, var: typing.Any) -> tagRECT: ...
 
-
 class IUIAutomationActiveTextPositionChangedEventHandler(typing.Protocol):
     @abc.abstractmethod
-    def HandleActiveTextPositionChangedEvent(self, sender: IUIAutomationElement, range: IUIAutomationTextRange) -> None: ...
-
+    def HandleActiveTextPositionChangedEvent(
+        self, sender: IUIAutomationElement, range: IUIAutomationTextRange
+    ) -> None: ...
 
 class IUIAutomationAndCondition(IUIAutomationCondition, typing.Protocol):
     @property
@@ -1425,7 +2391,6 @@ class IUIAutomationAndCondition(IUIAutomationCondition, typing.Protocol):
     def GetChildren(self) -> Array_1[IUIAutomationCondition]: ...
     @abc.abstractmethod
     def GetChildrenAsNativeArray(self, childArray: int, childArrayCount: clr.Reference[int]) -> None: ...
-
 
 class IUIAutomationAnnotationPattern(typing.Protocol):
     @property
@@ -1449,11 +2414,9 @@ class IUIAutomationAnnotationPattern(typing.Protocol):
     @property
     def CurrentTarget(self) -> IUIAutomationElement: ...
 
-
 class IUIAutomationBoolCondition(IUIAutomationCondition, typing.Protocol):
     @property
     def BooleanValue(self) -> int: ...
-
 
 class IUIAutomationCacheRequest(typing.Protocol):
     @property
@@ -1475,20 +2438,18 @@ class IUIAutomationCacheRequest(typing.Protocol):
     @abc.abstractmethod
     def Clone(self) -> IUIAutomationCacheRequest: ...
 
-
 class IUIAutomationChangesEventHandler(typing.Protocol):
     @abc.abstractmethod
-    def HandleChangesEvent(self, sender: IUIAutomationElement, uiaChanges: clr.Reference[UiaChangeInfo], changesCount: int) -> None: ...
-
+    def HandleChangesEvent(
+        self, sender: IUIAutomationElement, uiaChanges: clr.Reference[UiaChangeInfo], changesCount: int
+    ) -> None: ...
 
 class IUIAutomationCondition(typing.Protocol):
     pass
 
-
 class IUIAutomationCustomNavigationPattern(typing.Protocol):
     @abc.abstractmethod
     def Navigate(self, direction: NavigateDirection) -> IUIAutomationElement: ...
-
 
 class IUIAutomationDockPattern(typing.Protocol):
     @property
@@ -1497,7 +2458,6 @@ class IUIAutomationDockPattern(typing.Protocol):
     def CurrentDockPosition(self) -> DockPosition: ...
     @abc.abstractmethod
     def SetDockPosition(self, dockPos: DockPosition) -> None: ...
-
 
 class IUIAutomationDragPattern(typing.Protocol):
     @property
@@ -1517,7 +2477,6 @@ class IUIAutomationDragPattern(typing.Protocol):
     @abc.abstractmethod
     def GetCurrentGrabbedItems(self) -> IUIAutomationElementArray: ...
 
-
 class IUIAutomationDropTargetPattern(typing.Protocol):
     @property
     def CachedDropTargetEffect(self) -> str: ...
@@ -1527,7 +2486,6 @@ class IUIAutomationDropTargetPattern(typing.Protocol):
     def CurrentDropTargetEffect(self) -> str: ...
     @property
     def CurrentDropTargetEffects(self) -> Array_1[str]: ...
-
 
 class IUIAutomationElement(typing.Protocol):
     @property
@@ -1663,11 +2621,15 @@ class IUIAutomationElement(typing.Protocol):
     @abc.abstractmethod
     def FindAll(self, scope: TreeScope, condition: IUIAutomationCondition) -> IUIAutomationElementArray: ...
     @abc.abstractmethod
-    def FindAllBuildCache(self, scope: TreeScope, condition: IUIAutomationCondition, cacheRequest: IUIAutomationCacheRequest) -> IUIAutomationElementArray: ...
+    def FindAllBuildCache(
+        self, scope: TreeScope, condition: IUIAutomationCondition, cacheRequest: IUIAutomationCacheRequest
+    ) -> IUIAutomationElementArray: ...
     @abc.abstractmethod
     def FindFirst(self, scope: TreeScope, condition: IUIAutomationCondition) -> IUIAutomationElement: ...
     @abc.abstractmethod
-    def FindFirstBuildCache(self, scope: TreeScope, condition: IUIAutomationCondition, cacheRequest: IUIAutomationCacheRequest) -> IUIAutomationElement: ...
+    def FindFirstBuildCache(
+        self, scope: TreeScope, condition: IUIAutomationCondition, cacheRequest: IUIAutomationCacheRequest
+    ) -> IUIAutomationElement: ...
     @abc.abstractmethod
     def GetCachedChildren(self) -> IUIAutomationElementArray: ...
     @abc.abstractmethod
@@ -1694,7 +2656,6 @@ class IUIAutomationElement(typing.Protocol):
     def GetRuntimeId(self) -> Array_1[int]: ...
     @abc.abstractmethod
     def SetFocus(self) -> None: ...
-
 
 class IUIAutomationElement2(IUIAutomationElement, typing.Protocol):
     @property
@@ -1842,11 +2803,15 @@ class IUIAutomationElement2(IUIAutomationElement, typing.Protocol):
     @abc.abstractmethod
     def FindAll(self, scope: TreeScope, condition: IUIAutomationCondition) -> IUIAutomationElementArray: ...
     @abc.abstractmethod
-    def FindAllBuildCache(self, scope: TreeScope, condition: IUIAutomationCondition, cacheRequest: IUIAutomationCacheRequest) -> IUIAutomationElementArray: ...
+    def FindAllBuildCache(
+        self, scope: TreeScope, condition: IUIAutomationCondition, cacheRequest: IUIAutomationCacheRequest
+    ) -> IUIAutomationElementArray: ...
     @abc.abstractmethod
     def FindFirst(self, scope: TreeScope, condition: IUIAutomationCondition) -> IUIAutomationElement: ...
     @abc.abstractmethod
-    def FindFirstBuildCache(self, scope: TreeScope, condition: IUIAutomationCondition, cacheRequest: IUIAutomationCacheRequest) -> IUIAutomationElement: ...
+    def FindFirstBuildCache(
+        self, scope: TreeScope, condition: IUIAutomationCondition, cacheRequest: IUIAutomationCacheRequest
+    ) -> IUIAutomationElement: ...
     @abc.abstractmethod
     def GetCachedChildren(self) -> IUIAutomationElementArray: ...
     @abc.abstractmethod
@@ -1873,7 +2838,6 @@ class IUIAutomationElement2(IUIAutomationElement, typing.Protocol):
     def GetRuntimeId(self) -> Array_1[int]: ...
     @abc.abstractmethod
     def SetFocus(self) -> None: ...
-
 
 class IUIAutomationElement3(IUIAutomationElement2, typing.Protocol):
     @property
@@ -2025,11 +2989,15 @@ class IUIAutomationElement3(IUIAutomationElement2, typing.Protocol):
     @abc.abstractmethod
     def FindAll(self, scope: TreeScope, condition: IUIAutomationCondition) -> IUIAutomationElementArray: ...
     @abc.abstractmethod
-    def FindAllBuildCache(self, scope: TreeScope, condition: IUIAutomationCondition, cacheRequest: IUIAutomationCacheRequest) -> IUIAutomationElementArray: ...
+    def FindAllBuildCache(
+        self, scope: TreeScope, condition: IUIAutomationCondition, cacheRequest: IUIAutomationCacheRequest
+    ) -> IUIAutomationElementArray: ...
     @abc.abstractmethod
     def FindFirst(self, scope: TreeScope, condition: IUIAutomationCondition) -> IUIAutomationElement: ...
     @abc.abstractmethod
-    def FindFirstBuildCache(self, scope: TreeScope, condition: IUIAutomationCondition, cacheRequest: IUIAutomationCacheRequest) -> IUIAutomationElement: ...
+    def FindFirstBuildCache(
+        self, scope: TreeScope, condition: IUIAutomationCondition, cacheRequest: IUIAutomationCacheRequest
+    ) -> IUIAutomationElement: ...
     @abc.abstractmethod
     def GetCachedChildren(self) -> IUIAutomationElementArray: ...
     @abc.abstractmethod
@@ -2058,7 +3026,6 @@ class IUIAutomationElement3(IUIAutomationElement2, typing.Protocol):
     def SetFocus(self) -> None: ...
     @abc.abstractmethod
     def ShowContextMenu(self) -> None: ...
-
 
 class IUIAutomationElement4(IUIAutomationElement3, typing.Protocol):
     @property
@@ -2230,11 +3197,15 @@ class IUIAutomationElement4(IUIAutomationElement3, typing.Protocol):
     @abc.abstractmethod
     def FindAll(self, scope: TreeScope, condition: IUIAutomationCondition) -> IUIAutomationElementArray: ...
     @abc.abstractmethod
-    def FindAllBuildCache(self, scope: TreeScope, condition: IUIAutomationCondition, cacheRequest: IUIAutomationCacheRequest) -> IUIAutomationElementArray: ...
+    def FindAllBuildCache(
+        self, scope: TreeScope, condition: IUIAutomationCondition, cacheRequest: IUIAutomationCacheRequest
+    ) -> IUIAutomationElementArray: ...
     @abc.abstractmethod
     def FindFirst(self, scope: TreeScope, condition: IUIAutomationCondition) -> IUIAutomationElement: ...
     @abc.abstractmethod
-    def FindFirstBuildCache(self, scope: TreeScope, condition: IUIAutomationCondition, cacheRequest: IUIAutomationCacheRequest) -> IUIAutomationElement: ...
+    def FindFirstBuildCache(
+        self, scope: TreeScope, condition: IUIAutomationCondition, cacheRequest: IUIAutomationCacheRequest
+    ) -> IUIAutomationElement: ...
     @abc.abstractmethod
     def GetCachedChildren(self) -> IUIAutomationElementArray: ...
     @abc.abstractmethod
@@ -2263,7 +3234,6 @@ class IUIAutomationElement4(IUIAutomationElement3, typing.Protocol):
     def SetFocus(self) -> None: ...
     @abc.abstractmethod
     def ShowContextMenu(self) -> None: ...
-
 
 class IUIAutomationElement5(IUIAutomationElement4, typing.Protocol):
     @property
@@ -2443,11 +3413,15 @@ class IUIAutomationElement5(IUIAutomationElement4, typing.Protocol):
     @abc.abstractmethod
     def FindAll(self, scope: TreeScope, condition: IUIAutomationCondition) -> IUIAutomationElementArray: ...
     @abc.abstractmethod
-    def FindAllBuildCache(self, scope: TreeScope, condition: IUIAutomationCondition, cacheRequest: IUIAutomationCacheRequest) -> IUIAutomationElementArray: ...
+    def FindAllBuildCache(
+        self, scope: TreeScope, condition: IUIAutomationCondition, cacheRequest: IUIAutomationCacheRequest
+    ) -> IUIAutomationElementArray: ...
     @abc.abstractmethod
     def FindFirst(self, scope: TreeScope, condition: IUIAutomationCondition) -> IUIAutomationElement: ...
     @abc.abstractmethod
-    def FindFirstBuildCache(self, scope: TreeScope, condition: IUIAutomationCondition, cacheRequest: IUIAutomationCacheRequest) -> IUIAutomationElement: ...
+    def FindFirstBuildCache(
+        self, scope: TreeScope, condition: IUIAutomationCondition, cacheRequest: IUIAutomationCacheRequest
+    ) -> IUIAutomationElement: ...
     @abc.abstractmethod
     def GetCachedChildren(self) -> IUIAutomationElementArray: ...
     @abc.abstractmethod
@@ -2476,7 +3450,6 @@ class IUIAutomationElement5(IUIAutomationElement4, typing.Protocol):
     def SetFocus(self) -> None: ...
     @abc.abstractmethod
     def ShowContextMenu(self) -> None: ...
-
 
 class IUIAutomationElement6(IUIAutomationElement5, typing.Protocol):
     @property
@@ -2660,11 +3633,15 @@ class IUIAutomationElement6(IUIAutomationElement5, typing.Protocol):
     @abc.abstractmethod
     def FindAll(self, scope: TreeScope, condition: IUIAutomationCondition) -> IUIAutomationElementArray: ...
     @abc.abstractmethod
-    def FindAllBuildCache(self, scope: TreeScope, condition: IUIAutomationCondition, cacheRequest: IUIAutomationCacheRequest) -> IUIAutomationElementArray: ...
+    def FindAllBuildCache(
+        self, scope: TreeScope, condition: IUIAutomationCondition, cacheRequest: IUIAutomationCacheRequest
+    ) -> IUIAutomationElementArray: ...
     @abc.abstractmethod
     def FindFirst(self, scope: TreeScope, condition: IUIAutomationCondition) -> IUIAutomationElement: ...
     @abc.abstractmethod
-    def FindFirstBuildCache(self, scope: TreeScope, condition: IUIAutomationCondition, cacheRequest: IUIAutomationCacheRequest) -> IUIAutomationElement: ...
+    def FindFirstBuildCache(
+        self, scope: TreeScope, condition: IUIAutomationCondition, cacheRequest: IUIAutomationCacheRequest
+    ) -> IUIAutomationElement: ...
     @abc.abstractmethod
     def GetCachedChildren(self) -> IUIAutomationElementArray: ...
     @abc.abstractmethod
@@ -2693,7 +3670,6 @@ class IUIAutomationElement6(IUIAutomationElement5, typing.Protocol):
     def SetFocus(self) -> None: ...
     @abc.abstractmethod
     def ShowContextMenu(self) -> None: ...
-
 
 class IUIAutomationElement7(IUIAutomationElement6, typing.Protocol):
     @property
@@ -2877,19 +3853,49 @@ class IUIAutomationElement7(IUIAutomationElement6, typing.Protocol):
     @abc.abstractmethod
     def FindAll(self, scope: TreeScope, condition: IUIAutomationCondition) -> IUIAutomationElementArray: ...
     @abc.abstractmethod
-    def FindAllBuildCache(self, scope: TreeScope, condition: IUIAutomationCondition, cacheRequest: IUIAutomationCacheRequest) -> IUIAutomationElementArray: ...
+    def FindAllBuildCache(
+        self, scope: TreeScope, condition: IUIAutomationCondition, cacheRequest: IUIAutomationCacheRequest
+    ) -> IUIAutomationElementArray: ...
     @abc.abstractmethod
-    def FindAllWithOptions(self, scope: TreeScope, condition: IUIAutomationCondition, traversalOptions: TreeTraversalOptions, root: IUIAutomationElement) -> IUIAutomationElementArray: ...
+    def FindAllWithOptions(
+        self,
+        scope: TreeScope,
+        condition: IUIAutomationCondition,
+        traversalOptions: TreeTraversalOptions,
+        root: IUIAutomationElement,
+    ) -> IUIAutomationElementArray: ...
     @abc.abstractmethod
-    def FindAllWithOptionsBuildCache(self, scope: TreeScope, condition: IUIAutomationCondition, cacheRequest: IUIAutomationCacheRequest, traversalOptions: TreeTraversalOptions, root: IUIAutomationElement) -> IUIAutomationElementArray: ...
+    def FindAllWithOptionsBuildCache(
+        self,
+        scope: TreeScope,
+        condition: IUIAutomationCondition,
+        cacheRequest: IUIAutomationCacheRequest,
+        traversalOptions: TreeTraversalOptions,
+        root: IUIAutomationElement,
+    ) -> IUIAutomationElementArray: ...
     @abc.abstractmethod
     def FindFirst(self, scope: TreeScope, condition: IUIAutomationCondition) -> IUIAutomationElement: ...
     @abc.abstractmethod
-    def FindFirstBuildCache(self, scope: TreeScope, condition: IUIAutomationCondition, cacheRequest: IUIAutomationCacheRequest) -> IUIAutomationElement: ...
+    def FindFirstBuildCache(
+        self, scope: TreeScope, condition: IUIAutomationCondition, cacheRequest: IUIAutomationCacheRequest
+    ) -> IUIAutomationElement: ...
     @abc.abstractmethod
-    def FindFirstWithOptions(self, scope: TreeScope, condition: IUIAutomationCondition, traversalOptions: TreeTraversalOptions, root: IUIAutomationElement) -> IUIAutomationElement: ...
+    def FindFirstWithOptions(
+        self,
+        scope: TreeScope,
+        condition: IUIAutomationCondition,
+        traversalOptions: TreeTraversalOptions,
+        root: IUIAutomationElement,
+    ) -> IUIAutomationElement: ...
     @abc.abstractmethod
-    def FindFirstWithOptionsBuildCache(self, scope: TreeScope, condition: IUIAutomationCondition, cacheRequest: IUIAutomationCacheRequest, traversalOptions: TreeTraversalOptions, root: IUIAutomationElement) -> IUIAutomationElement: ...
+    def FindFirstWithOptionsBuildCache(
+        self,
+        scope: TreeScope,
+        condition: IUIAutomationCondition,
+        cacheRequest: IUIAutomationCacheRequest,
+        traversalOptions: TreeTraversalOptions,
+        root: IUIAutomationElement,
+    ) -> IUIAutomationElement: ...
     @abc.abstractmethod
     def GetCachedChildren(self) -> IUIAutomationElementArray: ...
     @abc.abstractmethod
@@ -2920,7 +3926,6 @@ class IUIAutomationElement7(IUIAutomationElement6, typing.Protocol):
     def SetFocus(self) -> None: ...
     @abc.abstractmethod
     def ShowContextMenu(self) -> None: ...
-
 
 class IUIAutomationElement8(IUIAutomationElement7, typing.Protocol):
     @property
@@ -3108,19 +4113,49 @@ class IUIAutomationElement8(IUIAutomationElement7, typing.Protocol):
     @abc.abstractmethod
     def FindAll(self, scope: TreeScope, condition: IUIAutomationCondition) -> IUIAutomationElementArray: ...
     @abc.abstractmethod
-    def FindAllBuildCache(self, scope: TreeScope, condition: IUIAutomationCondition, cacheRequest: IUIAutomationCacheRequest) -> IUIAutomationElementArray: ...
+    def FindAllBuildCache(
+        self, scope: TreeScope, condition: IUIAutomationCondition, cacheRequest: IUIAutomationCacheRequest
+    ) -> IUIAutomationElementArray: ...
     @abc.abstractmethod
-    def FindAllWithOptions(self, scope: TreeScope, condition: IUIAutomationCondition, traversalOptions: TreeTraversalOptions, root: IUIAutomationElement) -> IUIAutomationElementArray: ...
+    def FindAllWithOptions(
+        self,
+        scope: TreeScope,
+        condition: IUIAutomationCondition,
+        traversalOptions: TreeTraversalOptions,
+        root: IUIAutomationElement,
+    ) -> IUIAutomationElementArray: ...
     @abc.abstractmethod
-    def FindAllWithOptionsBuildCache(self, scope: TreeScope, condition: IUIAutomationCondition, cacheRequest: IUIAutomationCacheRequest, traversalOptions: TreeTraversalOptions, root: IUIAutomationElement) -> IUIAutomationElementArray: ...
+    def FindAllWithOptionsBuildCache(
+        self,
+        scope: TreeScope,
+        condition: IUIAutomationCondition,
+        cacheRequest: IUIAutomationCacheRequest,
+        traversalOptions: TreeTraversalOptions,
+        root: IUIAutomationElement,
+    ) -> IUIAutomationElementArray: ...
     @abc.abstractmethod
     def FindFirst(self, scope: TreeScope, condition: IUIAutomationCondition) -> IUIAutomationElement: ...
     @abc.abstractmethod
-    def FindFirstBuildCache(self, scope: TreeScope, condition: IUIAutomationCondition, cacheRequest: IUIAutomationCacheRequest) -> IUIAutomationElement: ...
+    def FindFirstBuildCache(
+        self, scope: TreeScope, condition: IUIAutomationCondition, cacheRequest: IUIAutomationCacheRequest
+    ) -> IUIAutomationElement: ...
     @abc.abstractmethod
-    def FindFirstWithOptions(self, scope: TreeScope, condition: IUIAutomationCondition, traversalOptions: TreeTraversalOptions, root: IUIAutomationElement) -> IUIAutomationElement: ...
+    def FindFirstWithOptions(
+        self,
+        scope: TreeScope,
+        condition: IUIAutomationCondition,
+        traversalOptions: TreeTraversalOptions,
+        root: IUIAutomationElement,
+    ) -> IUIAutomationElement: ...
     @abc.abstractmethod
-    def FindFirstWithOptionsBuildCache(self, scope: TreeScope, condition: IUIAutomationCondition, cacheRequest: IUIAutomationCacheRequest, traversalOptions: TreeTraversalOptions, root: IUIAutomationElement) -> IUIAutomationElement: ...
+    def FindFirstWithOptionsBuildCache(
+        self,
+        scope: TreeScope,
+        condition: IUIAutomationCondition,
+        cacheRequest: IUIAutomationCacheRequest,
+        traversalOptions: TreeTraversalOptions,
+        root: IUIAutomationElement,
+    ) -> IUIAutomationElement: ...
     @abc.abstractmethod
     def GetCachedChildren(self) -> IUIAutomationElementArray: ...
     @abc.abstractmethod
@@ -3151,7 +4186,6 @@ class IUIAutomationElement8(IUIAutomationElement7, typing.Protocol):
     def SetFocus(self) -> None: ...
     @abc.abstractmethod
     def ShowContextMenu(self) -> None: ...
-
 
 class IUIAutomationElement9(IUIAutomationElement8, typing.Protocol):
     @property
@@ -3343,19 +4377,49 @@ class IUIAutomationElement9(IUIAutomationElement8, typing.Protocol):
     @abc.abstractmethod
     def FindAll(self, scope: TreeScope, condition: IUIAutomationCondition) -> IUIAutomationElementArray: ...
     @abc.abstractmethod
-    def FindAllBuildCache(self, scope: TreeScope, condition: IUIAutomationCondition, cacheRequest: IUIAutomationCacheRequest) -> IUIAutomationElementArray: ...
+    def FindAllBuildCache(
+        self, scope: TreeScope, condition: IUIAutomationCondition, cacheRequest: IUIAutomationCacheRequest
+    ) -> IUIAutomationElementArray: ...
     @abc.abstractmethod
-    def FindAllWithOptions(self, scope: TreeScope, condition: IUIAutomationCondition, traversalOptions: TreeTraversalOptions, root: IUIAutomationElement) -> IUIAutomationElementArray: ...
+    def FindAllWithOptions(
+        self,
+        scope: TreeScope,
+        condition: IUIAutomationCondition,
+        traversalOptions: TreeTraversalOptions,
+        root: IUIAutomationElement,
+    ) -> IUIAutomationElementArray: ...
     @abc.abstractmethod
-    def FindAllWithOptionsBuildCache(self, scope: TreeScope, condition: IUIAutomationCondition, cacheRequest: IUIAutomationCacheRequest, traversalOptions: TreeTraversalOptions, root: IUIAutomationElement) -> IUIAutomationElementArray: ...
+    def FindAllWithOptionsBuildCache(
+        self,
+        scope: TreeScope,
+        condition: IUIAutomationCondition,
+        cacheRequest: IUIAutomationCacheRequest,
+        traversalOptions: TreeTraversalOptions,
+        root: IUIAutomationElement,
+    ) -> IUIAutomationElementArray: ...
     @abc.abstractmethod
     def FindFirst(self, scope: TreeScope, condition: IUIAutomationCondition) -> IUIAutomationElement: ...
     @abc.abstractmethod
-    def FindFirstBuildCache(self, scope: TreeScope, condition: IUIAutomationCondition, cacheRequest: IUIAutomationCacheRequest) -> IUIAutomationElement: ...
+    def FindFirstBuildCache(
+        self, scope: TreeScope, condition: IUIAutomationCondition, cacheRequest: IUIAutomationCacheRequest
+    ) -> IUIAutomationElement: ...
     @abc.abstractmethod
-    def FindFirstWithOptions(self, scope: TreeScope, condition: IUIAutomationCondition, traversalOptions: TreeTraversalOptions, root: IUIAutomationElement) -> IUIAutomationElement: ...
+    def FindFirstWithOptions(
+        self,
+        scope: TreeScope,
+        condition: IUIAutomationCondition,
+        traversalOptions: TreeTraversalOptions,
+        root: IUIAutomationElement,
+    ) -> IUIAutomationElement: ...
     @abc.abstractmethod
-    def FindFirstWithOptionsBuildCache(self, scope: TreeScope, condition: IUIAutomationCondition, cacheRequest: IUIAutomationCacheRequest, traversalOptions: TreeTraversalOptions, root: IUIAutomationElement) -> IUIAutomationElement: ...
+    def FindFirstWithOptionsBuildCache(
+        self,
+        scope: TreeScope,
+        condition: IUIAutomationCondition,
+        cacheRequest: IUIAutomationCacheRequest,
+        traversalOptions: TreeTraversalOptions,
+        root: IUIAutomationElement,
+    ) -> IUIAutomationElement: ...
     @abc.abstractmethod
     def GetCachedChildren(self) -> IUIAutomationElementArray: ...
     @abc.abstractmethod
@@ -3387,35 +4451,69 @@ class IUIAutomationElement9(IUIAutomationElement8, typing.Protocol):
     @abc.abstractmethod
     def ShowContextMenu(self) -> None: ...
 
-
 class IUIAutomationElementArray(typing.Protocol):
     @property
     def Length(self) -> int: ...
     @abc.abstractmethod
     def GetElement(self, index: int) -> IUIAutomationElement: ...
 
-
 class IUIAutomationEventHandler(typing.Protocol):
     @abc.abstractmethod
     def HandleAutomationEvent(self, sender: IUIAutomationElement, eventId: int) -> None: ...
 
-
 class IUIAutomationEventHandlerGroup(typing.Protocol):
     @abc.abstractmethod
-    def AddActiveTextPositionChangedEventHandler(self, scope: TreeScope, cacheRequest: IUIAutomationCacheRequest, handler: IUIAutomationActiveTextPositionChangedEventHandler) -> None: ...
+    def AddActiveTextPositionChangedEventHandler(
+        self,
+        scope: TreeScope,
+        cacheRequest: IUIAutomationCacheRequest,
+        handler: IUIAutomationActiveTextPositionChangedEventHandler,
+    ) -> None: ...
     @abc.abstractmethod
-    def AddAutomationEventHandler(self, eventId: int, scope: TreeScope, cacheRequest: IUIAutomationCacheRequest, handler: IUIAutomationEventHandler) -> None: ...
+    def AddAutomationEventHandler(
+        self,
+        eventId: int,
+        scope: TreeScope,
+        cacheRequest: IUIAutomationCacheRequest,
+        handler: IUIAutomationEventHandler,
+    ) -> None: ...
     @abc.abstractmethod
-    def AddChangesEventHandler(self, scope: TreeScope, changeTypes: clr.Reference[int], changesCount: int, cacheRequest: IUIAutomationCacheRequest, handler: IUIAutomationChangesEventHandler) -> None: ...
+    def AddChangesEventHandler(
+        self,
+        scope: TreeScope,
+        changeTypes: clr.Reference[int],
+        changesCount: int,
+        cacheRequest: IUIAutomationCacheRequest,
+        handler: IUIAutomationChangesEventHandler,
+    ) -> None: ...
     @abc.abstractmethod
-    def AddNotificationEventHandler(self, scope: TreeScope, cacheRequest: IUIAutomationCacheRequest, handler: IUIAutomationNotificationEventHandler) -> None: ...
+    def AddNotificationEventHandler(
+        self, scope: TreeScope, cacheRequest: IUIAutomationCacheRequest, handler: IUIAutomationNotificationEventHandler
+    ) -> None: ...
     @abc.abstractmethod
-    def AddPropertyChangedEventHandler(self, scope: TreeScope, cacheRequest: IUIAutomationCacheRequest, handler: IUIAutomationPropertyChangedEventHandler, propertyArray: clr.Reference[int], propertyCount: int) -> None: ...
+    def AddPropertyChangedEventHandler(
+        self,
+        scope: TreeScope,
+        cacheRequest: IUIAutomationCacheRequest,
+        handler: IUIAutomationPropertyChangedEventHandler,
+        propertyArray: clr.Reference[int],
+        propertyCount: int,
+    ) -> None: ...
     @abc.abstractmethod
-    def AddStructureChangedEventHandler(self, scope: TreeScope, cacheRequest: IUIAutomationCacheRequest, handler: IUIAutomationStructureChangedEventHandler) -> None: ...
+    def AddStructureChangedEventHandler(
+        self,
+        scope: TreeScope,
+        cacheRequest: IUIAutomationCacheRequest,
+        handler: IUIAutomationStructureChangedEventHandler,
+    ) -> None: ...
     @abc.abstractmethod
-    def AddTextEditTextChangedEventHandler(self, scope: TreeScope, TextEditChangeType: TextEditChangeType, cacheRequest: IUIAutomationCacheRequest, handler: IUIAutomationTextEditTextChangedEventHandler) -> None: ...
-
+    def AddTextEditTextChangedEventHandler(
+        self,
+        scope: TreeScope,
+        TextEditChangeType: TextEditChangeType,
+        cacheRequest: IUIAutomationCacheRequest,
+        handler: IUIAutomationTextEditTextChangedEventHandler,
+    ) -> None: ...
 
 class IUIAutomationExpandCollapsePattern(typing.Protocol):
     @property
@@ -3427,11 +4525,9 @@ class IUIAutomationExpandCollapsePattern(typing.Protocol):
     @abc.abstractmethod
     def Expand(self) -> None: ...
 
-
 class IUIAutomationFocusChangedEventHandler(typing.Protocol):
     @abc.abstractmethod
     def HandleFocusChangedEvent(self, sender: IUIAutomationElement) -> None: ...
-
 
 class IUIAutomationGridItemPattern(typing.Protocol):
     @property
@@ -3455,7 +4551,6 @@ class IUIAutomationGridItemPattern(typing.Protocol):
     @property
     def CurrentRowSpan(self) -> int: ...
 
-
 class IUIAutomationGridPattern(typing.Protocol):
     @property
     def CachedColumnCount(self) -> int: ...
@@ -3468,16 +4563,15 @@ class IUIAutomationGridPattern(typing.Protocol):
     @abc.abstractmethod
     def GetItem(self, row: int, column: int) -> IUIAutomationElement: ...
 
-
 class IUIAutomationInvokePattern(typing.Protocol):
     @abc.abstractmethod
     def Invoke(self) -> None: ...
 
-
 class IUIAutomationItemContainerPattern(typing.Protocol):
     @abc.abstractmethod
-    def FindItemByProperty(self, pStartAfter: IUIAutomationElement, propertyId: int, value: typing.Any) -> IUIAutomationElement: ...
-
+    def FindItemByProperty(
+        self, pStartAfter: IUIAutomationElement, propertyId: int, value: typing.Any
+    ) -> IUIAutomationElement: ...
 
 class IUIAutomationLegacyIAccessiblePattern(typing.Protocol):
     @property
@@ -3529,7 +4623,6 @@ class IUIAutomationLegacyIAccessiblePattern(typing.Protocol):
     @abc.abstractmethod
     def SetValue(self, szValue: str) -> None: ...
 
-
 class IUIAutomationMultipleViewPattern(typing.Protocol):
     @property
     def CachedCurrentView(self) -> int: ...
@@ -3544,21 +4637,24 @@ class IUIAutomationMultipleViewPattern(typing.Protocol):
     @abc.abstractmethod
     def SetCurrentView(self, view: int) -> None: ...
 
-
 class IUIAutomationNotCondition(IUIAutomationCondition, typing.Protocol):
     @abc.abstractmethod
     def GetChild(self) -> IUIAutomationCondition: ...
 
-
 class IUIAutomationNotificationEventHandler(typing.Protocol):
     @abc.abstractmethod
-    def HandleNotificationEvent(self, sender: IUIAutomationElement, NotificationKind: NotificationKind, NotificationProcessing: NotificationProcessing, displayString: str, activityId: str) -> None: ...
-
+    def HandleNotificationEvent(
+        self,
+        sender: IUIAutomationElement,
+        NotificationKind: NotificationKind,
+        NotificationProcessing: NotificationProcessing,
+        displayString: str,
+        activityId: str,
+    ) -> None: ...
 
 class IUIAutomationObjectModelPattern(typing.Protocol):
     @abc.abstractmethod
     def GetUnderlyingObjectModel(self) -> typing.Any: ...
-
 
 class IUIAutomationOrCondition(IUIAutomationCondition, typing.Protocol):
     @property
@@ -3568,11 +4664,11 @@ class IUIAutomationOrCondition(IUIAutomationCondition, typing.Protocol):
     @abc.abstractmethod
     def GetChildrenAsNativeArray(self, childArray: int, childArrayCount: clr.Reference[int]) -> None: ...
 
-
 class IUIAutomationPropertyChangedEventHandler(typing.Protocol):
     @abc.abstractmethod
-    def HandlePropertyChangedEvent(self, sender: IUIAutomationElement, propertyId: int, newValue: typing.Any) -> None: ...
-
+    def HandlePropertyChangedEvent(
+        self, sender: IUIAutomationElement, propertyId: int, newValue: typing.Any
+    ) -> None: ...
 
 class IUIAutomationPropertyCondition(IUIAutomationCondition, typing.Protocol):
     @property
@@ -3582,13 +4678,11 @@ class IUIAutomationPropertyCondition(IUIAutomationCondition, typing.Protocol):
     @property
     def PropertyValue(self) -> typing.Any: ...
 
-
 class IUIAutomationProxyFactory(typing.Protocol):
     @property
     def ProxyFactoryId(self) -> str: ...
     @abc.abstractmethod
     def CreateProvider(self, hwnd: int, idObject: int, idChild: int) -> IRawElementProviderSimple: ...
-
 
 class IUIAutomationProxyFactoryEntry(typing.Protocol):
     @property
@@ -3618,7 +4712,6 @@ class IUIAutomationProxyFactoryEntry(typing.Protocol):
     @abc.abstractmethod
     def SetWinEventsForAutomationEvent(self, eventId: int, propertyId: int, winEvents: Array_1[int]) -> None: ...
 
-
 class IUIAutomationProxyFactoryMapping(typing.Protocol):
     @property
     def count(self) -> int: ...
@@ -3638,7 +4731,6 @@ class IUIAutomationProxyFactoryMapping(typing.Protocol):
     def RestoreDefaultTable(self) -> None: ...
     @abc.abstractmethod
     def SetTable(self, factoryList: Array_1[IUIAutomationProxyFactoryEntry]) -> None: ...
-
 
 class IUIAutomationRangeValuePattern(typing.Protocol):
     @property
@@ -3668,11 +4760,9 @@ class IUIAutomationRangeValuePattern(typing.Protocol):
     @abc.abstractmethod
     def SetValue(self, val: float) -> None: ...
 
-
 class IUIAutomationScrollItemPattern(typing.Protocol):
     @abc.abstractmethod
     def ScrollIntoView(self) -> None: ...
-
 
 class IUIAutomationScrollPattern(typing.Protocol):
     @property
@@ -3704,7 +4794,6 @@ class IUIAutomationScrollPattern(typing.Protocol):
     @abc.abstractmethod
     def SetScrollPercent(self, horizontalPercent: float, verticalPercent: float) -> None: ...
 
-
 class IUIAutomationSelectionItemPattern(typing.Protocol):
     @property
     def CachedIsSelected(self) -> int: ...
@@ -3721,7 +4810,6 @@ class IUIAutomationSelectionItemPattern(typing.Protocol):
     @abc.abstractmethod
     def Select(self) -> None: ...
 
-
 class IUIAutomationSelectionPattern(typing.Protocol):
     @property
     def CachedCanSelectMultiple(self) -> int: ...
@@ -3735,7 +4823,6 @@ class IUIAutomationSelectionPattern(typing.Protocol):
     def GetCachedSelection(self) -> IUIAutomationElementArray: ...
     @abc.abstractmethod
     def GetCurrentSelection(self) -> IUIAutomationElementArray: ...
-
 
 class IUIAutomationSelectionPattern2(IUIAutomationSelectionPattern, typing.Protocol):
     @property
@@ -3767,7 +4854,6 @@ class IUIAutomationSelectionPattern2(IUIAutomationSelectionPattern, typing.Proto
     @abc.abstractmethod
     def GetCurrentSelection(self) -> IUIAutomationElementArray: ...
 
-
 class IUIAutomationSpreadsheetItemPattern(typing.Protocol):
     @property
     def CachedFormula(self) -> str: ...
@@ -3782,16 +4868,15 @@ class IUIAutomationSpreadsheetItemPattern(typing.Protocol):
     @abc.abstractmethod
     def GetCurrentAnnotationTypes(self) -> Array_1[int]: ...
 
-
 class IUIAutomationSpreadsheetPattern(typing.Protocol):
     @abc.abstractmethod
     def GetItemByName(self, name: str) -> IUIAutomationElement: ...
 
-
 class IUIAutomationStructureChangedEventHandler(typing.Protocol):
     @abc.abstractmethod
-    def HandleStructureChangedEvent(self, sender: IUIAutomationElement, changeType: StructureChangeType, runtimeId: Array_1[int]) -> None: ...
-
+    def HandleStructureChangedEvent(
+        self, sender: IUIAutomationElement, changeType: StructureChangeType, runtimeId: Array_1[int]
+    ) -> None: ...
 
 class IUIAutomationStylesPattern(typing.Protocol):
     @property
@@ -3827,13 +4912,11 @@ class IUIAutomationStylesPattern(typing.Protocol):
     @abc.abstractmethod
     def GetCurrentExtendedPropertiesAsArray(self, propertyArray: int, propertyCount: clr.Reference[int]) -> None: ...
 
-
 class IUIAutomationSynchronizedInputPattern(typing.Protocol):
     @abc.abstractmethod
     def Cancel(self) -> None: ...
     @abc.abstractmethod
     def StartListening(self, inputType: SynchronizedInputType) -> None: ...
-
 
 class IUIAutomationTableItemPattern(typing.Protocol):
     @abc.abstractmethod
@@ -3844,7 +4927,6 @@ class IUIAutomationTableItemPattern(typing.Protocol):
     def GetCurrentColumnHeaderItems(self) -> IUIAutomationElementArray: ...
     @abc.abstractmethod
     def GetCurrentRowHeaderItems(self) -> IUIAutomationElementArray: ...
-
 
 class IUIAutomationTablePattern(typing.Protocol):
     @property
@@ -3860,13 +4942,11 @@ class IUIAutomationTablePattern(typing.Protocol):
     @abc.abstractmethod
     def GetCurrentRowHeaders(self) -> IUIAutomationElementArray: ...
 
-
 class IUIAutomationTextChildPattern(typing.Protocol):
     @property
     def TextContainer(self) -> IUIAutomationElement: ...
     @property
     def TextRange(self) -> IUIAutomationTextRange: ...
-
 
 class IUIAutomationTextEditPattern(IUIAutomationTextPattern, typing.Protocol):
     @property
@@ -3886,11 +4966,11 @@ class IUIAutomationTextEditPattern(IUIAutomationTextPattern, typing.Protocol):
     @abc.abstractmethod
     def RangeFromPoint(self, pt: tagPOINT) -> IUIAutomationTextRange: ...
 
-
 class IUIAutomationTextEditTextChangedEventHandler(typing.Protocol):
     @abc.abstractmethod
-    def HandleTextEditTextChangedEvent(self, sender: IUIAutomationElement, TextEditChangeType: TextEditChangeType, eventStrings: Array_1[str]) -> None: ...
-
+    def HandleTextEditTextChangedEvent(
+        self, sender: IUIAutomationElement, TextEditChangeType: TextEditChangeType, eventStrings: Array_1[str]
+    ) -> None: ...
 
 class IUIAutomationTextPattern(typing.Protocol):
     @property
@@ -3905,7 +4985,6 @@ class IUIAutomationTextPattern(typing.Protocol):
     def RangeFromChild(self, child: IUIAutomationElement) -> IUIAutomationTextRange: ...
     @abc.abstractmethod
     def RangeFromPoint(self, pt: tagPOINT) -> IUIAutomationTextRange: ...
-
 
 class IUIAutomationTextPattern2(IUIAutomationTextPattern, typing.Protocol):
     @property
@@ -3925,7 +5004,6 @@ class IUIAutomationTextPattern2(IUIAutomationTextPattern, typing.Protocol):
     @abc.abstractmethod
     def RangeFromPoint(self, pt: tagPOINT) -> IUIAutomationTextRange: ...
 
-
 class IUIAutomationTextRange(typing.Protocol):
     @abc.abstractmethod
     def AddToSelection(self) -> None: ...
@@ -3934,7 +5012,12 @@ class IUIAutomationTextRange(typing.Protocol):
     @abc.abstractmethod
     def Compare(self, range: IUIAutomationTextRange) -> int: ...
     @abc.abstractmethod
-    def CompareEndpoints(self, srcEndPoint: TextPatternRangeEndpoint, range: IUIAutomationTextRange, targetEndPoint: TextPatternRangeEndpoint) -> int: ...
+    def CompareEndpoints(
+        self,
+        srcEndPoint: TextPatternRangeEndpoint,
+        range: IUIAutomationTextRange,
+        targetEndPoint: TextPatternRangeEndpoint,
+    ) -> int: ...
     @abc.abstractmethod
     def ExpandToEnclosingUnit(self, TextUnit: TextUnit) -> None: ...
     @abc.abstractmethod
@@ -3954,7 +5037,12 @@ class IUIAutomationTextRange(typing.Protocol):
     @abc.abstractmethod
     def Move(self, unit: TextUnit, count: int) -> int: ...
     @abc.abstractmethod
-    def MoveEndpointByRange(self, srcEndPoint: TextPatternRangeEndpoint, range: IUIAutomationTextRange, targetEndPoint: TextPatternRangeEndpoint) -> None: ...
+    def MoveEndpointByRange(
+        self,
+        srcEndPoint: TextPatternRangeEndpoint,
+        range: IUIAutomationTextRange,
+        targetEndPoint: TextPatternRangeEndpoint,
+    ) -> None: ...
     @abc.abstractmethod
     def MoveEndpointByUnit(self, endpoint: TextPatternRangeEndpoint, unit: TextUnit, count: int) -> int: ...
     @abc.abstractmethod
@@ -3964,7 +5052,6 @@ class IUIAutomationTextRange(typing.Protocol):
     @abc.abstractmethod
     def Select(self) -> None: ...
 
-
 class IUIAutomationTextRange2(IUIAutomationTextRange, typing.Protocol):
     @abc.abstractmethod
     def AddToSelection(self) -> None: ...
@@ -3973,7 +5060,12 @@ class IUIAutomationTextRange2(IUIAutomationTextRange, typing.Protocol):
     @abc.abstractmethod
     def Compare(self, range: IUIAutomationTextRange) -> int: ...
     @abc.abstractmethod
-    def CompareEndpoints(self, srcEndPoint: TextPatternRangeEndpoint, range: IUIAutomationTextRange, targetEndPoint: TextPatternRangeEndpoint) -> int: ...
+    def CompareEndpoints(
+        self,
+        srcEndPoint: TextPatternRangeEndpoint,
+        range: IUIAutomationTextRange,
+        targetEndPoint: TextPatternRangeEndpoint,
+    ) -> int: ...
     @abc.abstractmethod
     def ExpandToEnclosingUnit(self, TextUnit: TextUnit) -> None: ...
     @abc.abstractmethod
@@ -3993,7 +5085,12 @@ class IUIAutomationTextRange2(IUIAutomationTextRange, typing.Protocol):
     @abc.abstractmethod
     def Move(self, unit: TextUnit, count: int) -> int: ...
     @abc.abstractmethod
-    def MoveEndpointByRange(self, srcEndPoint: TextPatternRangeEndpoint, range: IUIAutomationTextRange, targetEndPoint: TextPatternRangeEndpoint) -> None: ...
+    def MoveEndpointByRange(
+        self,
+        srcEndPoint: TextPatternRangeEndpoint,
+        range: IUIAutomationTextRange,
+        targetEndPoint: TextPatternRangeEndpoint,
+    ) -> None: ...
     @abc.abstractmethod
     def MoveEndpointByUnit(self, endpoint: TextPatternRangeEndpoint, unit: TextUnit, count: int) -> int: ...
     @abc.abstractmethod
@@ -4005,7 +5102,6 @@ class IUIAutomationTextRange2(IUIAutomationTextRange, typing.Protocol):
     @abc.abstractmethod
     def ShowContextMenu(self) -> None: ...
 
-
 class IUIAutomationTextRange3(IUIAutomationTextRange2, typing.Protocol):
     @abc.abstractmethod
     def AddToSelection(self) -> None: ...
@@ -4014,7 +5110,12 @@ class IUIAutomationTextRange3(IUIAutomationTextRange2, typing.Protocol):
     @abc.abstractmethod
     def Compare(self, range: IUIAutomationTextRange) -> int: ...
     @abc.abstractmethod
-    def CompareEndpoints(self, srcEndPoint: TextPatternRangeEndpoint, range: IUIAutomationTextRange, targetEndPoint: TextPatternRangeEndpoint) -> int: ...
+    def CompareEndpoints(
+        self,
+        srcEndPoint: TextPatternRangeEndpoint,
+        range: IUIAutomationTextRange,
+        targetEndPoint: TextPatternRangeEndpoint,
+    ) -> int: ...
     @abc.abstractmethod
     def ExpandToEnclosingUnit(self, TextUnit: TextUnit) -> None: ...
     @abc.abstractmethod
@@ -4040,7 +5141,12 @@ class IUIAutomationTextRange3(IUIAutomationTextRange2, typing.Protocol):
     @abc.abstractmethod
     def Move(self, unit: TextUnit, count: int) -> int: ...
     @abc.abstractmethod
-    def MoveEndpointByRange(self, srcEndPoint: TextPatternRangeEndpoint, range: IUIAutomationTextRange, targetEndPoint: TextPatternRangeEndpoint) -> None: ...
+    def MoveEndpointByRange(
+        self,
+        srcEndPoint: TextPatternRangeEndpoint,
+        range: IUIAutomationTextRange,
+        targetEndPoint: TextPatternRangeEndpoint,
+    ) -> None: ...
     @abc.abstractmethod
     def MoveEndpointByUnit(self, endpoint: TextPatternRangeEndpoint, unit: TextUnit, count: int) -> int: ...
     @abc.abstractmethod
@@ -4052,13 +5158,11 @@ class IUIAutomationTextRange3(IUIAutomationTextRange2, typing.Protocol):
     @abc.abstractmethod
     def ShowContextMenu(self) -> None: ...
 
-
 class IUIAutomationTextRangeArray(typing.Protocol):
     @property
     def Length(self) -> int: ...
     @abc.abstractmethod
     def GetElement(self, index: int) -> IUIAutomationTextRange: ...
-
 
 class IUIAutomationTogglePattern(typing.Protocol):
     @property
@@ -4067,7 +5171,6 @@ class IUIAutomationTogglePattern(typing.Protocol):
     def CurrentToggleState(self) -> ToggleState: ...
     @abc.abstractmethod
     def Toggle(self) -> None: ...
-
 
 class IUIAutomationTransformPattern(typing.Protocol):
     @property
@@ -4088,7 +5191,6 @@ class IUIAutomationTransformPattern(typing.Protocol):
     def Resize(self, width: float, height: float) -> None: ...
     @abc.abstractmethod
     def Rotate(self, degrees: float) -> None: ...
-
 
 class IUIAutomationTransformPattern2(IUIAutomationTransformPattern, typing.Protocol):
     @property
@@ -4130,35 +5232,45 @@ class IUIAutomationTransformPattern2(IUIAutomationTransformPattern, typing.Proto
     @abc.abstractmethod
     def ZoomByUnit(self, ZoomUnit: ZoomUnit) -> None: ...
 
-
 class IUIAutomationTreeWalker(typing.Protocol):
     @property
     def condition(self) -> IUIAutomationCondition: ...
     @abc.abstractmethod
     def GetFirstChildElement(self, element: IUIAutomationElement) -> IUIAutomationElement: ...
     @abc.abstractmethod
-    def GetFirstChildElementBuildCache(self, element: IUIAutomationElement, cacheRequest: IUIAutomationCacheRequest) -> IUIAutomationElement: ...
+    def GetFirstChildElementBuildCache(
+        self, element: IUIAutomationElement, cacheRequest: IUIAutomationCacheRequest
+    ) -> IUIAutomationElement: ...
     @abc.abstractmethod
     def GetLastChildElement(self, element: IUIAutomationElement) -> IUIAutomationElement: ...
     @abc.abstractmethod
-    def GetLastChildElementBuildCache(self, element: IUIAutomationElement, cacheRequest: IUIAutomationCacheRequest) -> IUIAutomationElement: ...
+    def GetLastChildElementBuildCache(
+        self, element: IUIAutomationElement, cacheRequest: IUIAutomationCacheRequest
+    ) -> IUIAutomationElement: ...
     @abc.abstractmethod
     def GetNextSiblingElement(self, element: IUIAutomationElement) -> IUIAutomationElement: ...
     @abc.abstractmethod
-    def GetNextSiblingElementBuildCache(self, element: IUIAutomationElement, cacheRequest: IUIAutomationCacheRequest) -> IUIAutomationElement: ...
+    def GetNextSiblingElementBuildCache(
+        self, element: IUIAutomationElement, cacheRequest: IUIAutomationCacheRequest
+    ) -> IUIAutomationElement: ...
     @abc.abstractmethod
     def GetParentElement(self, element: IUIAutomationElement) -> IUIAutomationElement: ...
     @abc.abstractmethod
-    def GetParentElementBuildCache(self, element: IUIAutomationElement, cacheRequest: IUIAutomationCacheRequest) -> IUIAutomationElement: ...
+    def GetParentElementBuildCache(
+        self, element: IUIAutomationElement, cacheRequest: IUIAutomationCacheRequest
+    ) -> IUIAutomationElement: ...
     @abc.abstractmethod
     def GetPreviousSiblingElement(self, element: IUIAutomationElement) -> IUIAutomationElement: ...
     @abc.abstractmethod
-    def GetPreviousSiblingElementBuildCache(self, element: IUIAutomationElement, cacheRequest: IUIAutomationCacheRequest) -> IUIAutomationElement: ...
+    def GetPreviousSiblingElementBuildCache(
+        self, element: IUIAutomationElement, cacheRequest: IUIAutomationCacheRequest
+    ) -> IUIAutomationElement: ...
     @abc.abstractmethod
     def NormalizeElement(self, element: IUIAutomationElement) -> IUIAutomationElement: ...
     @abc.abstractmethod
-    def NormalizeElementBuildCache(self, element: IUIAutomationElement, cacheRequest: IUIAutomationCacheRequest) -> IUIAutomationElement: ...
-
+    def NormalizeElementBuildCache(
+        self, element: IUIAutomationElement, cacheRequest: IUIAutomationCacheRequest
+    ) -> IUIAutomationElement: ...
 
 class IUIAutomationValuePattern(typing.Protocol):
     @property
@@ -4172,11 +5284,9 @@ class IUIAutomationValuePattern(typing.Protocol):
     @abc.abstractmethod
     def SetValue(self, val: str) -> None: ...
 
-
 class IUIAutomationVirtualizedItemPattern(typing.Protocol):
     @abc.abstractmethod
     def Realize(self) -> None: ...
-
 
 class IUIAutomationWindowPattern(typing.Protocol):
     @property
@@ -4210,751 +5320,715 @@ class IUIAutomationWindowPattern(typing.Protocol):
     @abc.abstractmethod
     def WaitForInputIdle(self, milliseconds: int) -> int: ...
 
-
 class LiveSetting(typing.SupportsInt):
     @typing.overload
-    def __init__(self, value : int) -> None: ...
+    def __init__(self, value: int) -> None: ...
     @typing.overload
-    def __init__(self, value : int, force_if_true: bool) -> None: ...
+    def __init__(self, value: int, force_if_true: bool) -> None: ...
     def __int__(self) -> int: ...
-    
-    # Values:
-    Off : LiveSetting # 0
-    Polite : LiveSetting # 1
-    Assertive : LiveSetting # 2
 
+    # Values:
+    Off: LiveSetting  # 0
+    Polite: LiveSetting  # 1
+    Assertive: LiveSetting  # 2
 
 class NavigateDirection(typing.SupportsInt):
     @typing.overload
-    def __init__(self, value : int) -> None: ...
+    def __init__(self, value: int) -> None: ...
     @typing.overload
-    def __init__(self, value : int, force_if_true: bool) -> None: ...
+    def __init__(self, value: int, force_if_true: bool) -> None: ...
     def __int__(self) -> int: ...
-    
-    # Values:
-    NavigateDirection_Parent : NavigateDirection # 0
-    NavigateDirection_NextSibling : NavigateDirection # 1
-    NavigateDirection_PreviousSibling : NavigateDirection # 2
-    NavigateDirection_FirstChild : NavigateDirection # 3
-    NavigateDirection_LastChild : NavigateDirection # 4
 
+    # Values:
+    NavigateDirection_Parent: NavigateDirection  # 0
+    NavigateDirection_NextSibling: NavigateDirection  # 1
+    NavigateDirection_PreviousSibling: NavigateDirection  # 2
+    NavigateDirection_FirstChild: NavigateDirection  # 3
+    NavigateDirection_LastChild: NavigateDirection  # 4
 
 class NotificationKind(typing.SupportsInt):
     @typing.overload
-    def __init__(self, value : int) -> None: ...
+    def __init__(self, value: int) -> None: ...
     @typing.overload
-    def __init__(self, value : int, force_if_true: bool) -> None: ...
+    def __init__(self, value: int, force_if_true: bool) -> None: ...
     def __int__(self) -> int: ...
-    
-    # Values:
-    NotificationKind_ItemAdded : NotificationKind # 0
-    NotificationKind_ItemRemoved : NotificationKind # 1
-    NotificationKind_ActionCompleted : NotificationKind # 2
-    NotificationKind_ActionAborted : NotificationKind # 3
-    NotificationKind_Other : NotificationKind # 4
 
+    # Values:
+    NotificationKind_ItemAdded: NotificationKind  # 0
+    NotificationKind_ItemRemoved: NotificationKind  # 1
+    NotificationKind_ActionCompleted: NotificationKind  # 2
+    NotificationKind_ActionAborted: NotificationKind  # 3
+    NotificationKind_Other: NotificationKind  # 4
 
 class NotificationProcessing(typing.SupportsInt):
     @typing.overload
-    def __init__(self, value : int) -> None: ...
+    def __init__(self, value: int) -> None: ...
     @typing.overload
-    def __init__(self, value : int, force_if_true: bool) -> None: ...
+    def __init__(self, value: int, force_if_true: bool) -> None: ...
     def __int__(self) -> int: ...
-    
-    # Values:
-    NotificationProcessing_ImportantAll : NotificationProcessing # 0
-    NotificationProcessing_ImportantMostRecent : NotificationProcessing # 1
-    NotificationProcessing_All : NotificationProcessing # 2
-    NotificationProcessing_MostRecent : NotificationProcessing # 3
-    NotificationProcessing_CurrentThenMostRecent : NotificationProcessing # 4
 
+    # Values:
+    NotificationProcessing_ImportantAll: NotificationProcessing  # 0
+    NotificationProcessing_ImportantMostRecent: NotificationProcessing  # 1
+    NotificationProcessing_All: NotificationProcessing  # 2
+    NotificationProcessing_MostRecent: NotificationProcessing  # 3
+    NotificationProcessing_CurrentThenMostRecent: NotificationProcessing  # 4
 
 class OrientationType(typing.SupportsInt):
     @typing.overload
-    def __init__(self, value : int) -> None: ...
+    def __init__(self, value: int) -> None: ...
     @typing.overload
-    def __init__(self, value : int, force_if_true: bool) -> None: ...
+    def __init__(self, value: int, force_if_true: bool) -> None: ...
     def __int__(self) -> int: ...
-    
-    # Values:
-    OrientationType_None : OrientationType # 0
-    OrientationType_Horizontal : OrientationType # 1
-    OrientationType_Vertical : OrientationType # 2
 
+    # Values:
+    OrientationType_None: OrientationType  # 0
+    OrientationType_Horizontal: OrientationType  # 1
+    OrientationType_Vertical: OrientationType  # 2
 
 class PropertyConditionFlags(typing.SupportsInt):
     @typing.overload
-    def __init__(self, value : int) -> None: ...
+    def __init__(self, value: int) -> None: ...
     @typing.overload
-    def __init__(self, value : int, force_if_true: bool) -> None: ...
+    def __init__(self, value: int, force_if_true: bool) -> None: ...
     def __int__(self) -> int: ...
-    
-    # Values:
-    PropertyConditionFlags_None : PropertyConditionFlags # 0
-    PropertyConditionFlags_IgnoreCase : PropertyConditionFlags # 1
-    PropertyConditionFlags_MatchSubstring : PropertyConditionFlags # 2
 
+    # Values:
+    PropertyConditionFlags_None: PropertyConditionFlags  # 0
+    PropertyConditionFlags_IgnoreCase: PropertyConditionFlags  # 1
+    PropertyConditionFlags_MatchSubstring: PropertyConditionFlags  # 2
 
 class ProviderOptions(typing.SupportsInt):
     @typing.overload
-    def __init__(self, value : int) -> None: ...
+    def __init__(self, value: int) -> None: ...
     @typing.overload
-    def __init__(self, value : int, force_if_true: bool) -> None: ...
+    def __init__(self, value: int, force_if_true: bool) -> None: ...
     def __int__(self) -> int: ...
-    
-    # Values:
-    ProviderOptions_ClientSideProvider : ProviderOptions # 1
-    ProviderOptions_ServerSideProvider : ProviderOptions # 2
-    ProviderOptions_NonClientAreaProvider : ProviderOptions # 4
-    ProviderOptions_OverrideProvider : ProviderOptions # 8
-    ProviderOptions_ProviderOwnsSetFocus : ProviderOptions # 16
-    ProviderOptions_UseComThreading : ProviderOptions # 32
-    ProviderOptions_RefuseNonClientSupport : ProviderOptions # 64
-    ProviderOptions_HasNativeIAccessible : ProviderOptions # 128
-    ProviderOptions_UseClientCoordinates : ProviderOptions # 256
 
+    # Values:
+    ProviderOptions_ClientSideProvider: ProviderOptions  # 1
+    ProviderOptions_ServerSideProvider: ProviderOptions  # 2
+    ProviderOptions_NonClientAreaProvider: ProviderOptions  # 4
+    ProviderOptions_OverrideProvider: ProviderOptions  # 8
+    ProviderOptions_ProviderOwnsSetFocus: ProviderOptions  # 16
+    ProviderOptions_UseComThreading: ProviderOptions  # 32
+    ProviderOptions_RefuseNonClientSupport: ProviderOptions  # 64
+    ProviderOptions_HasNativeIAccessible: ProviderOptions  # 128
+    ProviderOptions_UseClientCoordinates: ProviderOptions  # 256
 
 class RowOrColumnMajor(typing.SupportsInt):
     @typing.overload
-    def __init__(self, value : int) -> None: ...
+    def __init__(self, value: int) -> None: ...
     @typing.overload
-    def __init__(self, value : int, force_if_true: bool) -> None: ...
+    def __init__(self, value: int, force_if_true: bool) -> None: ...
     def __int__(self) -> int: ...
-    
-    # Values:
-    RowOrColumnMajor_RowMajor : RowOrColumnMajor # 0
-    RowOrColumnMajor_ColumnMajor : RowOrColumnMajor # 1
-    RowOrColumnMajor_Indeterminate : RowOrColumnMajor # 2
 
+    # Values:
+    RowOrColumnMajor_RowMajor: RowOrColumnMajor  # 0
+    RowOrColumnMajor_ColumnMajor: RowOrColumnMajor  # 1
+    RowOrColumnMajor_Indeterminate: RowOrColumnMajor  # 2
 
 class ScrollAmount(typing.SupportsInt):
     @typing.overload
-    def __init__(self, value : int) -> None: ...
+    def __init__(self, value: int) -> None: ...
     @typing.overload
-    def __init__(self, value : int, force_if_true: bool) -> None: ...
+    def __init__(self, value: int, force_if_true: bool) -> None: ...
     def __int__(self) -> int: ...
-    
-    # Values:
-    ScrollAmount_LargeDecrement : ScrollAmount # 0
-    ScrollAmount_SmallDecrement : ScrollAmount # 1
-    ScrollAmount_NoAmount : ScrollAmount # 2
-    ScrollAmount_LargeIncrement : ScrollAmount # 3
-    ScrollAmount_SmallIncrement : ScrollAmount # 4
 
+    # Values:
+    ScrollAmount_LargeDecrement: ScrollAmount  # 0
+    ScrollAmount_SmallDecrement: ScrollAmount  # 1
+    ScrollAmount_NoAmount: ScrollAmount  # 2
+    ScrollAmount_LargeIncrement: ScrollAmount  # 3
+    ScrollAmount_SmallIncrement: ScrollAmount  # 4
 
 class StructureChangeType(typing.SupportsInt):
     @typing.overload
-    def __init__(self, value : int) -> None: ...
+    def __init__(self, value: int) -> None: ...
     @typing.overload
-    def __init__(self, value : int, force_if_true: bool) -> None: ...
+    def __init__(self, value: int, force_if_true: bool) -> None: ...
     def __int__(self) -> int: ...
-    
-    # Values:
-    StructureChangeType_ChildAdded : StructureChangeType # 0
-    StructureChangeType_ChildRemoved : StructureChangeType # 1
-    StructureChangeType_ChildrenInvalidated : StructureChangeType # 2
-    StructureChangeType_ChildrenBulkAdded : StructureChangeType # 3
-    StructureChangeType_ChildrenBulkRemoved : StructureChangeType # 4
-    StructureChangeType_ChildrenReordered : StructureChangeType # 5
 
+    # Values:
+    StructureChangeType_ChildAdded: StructureChangeType  # 0
+    StructureChangeType_ChildRemoved: StructureChangeType  # 1
+    StructureChangeType_ChildrenInvalidated: StructureChangeType  # 2
+    StructureChangeType_ChildrenBulkAdded: StructureChangeType  # 3
+    StructureChangeType_ChildrenBulkRemoved: StructureChangeType  # 4
+    StructureChangeType_ChildrenReordered: StructureChangeType  # 5
 
 class SupportedTextSelection(typing.SupportsInt):
     @typing.overload
-    def __init__(self, value : int) -> None: ...
+    def __init__(self, value: int) -> None: ...
     @typing.overload
-    def __init__(self, value : int, force_if_true: bool) -> None: ...
+    def __init__(self, value: int, force_if_true: bool) -> None: ...
     def __int__(self) -> int: ...
-    
-    # Values:
-    SupportedTextSelection_None : SupportedTextSelection # 0
-    SupportedTextSelection_Single : SupportedTextSelection # 1
-    SupportedTextSelection_Multiple : SupportedTextSelection # 2
 
+    # Values:
+    SupportedTextSelection_None: SupportedTextSelection  # 0
+    SupportedTextSelection_Single: SupportedTextSelection  # 1
+    SupportedTextSelection_Multiple: SupportedTextSelection  # 2
 
 class SynchronizedInputType(typing.SupportsInt):
     @typing.overload
-    def __init__(self, value : int) -> None: ...
+    def __init__(self, value: int) -> None: ...
     @typing.overload
-    def __init__(self, value : int, force_if_true: bool) -> None: ...
+    def __init__(self, value: int, force_if_true: bool) -> None: ...
     def __int__(self) -> int: ...
-    
-    # Values:
-    SynchronizedInputType_KeyUp : SynchronizedInputType # 1
-    SynchronizedInputType_KeyDown : SynchronizedInputType # 2
-    SynchronizedInputType_LeftMouseUp : SynchronizedInputType # 4
-    SynchronizedInputType_LeftMouseDown : SynchronizedInputType # 8
-    SynchronizedInputType_RightMouseUp : SynchronizedInputType # 16
-    SynchronizedInputType_RightMouseDown : SynchronizedInputType # 32
 
+    # Values:
+    SynchronizedInputType_KeyUp: SynchronizedInputType  # 1
+    SynchronizedInputType_KeyDown: SynchronizedInputType  # 2
+    SynchronizedInputType_LeftMouseUp: SynchronizedInputType  # 4
+    SynchronizedInputType_LeftMouseDown: SynchronizedInputType  # 8
+    SynchronizedInputType_RightMouseUp: SynchronizedInputType  # 16
+    SynchronizedInputType_RightMouseDown: SynchronizedInputType  # 32
 
 class tagPOINT:
-    x : int
-    y : int
-
+    x: int
+    y: int
 
 class tagRECT:
-    bottom : int
-    left : int
-    right : int
-    top : int
-
+    bottom: int
+    left: int
+    right: int
+    top: int
 
 class TextEditChangeType(typing.SupportsInt):
     @typing.overload
-    def __init__(self, value : int) -> None: ...
+    def __init__(self, value: int) -> None: ...
     @typing.overload
-    def __init__(self, value : int, force_if_true: bool) -> None: ...
+    def __init__(self, value: int, force_if_true: bool) -> None: ...
     def __int__(self) -> int: ...
-    
-    # Values:
-    TextEditChangeType_None : TextEditChangeType # 0
-    TextEditChangeType_AutoCorrect : TextEditChangeType # 1
-    TextEditChangeType_Composition : TextEditChangeType # 2
-    TextEditChangeType_CompositionFinalized : TextEditChangeType # 3
-    TextEditChangeType_AutoComplete : TextEditChangeType # 4
 
+    # Values:
+    TextEditChangeType_None: TextEditChangeType  # 0
+    TextEditChangeType_AutoCorrect: TextEditChangeType  # 1
+    TextEditChangeType_Composition: TextEditChangeType  # 2
+    TextEditChangeType_CompositionFinalized: TextEditChangeType  # 3
+    TextEditChangeType_AutoComplete: TextEditChangeType  # 4
 
 class TextPatternRangeEndpoint(typing.SupportsInt):
     @typing.overload
-    def __init__(self, value : int) -> None: ...
+    def __init__(self, value: int) -> None: ...
     @typing.overload
-    def __init__(self, value : int, force_if_true: bool) -> None: ...
+    def __init__(self, value: int, force_if_true: bool) -> None: ...
     def __int__(self) -> int: ...
-    
-    # Values:
-    TextPatternRangeEndpoint_Start : TextPatternRangeEndpoint # 0
-    TextPatternRangeEndpoint_End : TextPatternRangeEndpoint # 1
 
+    # Values:
+    TextPatternRangeEndpoint_Start: TextPatternRangeEndpoint  # 0
+    TextPatternRangeEndpoint_End: TextPatternRangeEndpoint  # 1
 
 class TextUnit(typing.SupportsInt):
     @typing.overload
-    def __init__(self, value : int) -> None: ...
+    def __init__(self, value: int) -> None: ...
     @typing.overload
-    def __init__(self, value : int, force_if_true: bool) -> None: ...
+    def __init__(self, value: int, force_if_true: bool) -> None: ...
     def __int__(self) -> int: ...
-    
-    # Values:
-    TextUnit_Character : TextUnit # 0
-    TextUnit_Format : TextUnit # 1
-    TextUnit_Word : TextUnit # 2
-    TextUnit_Line : TextUnit # 3
-    TextUnit_Paragraph : TextUnit # 4
-    TextUnit_Page : TextUnit # 5
-    TextUnit_Document : TextUnit # 6
 
+    # Values:
+    TextUnit_Character: TextUnit  # 0
+    TextUnit_Format: TextUnit  # 1
+    TextUnit_Word: TextUnit  # 2
+    TextUnit_Line: TextUnit  # 3
+    TextUnit_Paragraph: TextUnit  # 4
+    TextUnit_Page: TextUnit  # 5
+    TextUnit_Document: TextUnit  # 6
 
 class ToggleState(typing.SupportsInt):
     @typing.overload
-    def __init__(self, value : int) -> None: ...
+    def __init__(self, value: int) -> None: ...
     @typing.overload
-    def __init__(self, value : int, force_if_true: bool) -> None: ...
+    def __init__(self, value: int, force_if_true: bool) -> None: ...
     def __int__(self) -> int: ...
-    
-    # Values:
-    ToggleState_Off : ToggleState # 0
-    ToggleState_On : ToggleState # 1
-    ToggleState_Indeterminate : ToggleState # 2
 
+    # Values:
+    ToggleState_Off: ToggleState  # 0
+    ToggleState_On: ToggleState  # 1
+    ToggleState_Indeterminate: ToggleState  # 2
 
 class TreeScope(typing.SupportsInt):
     @typing.overload
-    def __init__(self, value : int) -> None: ...
+    def __init__(self, value: int) -> None: ...
     @typing.overload
-    def __init__(self, value : int, force_if_true: bool) -> None: ...
+    def __init__(self, value: int, force_if_true: bool) -> None: ...
     def __int__(self) -> int: ...
-    
-    # Values:
-    TreeScope_None : TreeScope # 0
-    TreeScope_Element : TreeScope # 1
-    TreeScope_Children : TreeScope # 2
-    TreeScope_Descendants : TreeScope # 4
-    TreeScope_Subtree : TreeScope # 7
-    TreeScope_Parent : TreeScope # 8
-    TreeScope_Ancestors : TreeScope # 16
 
+    # Values:
+    TreeScope_None: TreeScope  # 0
+    TreeScope_Element: TreeScope  # 1
+    TreeScope_Children: TreeScope  # 2
+    TreeScope_Descendants: TreeScope  # 4
+    TreeScope_Subtree: TreeScope  # 7
+    TreeScope_Parent: TreeScope  # 8
+    TreeScope_Ancestors: TreeScope  # 16
 
 class TreeTraversalOptions(typing.SupportsInt):
     @typing.overload
-    def __init__(self, value : int) -> None: ...
+    def __init__(self, value: int) -> None: ...
     @typing.overload
-    def __init__(self, value : int, force_if_true: bool) -> None: ...
+    def __init__(self, value: int, force_if_true: bool) -> None: ...
     def __int__(self) -> int: ...
-    
-    # Values:
-    TreeTraversalOptions_Default : TreeTraversalOptions # 0
-    TreeTraversalOptions_PostOrder : TreeTraversalOptions # 1
-    TreeTraversalOptions_LastToFirstOrder : TreeTraversalOptions # 2
 
+    # Values:
+    TreeTraversalOptions_Default: TreeTraversalOptions  # 0
+    TreeTraversalOptions_PostOrder: TreeTraversalOptions  # 1
+    TreeTraversalOptions_LastToFirstOrder: TreeTraversalOptions  # 2
 
 class UIA_AnnotationTypes(abc.ABC):
-    AnnotationType_AdvancedProofingIssue : int
-    AnnotationType_Author : int
-    AnnotationType_CircularReferenceError : int
-    AnnotationType_Comment : int
-    AnnotationType_ConflictingChange : int
-    AnnotationType_DataValidationError : int
-    AnnotationType_DeletionChange : int
-    AnnotationType_EditingLockedChange : int
-    AnnotationType_Endnote : int
-    AnnotationType_ExternalChange : int
-    AnnotationType_Footer : int
-    AnnotationType_Footnote : int
-    AnnotationType_FormatChange : int
-    AnnotationType_FormulaError : int
-    AnnotationType_GrammarError : int
-    AnnotationType_Header : int
-    AnnotationType_Highlighted : int
-    AnnotationType_InsertionChange : int
-    AnnotationType_Mathematics : int
-    AnnotationType_MoveChange : int
-    AnnotationType_Sensitive : int
-    AnnotationType_SpellingError : int
-    AnnotationType_TrackChanges : int
-    AnnotationType_Unknown : int
-    AnnotationType_UnsyncedChange : int
-
+    AnnotationType_AdvancedProofingIssue: int
+    AnnotationType_Author: int
+    AnnotationType_CircularReferenceError: int
+    AnnotationType_Comment: int
+    AnnotationType_ConflictingChange: int
+    AnnotationType_DataValidationError: int
+    AnnotationType_DeletionChange: int
+    AnnotationType_EditingLockedChange: int
+    AnnotationType_Endnote: int
+    AnnotationType_ExternalChange: int
+    AnnotationType_Footer: int
+    AnnotationType_Footnote: int
+    AnnotationType_FormatChange: int
+    AnnotationType_FormulaError: int
+    AnnotationType_GrammarError: int
+    AnnotationType_Header: int
+    AnnotationType_Highlighted: int
+    AnnotationType_InsertionChange: int
+    AnnotationType_Mathematics: int
+    AnnotationType_MoveChange: int
+    AnnotationType_Sensitive: int
+    AnnotationType_SpellingError: int
+    AnnotationType_TrackChanges: int
+    AnnotationType_Unknown: int
+    AnnotationType_UnsyncedChange: int
 
 class UIA_ChangeIds(abc.ABC):
-    UIA_SummaryChangeId : int
-
+    UIA_SummaryChangeId: int
 
 class UIA_ControlTypeIds(abc.ABC):
-    UIA_AppBarControlTypeId : int
-    UIA_ButtonControlTypeId : int
-    UIA_CalendarControlTypeId : int
-    UIA_CheckBoxControlTypeId : int
-    UIA_ComboBoxControlTypeId : int
-    UIA_CustomControlTypeId : int
-    UIA_DataGridControlTypeId : int
-    UIA_DataItemControlTypeId : int
-    UIA_DocumentControlTypeId : int
-    UIA_EditControlTypeId : int
-    UIA_GroupControlTypeId : int
-    UIA_HeaderControlTypeId : int
-    UIA_HeaderItemControlTypeId : int
-    UIA_HyperlinkControlTypeId : int
-    UIA_ImageControlTypeId : int
-    UIA_ListControlTypeId : int
-    UIA_ListItemControlTypeId : int
-    UIA_MenuBarControlTypeId : int
-    UIA_MenuControlTypeId : int
-    UIA_MenuItemControlTypeId : int
-    UIA_PaneControlTypeId : int
-    UIA_ProgressBarControlTypeId : int
-    UIA_RadioButtonControlTypeId : int
-    UIA_ScrollBarControlTypeId : int
-    UIA_SemanticZoomControlTypeId : int
-    UIA_SeparatorControlTypeId : int
-    UIA_SliderControlTypeId : int
-    UIA_SpinnerControlTypeId : int
-    UIA_SplitButtonControlTypeId : int
-    UIA_StatusBarControlTypeId : int
-    UIA_TabControlTypeId : int
-    UIA_TabItemControlTypeId : int
-    UIA_TableControlTypeId : int
-    UIA_TextControlTypeId : int
-    UIA_ThumbControlTypeId : int
-    UIA_TitleBarControlTypeId : int
-    UIA_ToolBarControlTypeId : int
-    UIA_ToolTipControlTypeId : int
-    UIA_TreeControlTypeId : int
-    UIA_TreeItemControlTypeId : int
-    UIA_WindowControlTypeId : int
-
+    UIA_AppBarControlTypeId: int
+    UIA_ButtonControlTypeId: int
+    UIA_CalendarControlTypeId: int
+    UIA_CheckBoxControlTypeId: int
+    UIA_ComboBoxControlTypeId: int
+    UIA_CustomControlTypeId: int
+    UIA_DataGridControlTypeId: int
+    UIA_DataItemControlTypeId: int
+    UIA_DocumentControlTypeId: int
+    UIA_EditControlTypeId: int
+    UIA_GroupControlTypeId: int
+    UIA_HeaderControlTypeId: int
+    UIA_HeaderItemControlTypeId: int
+    UIA_HyperlinkControlTypeId: int
+    UIA_ImageControlTypeId: int
+    UIA_ListControlTypeId: int
+    UIA_ListItemControlTypeId: int
+    UIA_MenuBarControlTypeId: int
+    UIA_MenuControlTypeId: int
+    UIA_MenuItemControlTypeId: int
+    UIA_PaneControlTypeId: int
+    UIA_ProgressBarControlTypeId: int
+    UIA_RadioButtonControlTypeId: int
+    UIA_ScrollBarControlTypeId: int
+    UIA_SemanticZoomControlTypeId: int
+    UIA_SeparatorControlTypeId: int
+    UIA_SliderControlTypeId: int
+    UIA_SpinnerControlTypeId: int
+    UIA_SplitButtonControlTypeId: int
+    UIA_StatusBarControlTypeId: int
+    UIA_TabControlTypeId: int
+    UIA_TabItemControlTypeId: int
+    UIA_TableControlTypeId: int
+    UIA_TextControlTypeId: int
+    UIA_ThumbControlTypeId: int
+    UIA_TitleBarControlTypeId: int
+    UIA_ToolBarControlTypeId: int
+    UIA_ToolTipControlTypeId: int
+    UIA_TreeControlTypeId: int
+    UIA_TreeItemControlTypeId: int
+    UIA_WindowControlTypeId: int
 
 class UIA_EventIds(abc.ABC):
-    UIA_ActiveTextPositionChangedEventId : int
-    UIA_AsyncContentLoadedEventId : int
-    UIA_AutomationFocusChangedEventId : int
-    UIA_AutomationPropertyChangedEventId : int
-    UIA_ChangesEventId : int
-    UIA_Drag_DragCancelEventId : int
-    UIA_Drag_DragCompleteEventId : int
-    UIA_Drag_DragStartEventId : int
-    UIA_DropTarget_DragEnterEventId : int
-    UIA_DropTarget_DragLeaveEventId : int
-    UIA_DropTarget_DroppedEventId : int
-    UIA_HostedFragmentRootsInvalidatedEventId : int
-    UIA_InputDiscardedEventId : int
-    UIA_InputReachedOtherElementEventId : int
-    UIA_InputReachedTargetEventId : int
-    UIA_Invoke_InvokedEventId : int
-    UIA_LayoutInvalidatedEventId : int
-    UIA_LiveRegionChangedEventId : int
-    UIA_MenuClosedEventId : int
-    UIA_MenuModeEndEventId : int
-    UIA_MenuModeStartEventId : int
-    UIA_MenuOpenedEventId : int
-    UIA_NotificationEventId : int
-    UIA_Selection_InvalidatedEventId : int
-    UIA_SelectionItem_ElementAddedToSelectionEventId : int
-    UIA_SelectionItem_ElementRemovedFromSelectionEventId : int
-    UIA_SelectionItem_ElementSelectedEventId : int
-    UIA_StructureChangedEventId : int
-    UIA_SystemAlertEventId : int
-    UIA_Text_TextChangedEventId : int
-    UIA_Text_TextSelectionChangedEventId : int
-    UIA_TextEdit_ConversionTargetChangedEventId : int
-    UIA_TextEdit_TextChangedEventId : int
-    UIA_ToolTipClosedEventId : int
-    UIA_ToolTipOpenedEventId : int
-    UIA_Window_WindowClosedEventId : int
-    UIA_Window_WindowOpenedEventId : int
-
+    UIA_ActiveTextPositionChangedEventId: int
+    UIA_AsyncContentLoadedEventId: int
+    UIA_AutomationFocusChangedEventId: int
+    UIA_AutomationPropertyChangedEventId: int
+    UIA_ChangesEventId: int
+    UIA_Drag_DragCancelEventId: int
+    UIA_Drag_DragCompleteEventId: int
+    UIA_Drag_DragStartEventId: int
+    UIA_DropTarget_DragEnterEventId: int
+    UIA_DropTarget_DragLeaveEventId: int
+    UIA_DropTarget_DroppedEventId: int
+    UIA_HostedFragmentRootsInvalidatedEventId: int
+    UIA_InputDiscardedEventId: int
+    UIA_InputReachedOtherElementEventId: int
+    UIA_InputReachedTargetEventId: int
+    UIA_Invoke_InvokedEventId: int
+    UIA_LayoutInvalidatedEventId: int
+    UIA_LiveRegionChangedEventId: int
+    UIA_MenuClosedEventId: int
+    UIA_MenuModeEndEventId: int
+    UIA_MenuModeStartEventId: int
+    UIA_MenuOpenedEventId: int
+    UIA_NotificationEventId: int
+    UIA_Selection_InvalidatedEventId: int
+    UIA_SelectionItem_ElementAddedToSelectionEventId: int
+    UIA_SelectionItem_ElementRemovedFromSelectionEventId: int
+    UIA_SelectionItem_ElementSelectedEventId: int
+    UIA_StructureChangedEventId: int
+    UIA_SystemAlertEventId: int
+    UIA_Text_TextChangedEventId: int
+    UIA_Text_TextSelectionChangedEventId: int
+    UIA_TextEdit_ConversionTargetChangedEventId: int
+    UIA_TextEdit_TextChangedEventId: int
+    UIA_ToolTipClosedEventId: int
+    UIA_ToolTipOpenedEventId: int
+    UIA_Window_WindowClosedEventId: int
+    UIA_Window_WindowOpenedEventId: int
 
 class UIA_HeadingLevelIds(abc.ABC):
-    HeadingLevel_None : int
-    HeadingLevel1 : int
-    HeadingLevel2 : int
-    HeadingLevel3 : int
-    HeadingLevel4 : int
-    HeadingLevel5 : int
-    HeadingLevel6 : int
-    HeadingLevel7 : int
-    HeadingLevel8 : int
-    HeadingLevel9 : int
-
+    HeadingLevel_None: int
+    HeadingLevel1: int
+    HeadingLevel2: int
+    HeadingLevel3: int
+    HeadingLevel4: int
+    HeadingLevel5: int
+    HeadingLevel6: int
+    HeadingLevel7: int
+    HeadingLevel8: int
+    HeadingLevel9: int
 
 class UIA_LandmarkTypeIds(abc.ABC):
-    UIA_CustomLandmarkTypeId : int
-    UIA_FormLandmarkTypeId : int
-    UIA_MainLandmarkTypeId : int
-    UIA_NavigationLandmarkTypeId : int
-    UIA_SearchLandmarkTypeId : int
-
+    UIA_CustomLandmarkTypeId: int
+    UIA_FormLandmarkTypeId: int
+    UIA_MainLandmarkTypeId: int
+    UIA_NavigationLandmarkTypeId: int
+    UIA_SearchLandmarkTypeId: int
 
 class UIA_MetadataIds(abc.ABC):
-    UIA_SayAsInterpretAsMetadataId : int
-
+    UIA_SayAsInterpretAsMetadataId: int
 
 class UIA_PatternIds(abc.ABC):
-    UIA_AnnotationPatternId : int
-    UIA_CustomNavigationPatternId : int
-    UIA_DockPatternId : int
-    UIA_DragPatternId : int
-    UIA_DropTargetPatternId : int
-    UIA_ExpandCollapsePatternId : int
-    UIA_GridItemPatternId : int
-    UIA_GridPatternId : int
-    UIA_InvokePatternId : int
-    UIA_ItemContainerPatternId : int
-    UIA_LegacyIAccessiblePatternId : int
-    UIA_MultipleViewPatternId : int
-    UIA_ObjectModelPatternId : int
-    UIA_RangeValuePatternId : int
-    UIA_ScrollItemPatternId : int
-    UIA_ScrollPatternId : int
-    UIA_SelectionItemPatternId : int
-    UIA_SelectionPattern2Id : int
-    UIA_SelectionPatternId : int
-    UIA_SpreadsheetItemPatternId : int
-    UIA_SpreadsheetPatternId : int
-    UIA_StylesPatternId : int
-    UIA_SynchronizedInputPatternId : int
-    UIA_TableItemPatternId : int
-    UIA_TablePatternId : int
-    UIA_TextChildPatternId : int
-    UIA_TextEditPatternId : int
-    UIA_TextPattern2Id : int
-    UIA_TextPatternId : int
-    UIA_TogglePatternId : int
-    UIA_TransformPattern2Id : int
-    UIA_TransformPatternId : int
-    UIA_ValuePatternId : int
-    UIA_VirtualizedItemPatternId : int
-    UIA_WindowPatternId : int
-
+    UIA_AnnotationPatternId: int
+    UIA_CustomNavigationPatternId: int
+    UIA_DockPatternId: int
+    UIA_DragPatternId: int
+    UIA_DropTargetPatternId: int
+    UIA_ExpandCollapsePatternId: int
+    UIA_GridItemPatternId: int
+    UIA_GridPatternId: int
+    UIA_InvokePatternId: int
+    UIA_ItemContainerPatternId: int
+    UIA_LegacyIAccessiblePatternId: int
+    UIA_MultipleViewPatternId: int
+    UIA_ObjectModelPatternId: int
+    UIA_RangeValuePatternId: int
+    UIA_ScrollItemPatternId: int
+    UIA_ScrollPatternId: int
+    UIA_SelectionItemPatternId: int
+    UIA_SelectionPattern2Id: int
+    UIA_SelectionPatternId: int
+    UIA_SpreadsheetItemPatternId: int
+    UIA_SpreadsheetPatternId: int
+    UIA_StylesPatternId: int
+    UIA_SynchronizedInputPatternId: int
+    UIA_TableItemPatternId: int
+    UIA_TablePatternId: int
+    UIA_TextChildPatternId: int
+    UIA_TextEditPatternId: int
+    UIA_TextPattern2Id: int
+    UIA_TextPatternId: int
+    UIA_TogglePatternId: int
+    UIA_TransformPattern2Id: int
+    UIA_TransformPatternId: int
+    UIA_ValuePatternId: int
+    UIA_VirtualizedItemPatternId: int
+    UIA_WindowPatternId: int
 
 class UIA_PropertyIds(abc.ABC):
-    UIA_AcceleratorKeyPropertyId : int
-    UIA_AccessKeyPropertyId : int
-    UIA_AnnotationAnnotationTypeIdPropertyId : int
-    UIA_AnnotationAnnotationTypeNamePropertyId : int
-    UIA_AnnotationAuthorPropertyId : int
-    UIA_AnnotationDateTimePropertyId : int
-    UIA_AnnotationObjectsPropertyId : int
-    UIA_AnnotationTargetPropertyId : int
-    UIA_AnnotationTypesPropertyId : int
-    UIA_AriaPropertiesPropertyId : int
-    UIA_AriaRolePropertyId : int
-    UIA_AutomationIdPropertyId : int
-    UIA_BoundingRectanglePropertyId : int
-    UIA_CenterPointPropertyId : int
-    UIA_ClassNamePropertyId : int
-    UIA_ClickablePointPropertyId : int
-    UIA_ControllerForPropertyId : int
-    UIA_ControlTypePropertyId : int
-    UIA_CulturePropertyId : int
-    UIA_DescribedByPropertyId : int
-    UIA_DockDockPositionPropertyId : int
-    UIA_DragDropEffectPropertyId : int
-    UIA_DragDropEffectsPropertyId : int
-    UIA_DragGrabbedItemsPropertyId : int
-    UIA_DragIsGrabbedPropertyId : int
-    UIA_DropTargetDropTargetEffectPropertyId : int
-    UIA_DropTargetDropTargetEffectsPropertyId : int
-    UIA_ExpandCollapseExpandCollapseStatePropertyId : int
-    UIA_FillColorPropertyId : int
-    UIA_FillTypePropertyId : int
-    UIA_FlowsFromPropertyId : int
-    UIA_FlowsToPropertyId : int
-    UIA_FrameworkIdPropertyId : int
-    UIA_FullDescriptionPropertyId : int
-    UIA_GridColumnCountPropertyId : int
-    UIA_GridItemColumnPropertyId : int
-    UIA_GridItemColumnSpanPropertyId : int
-    UIA_GridItemContainingGridPropertyId : int
-    UIA_GridItemRowPropertyId : int
-    UIA_GridItemRowSpanPropertyId : int
-    UIA_GridRowCountPropertyId : int
-    UIA_HasKeyboardFocusPropertyId : int
-    UIA_HeadingLevelPropertyId : int
-    UIA_HelpTextPropertyId : int
-    UIA_IsAnnotationPatternAvailablePropertyId : int
-    UIA_IsContentElementPropertyId : int
-    UIA_IsControlElementPropertyId : int
-    UIA_IsCustomNavigationPatternAvailablePropertyId : int
-    UIA_IsDataValidForFormPropertyId : int
-    UIA_IsDialogPropertyId : int
-    UIA_IsDockPatternAvailablePropertyId : int
-    UIA_IsDragPatternAvailablePropertyId : int
-    UIA_IsDropTargetPatternAvailablePropertyId : int
-    UIA_IsEnabledPropertyId : int
-    UIA_IsExpandCollapsePatternAvailablePropertyId : int
-    UIA_IsGridItemPatternAvailablePropertyId : int
-    UIA_IsGridPatternAvailablePropertyId : int
-    UIA_IsInvokePatternAvailablePropertyId : int
-    UIA_IsItemContainerPatternAvailablePropertyId : int
-    UIA_IsKeyboardFocusablePropertyId : int
-    UIA_IsLegacyIAccessiblePatternAvailablePropertyId : int
-    UIA_IsMultipleViewPatternAvailablePropertyId : int
-    UIA_IsObjectModelPatternAvailablePropertyId : int
-    UIA_IsOffscreenPropertyId : int
-    UIA_IsPasswordPropertyId : int
-    UIA_IsPeripheralPropertyId : int
-    UIA_IsRangeValuePatternAvailablePropertyId : int
-    UIA_IsRequiredForFormPropertyId : int
-    UIA_IsScrollItemPatternAvailablePropertyId : int
-    UIA_IsScrollPatternAvailablePropertyId : int
-    UIA_IsSelectionItemPatternAvailablePropertyId : int
-    UIA_IsSelectionPattern2AvailablePropertyId : int
-    UIA_IsSelectionPatternAvailablePropertyId : int
-    UIA_IsSpreadsheetItemPatternAvailablePropertyId : int
-    UIA_IsSpreadsheetPatternAvailablePropertyId : int
-    UIA_IsStylesPatternAvailablePropertyId : int
-    UIA_IsSynchronizedInputPatternAvailablePropertyId : int
-    UIA_IsTableItemPatternAvailablePropertyId : int
-    UIA_IsTablePatternAvailablePropertyId : int
-    UIA_IsTextChildPatternAvailablePropertyId : int
-    UIA_IsTextEditPatternAvailablePropertyId : int
-    UIA_IsTextPattern2AvailablePropertyId : int
-    UIA_IsTextPatternAvailablePropertyId : int
-    UIA_IsTogglePatternAvailablePropertyId : int
-    UIA_IsTransformPattern2AvailablePropertyId : int
-    UIA_IsTransformPatternAvailablePropertyId : int
-    UIA_IsValuePatternAvailablePropertyId : int
-    UIA_IsVirtualizedItemPatternAvailablePropertyId : int
-    UIA_IsWindowPatternAvailablePropertyId : int
-    UIA_ItemStatusPropertyId : int
-    UIA_ItemTypePropertyId : int
-    UIA_LabeledByPropertyId : int
-    UIA_LandmarkTypePropertyId : int
-    UIA_LegacyIAccessibleChildIdPropertyId : int
-    UIA_LegacyIAccessibleDefaultActionPropertyId : int
-    UIA_LegacyIAccessibleDescriptionPropertyId : int
-    UIA_LegacyIAccessibleHelpPropertyId : int
-    UIA_LegacyIAccessibleKeyboardShortcutPropertyId : int
-    UIA_LegacyIAccessibleNamePropertyId : int
-    UIA_LegacyIAccessibleRolePropertyId : int
-    UIA_LegacyIAccessibleSelectionPropertyId : int
-    UIA_LegacyIAccessibleStatePropertyId : int
-    UIA_LegacyIAccessibleValuePropertyId : int
-    UIA_LevelPropertyId : int
-    UIA_LiveSettingPropertyId : int
-    UIA_LocalizedControlTypePropertyId : int
-    UIA_LocalizedLandmarkTypePropertyId : int
-    UIA_MultipleViewCurrentViewPropertyId : int
-    UIA_MultipleViewSupportedViewsPropertyId : int
-    UIA_NamePropertyId : int
-    UIA_NativeWindowHandlePropertyId : int
-    UIA_OptimizeForVisualContentPropertyId : int
-    UIA_OrientationPropertyId : int
-    UIA_OutlineColorPropertyId : int
-    UIA_OutlineThicknessPropertyId : int
-    UIA_PositionInSetPropertyId : int
-    UIA_ProcessIdPropertyId : int
-    UIA_ProviderDescriptionPropertyId : int
-    UIA_RangeValueIsReadOnlyPropertyId : int
-    UIA_RangeValueLargeChangePropertyId : int
-    UIA_RangeValueMaximumPropertyId : int
-    UIA_RangeValueMinimumPropertyId : int
-    UIA_RangeValueSmallChangePropertyId : int
-    UIA_RangeValueValuePropertyId : int
-    UIA_RotationPropertyId : int
-    UIA_RuntimeIdPropertyId : int
-    UIA_ScrollHorizontallyScrollablePropertyId : int
-    UIA_ScrollHorizontalScrollPercentPropertyId : int
-    UIA_ScrollHorizontalViewSizePropertyId : int
-    UIA_ScrollVerticallyScrollablePropertyId : int
-    UIA_ScrollVerticalScrollPercentPropertyId : int
-    UIA_ScrollVerticalViewSizePropertyId : int
-    UIA_Selection2CurrentSelectedItemPropertyId : int
-    UIA_Selection2FirstSelectedItemPropertyId : int
-    UIA_Selection2ItemCountPropertyId : int
-    UIA_Selection2LastSelectedItemPropertyId : int
-    UIA_SelectionCanSelectMultiplePropertyId : int
-    UIA_SelectionIsSelectionRequiredPropertyId : int
-    UIA_SelectionItemIsSelectedPropertyId : int
-    UIA_SelectionItemSelectionContainerPropertyId : int
-    UIA_SelectionSelectionPropertyId : int
-    UIA_SizeOfSetPropertyId : int
-    UIA_SizePropertyId : int
-    UIA_SpreadsheetItemAnnotationObjectsPropertyId : int
-    UIA_SpreadsheetItemAnnotationTypesPropertyId : int
-    UIA_SpreadsheetItemFormulaPropertyId : int
-    UIA_StylesExtendedPropertiesPropertyId : int
-    UIA_StylesFillColorPropertyId : int
-    UIA_StylesFillPatternColorPropertyId : int
-    UIA_StylesFillPatternStylePropertyId : int
-    UIA_StylesShapePropertyId : int
-    UIA_StylesStyleIdPropertyId : int
-    UIA_StylesStyleNamePropertyId : int
-    UIA_TableColumnHeadersPropertyId : int
-    UIA_TableItemColumnHeaderItemsPropertyId : int
-    UIA_TableItemRowHeaderItemsPropertyId : int
-    UIA_TableRowHeadersPropertyId : int
-    UIA_TableRowOrColumnMajorPropertyId : int
-    UIA_ToggleToggleStatePropertyId : int
-    UIA_Transform2CanZoomPropertyId : int
-    UIA_Transform2ZoomLevelPropertyId : int
-    UIA_Transform2ZoomMaximumPropertyId : int
-    UIA_Transform2ZoomMinimumPropertyId : int
-    UIA_TransformCanMovePropertyId : int
-    UIA_TransformCanResizePropertyId : int
-    UIA_TransformCanRotatePropertyId : int
-    UIA_ValueIsReadOnlyPropertyId : int
-    UIA_ValueValuePropertyId : int
-    UIA_VisualEffectsPropertyId : int
-    UIA_WindowCanMaximizePropertyId : int
-    UIA_WindowCanMinimizePropertyId : int
-    UIA_WindowIsModalPropertyId : int
-    UIA_WindowIsTopmostPropertyId : int
-    UIA_WindowWindowInteractionStatePropertyId : int
-    UIA_WindowWindowVisualStatePropertyId : int
-
+    UIA_AcceleratorKeyPropertyId: int
+    UIA_AccessKeyPropertyId: int
+    UIA_AnnotationAnnotationTypeIdPropertyId: int
+    UIA_AnnotationAnnotationTypeNamePropertyId: int
+    UIA_AnnotationAuthorPropertyId: int
+    UIA_AnnotationDateTimePropertyId: int
+    UIA_AnnotationObjectsPropertyId: int
+    UIA_AnnotationTargetPropertyId: int
+    UIA_AnnotationTypesPropertyId: int
+    UIA_AriaPropertiesPropertyId: int
+    UIA_AriaRolePropertyId: int
+    UIA_AutomationIdPropertyId: int
+    UIA_BoundingRectanglePropertyId: int
+    UIA_CenterPointPropertyId: int
+    UIA_ClassNamePropertyId: int
+    UIA_ClickablePointPropertyId: int
+    UIA_ControllerForPropertyId: int
+    UIA_ControlTypePropertyId: int
+    UIA_CulturePropertyId: int
+    UIA_DescribedByPropertyId: int
+    UIA_DockDockPositionPropertyId: int
+    UIA_DragDropEffectPropertyId: int
+    UIA_DragDropEffectsPropertyId: int
+    UIA_DragGrabbedItemsPropertyId: int
+    UIA_DragIsGrabbedPropertyId: int
+    UIA_DropTargetDropTargetEffectPropertyId: int
+    UIA_DropTargetDropTargetEffectsPropertyId: int
+    UIA_ExpandCollapseExpandCollapseStatePropertyId: int
+    UIA_FillColorPropertyId: int
+    UIA_FillTypePropertyId: int
+    UIA_FlowsFromPropertyId: int
+    UIA_FlowsToPropertyId: int
+    UIA_FrameworkIdPropertyId: int
+    UIA_FullDescriptionPropertyId: int
+    UIA_GridColumnCountPropertyId: int
+    UIA_GridItemColumnPropertyId: int
+    UIA_GridItemColumnSpanPropertyId: int
+    UIA_GridItemContainingGridPropertyId: int
+    UIA_GridItemRowPropertyId: int
+    UIA_GridItemRowSpanPropertyId: int
+    UIA_GridRowCountPropertyId: int
+    UIA_HasKeyboardFocusPropertyId: int
+    UIA_HeadingLevelPropertyId: int
+    UIA_HelpTextPropertyId: int
+    UIA_IsAnnotationPatternAvailablePropertyId: int
+    UIA_IsContentElementPropertyId: int
+    UIA_IsControlElementPropertyId: int
+    UIA_IsCustomNavigationPatternAvailablePropertyId: int
+    UIA_IsDataValidForFormPropertyId: int
+    UIA_IsDialogPropertyId: int
+    UIA_IsDockPatternAvailablePropertyId: int
+    UIA_IsDragPatternAvailablePropertyId: int
+    UIA_IsDropTargetPatternAvailablePropertyId: int
+    UIA_IsEnabledPropertyId: int
+    UIA_IsExpandCollapsePatternAvailablePropertyId: int
+    UIA_IsGridItemPatternAvailablePropertyId: int
+    UIA_IsGridPatternAvailablePropertyId: int
+    UIA_IsInvokePatternAvailablePropertyId: int
+    UIA_IsItemContainerPatternAvailablePropertyId: int
+    UIA_IsKeyboardFocusablePropertyId: int
+    UIA_IsLegacyIAccessiblePatternAvailablePropertyId: int
+    UIA_IsMultipleViewPatternAvailablePropertyId: int
+    UIA_IsObjectModelPatternAvailablePropertyId: int
+    UIA_IsOffscreenPropertyId: int
+    UIA_IsPasswordPropertyId: int
+    UIA_IsPeripheralPropertyId: int
+    UIA_IsRangeValuePatternAvailablePropertyId: int
+    UIA_IsRequiredForFormPropertyId: int
+    UIA_IsScrollItemPatternAvailablePropertyId: int
+    UIA_IsScrollPatternAvailablePropertyId: int
+    UIA_IsSelectionItemPatternAvailablePropertyId: int
+    UIA_IsSelectionPattern2AvailablePropertyId: int
+    UIA_IsSelectionPatternAvailablePropertyId: int
+    UIA_IsSpreadsheetItemPatternAvailablePropertyId: int
+    UIA_IsSpreadsheetPatternAvailablePropertyId: int
+    UIA_IsStylesPatternAvailablePropertyId: int
+    UIA_IsSynchronizedInputPatternAvailablePropertyId: int
+    UIA_IsTableItemPatternAvailablePropertyId: int
+    UIA_IsTablePatternAvailablePropertyId: int
+    UIA_IsTextChildPatternAvailablePropertyId: int
+    UIA_IsTextEditPatternAvailablePropertyId: int
+    UIA_IsTextPattern2AvailablePropertyId: int
+    UIA_IsTextPatternAvailablePropertyId: int
+    UIA_IsTogglePatternAvailablePropertyId: int
+    UIA_IsTransformPattern2AvailablePropertyId: int
+    UIA_IsTransformPatternAvailablePropertyId: int
+    UIA_IsValuePatternAvailablePropertyId: int
+    UIA_IsVirtualizedItemPatternAvailablePropertyId: int
+    UIA_IsWindowPatternAvailablePropertyId: int
+    UIA_ItemStatusPropertyId: int
+    UIA_ItemTypePropertyId: int
+    UIA_LabeledByPropertyId: int
+    UIA_LandmarkTypePropertyId: int
+    UIA_LegacyIAccessibleChildIdPropertyId: int
+    UIA_LegacyIAccessibleDefaultActionPropertyId: int
+    UIA_LegacyIAccessibleDescriptionPropertyId: int
+    UIA_LegacyIAccessibleHelpPropertyId: int
+    UIA_LegacyIAccessibleKeyboardShortcutPropertyId: int
+    UIA_LegacyIAccessibleNamePropertyId: int
+    UIA_LegacyIAccessibleRolePropertyId: int
+    UIA_LegacyIAccessibleSelectionPropertyId: int
+    UIA_LegacyIAccessibleStatePropertyId: int
+    UIA_LegacyIAccessibleValuePropertyId: int
+    UIA_LevelPropertyId: int
+    UIA_LiveSettingPropertyId: int
+    UIA_LocalizedControlTypePropertyId: int
+    UIA_LocalizedLandmarkTypePropertyId: int
+    UIA_MultipleViewCurrentViewPropertyId: int
+    UIA_MultipleViewSupportedViewsPropertyId: int
+    UIA_NamePropertyId: int
+    UIA_NativeWindowHandlePropertyId: int
+    UIA_OptimizeForVisualContentPropertyId: int
+    UIA_OrientationPropertyId: int
+    UIA_OutlineColorPropertyId: int
+    UIA_OutlineThicknessPropertyId: int
+    UIA_PositionInSetPropertyId: int
+    UIA_ProcessIdPropertyId: int
+    UIA_ProviderDescriptionPropertyId: int
+    UIA_RangeValueIsReadOnlyPropertyId: int
+    UIA_RangeValueLargeChangePropertyId: int
+    UIA_RangeValueMaximumPropertyId: int
+    UIA_RangeValueMinimumPropertyId: int
+    UIA_RangeValueSmallChangePropertyId: int
+    UIA_RangeValueValuePropertyId: int
+    UIA_RotationPropertyId: int
+    UIA_RuntimeIdPropertyId: int
+    UIA_ScrollHorizontallyScrollablePropertyId: int
+    UIA_ScrollHorizontalScrollPercentPropertyId: int
+    UIA_ScrollHorizontalViewSizePropertyId: int
+    UIA_ScrollVerticallyScrollablePropertyId: int
+    UIA_ScrollVerticalScrollPercentPropertyId: int
+    UIA_ScrollVerticalViewSizePropertyId: int
+    UIA_Selection2CurrentSelectedItemPropertyId: int
+    UIA_Selection2FirstSelectedItemPropertyId: int
+    UIA_Selection2ItemCountPropertyId: int
+    UIA_Selection2LastSelectedItemPropertyId: int
+    UIA_SelectionCanSelectMultiplePropertyId: int
+    UIA_SelectionIsSelectionRequiredPropertyId: int
+    UIA_SelectionItemIsSelectedPropertyId: int
+    UIA_SelectionItemSelectionContainerPropertyId: int
+    UIA_SelectionSelectionPropertyId: int
+    UIA_SizeOfSetPropertyId: int
+    UIA_SizePropertyId: int
+    UIA_SpreadsheetItemAnnotationObjectsPropertyId: int
+    UIA_SpreadsheetItemAnnotationTypesPropertyId: int
+    UIA_SpreadsheetItemFormulaPropertyId: int
+    UIA_StylesExtendedPropertiesPropertyId: int
+    UIA_StylesFillColorPropertyId: int
+    UIA_StylesFillPatternColorPropertyId: int
+    UIA_StylesFillPatternStylePropertyId: int
+    UIA_StylesShapePropertyId: int
+    UIA_StylesStyleIdPropertyId: int
+    UIA_StylesStyleNamePropertyId: int
+    UIA_TableColumnHeadersPropertyId: int
+    UIA_TableItemColumnHeaderItemsPropertyId: int
+    UIA_TableItemRowHeaderItemsPropertyId: int
+    UIA_TableRowHeadersPropertyId: int
+    UIA_TableRowOrColumnMajorPropertyId: int
+    UIA_ToggleToggleStatePropertyId: int
+    UIA_Transform2CanZoomPropertyId: int
+    UIA_Transform2ZoomLevelPropertyId: int
+    UIA_Transform2ZoomMaximumPropertyId: int
+    UIA_Transform2ZoomMinimumPropertyId: int
+    UIA_TransformCanMovePropertyId: int
+    UIA_TransformCanResizePropertyId: int
+    UIA_TransformCanRotatePropertyId: int
+    UIA_ValueIsReadOnlyPropertyId: int
+    UIA_ValueValuePropertyId: int
+    UIA_VisualEffectsPropertyId: int
+    UIA_WindowCanMaximizePropertyId: int
+    UIA_WindowCanMinimizePropertyId: int
+    UIA_WindowIsModalPropertyId: int
+    UIA_WindowIsTopmostPropertyId: int
+    UIA_WindowWindowInteractionStatePropertyId: int
+    UIA_WindowWindowVisualStatePropertyId: int
 
 class UIA_StyleIds(abc.ABC):
-    StyleId_BulletedList : int
-    StyleId_Custom : int
-    StyleId_Emphasis : int
-    StyleId_Heading1 : int
-    StyleId_Heading2 : int
-    StyleId_Heading3 : int
-    StyleId_Heading4 : int
-    StyleId_Heading5 : int
-    StyleId_Heading6 : int
-    StyleId_Heading7 : int
-    StyleId_Heading8 : int
-    StyleId_Heading9 : int
-    StyleId_Normal : int
-    StyleId_NumberedList : int
-    StyleId_Quote : int
-    StyleId_Subtitle : int
-    StyleId_Title : int
-
+    StyleId_BulletedList: int
+    StyleId_Custom: int
+    StyleId_Emphasis: int
+    StyleId_Heading1: int
+    StyleId_Heading2: int
+    StyleId_Heading3: int
+    StyleId_Heading4: int
+    StyleId_Heading5: int
+    StyleId_Heading6: int
+    StyleId_Heading7: int
+    StyleId_Heading8: int
+    StyleId_Heading9: int
+    StyleId_Normal: int
+    StyleId_NumberedList: int
+    StyleId_Quote: int
+    StyleId_Subtitle: int
+    StyleId_Title: int
 
 class UIA_TextAttributeIds(abc.ABC):
-    UIA_AfterParagraphSpacingAttributeId : int
-    UIA_AnimationStyleAttributeId : int
-    UIA_AnnotationObjectsAttributeId : int
-    UIA_AnnotationTypesAttributeId : int
-    UIA_BackgroundColorAttributeId : int
-    UIA_BeforeParagraphSpacingAttributeId : int
-    UIA_BulletStyleAttributeId : int
-    UIA_CapStyleAttributeId : int
-    UIA_CaretBidiModeAttributeId : int
-    UIA_CaretPositionAttributeId : int
-    UIA_CultureAttributeId : int
-    UIA_FontNameAttributeId : int
-    UIA_FontSizeAttributeId : int
-    UIA_FontWeightAttributeId : int
-    UIA_ForegroundColorAttributeId : int
-    UIA_HorizontalTextAlignmentAttributeId : int
-    UIA_IndentationFirstLineAttributeId : int
-    UIA_IndentationLeadingAttributeId : int
-    UIA_IndentationTrailingAttributeId : int
-    UIA_IsActiveAttributeId : int
-    UIA_IsHiddenAttributeId : int
-    UIA_IsItalicAttributeId : int
-    UIA_IsReadOnlyAttributeId : int
-    UIA_IsSubscriptAttributeId : int
-    UIA_IsSuperscriptAttributeId : int
-    UIA_LineSpacingAttributeId : int
-    UIA_LinkAttributeId : int
-    UIA_MarginBottomAttributeId : int
-    UIA_MarginLeadingAttributeId : int
-    UIA_MarginTopAttributeId : int
-    UIA_MarginTrailingAttributeId : int
-    UIA_OutlineStylesAttributeId : int
-    UIA_OverlineColorAttributeId : int
-    UIA_OverlineStyleAttributeId : int
-    UIA_SayAsInterpretAsAttributeId : int
-    UIA_SelectionActiveEndAttributeId : int
-    UIA_StrikethroughColorAttributeId : int
-    UIA_StrikethroughStyleAttributeId : int
-    UIA_StyleIdAttributeId : int
-    UIA_StyleNameAttributeId : int
-    UIA_TabsAttributeId : int
-    UIA_TextFlowDirectionsAttributeId : int
-    UIA_UnderlineColorAttributeId : int
-    UIA_UnderlineStyleAttributeId : int
-
+    UIA_AfterParagraphSpacingAttributeId: int
+    UIA_AnimationStyleAttributeId: int
+    UIA_AnnotationObjectsAttributeId: int
+    UIA_AnnotationTypesAttributeId: int
+    UIA_BackgroundColorAttributeId: int
+    UIA_BeforeParagraphSpacingAttributeId: int
+    UIA_BulletStyleAttributeId: int
+    UIA_CapStyleAttributeId: int
+    UIA_CaretBidiModeAttributeId: int
+    UIA_CaretPositionAttributeId: int
+    UIA_CultureAttributeId: int
+    UIA_FontNameAttributeId: int
+    UIA_FontSizeAttributeId: int
+    UIA_FontWeightAttributeId: int
+    UIA_ForegroundColorAttributeId: int
+    UIA_HorizontalTextAlignmentAttributeId: int
+    UIA_IndentationFirstLineAttributeId: int
+    UIA_IndentationLeadingAttributeId: int
+    UIA_IndentationTrailingAttributeId: int
+    UIA_IsActiveAttributeId: int
+    UIA_IsHiddenAttributeId: int
+    UIA_IsItalicAttributeId: int
+    UIA_IsReadOnlyAttributeId: int
+    UIA_IsSubscriptAttributeId: int
+    UIA_IsSuperscriptAttributeId: int
+    UIA_LineSpacingAttributeId: int
+    UIA_LinkAttributeId: int
+    UIA_MarginBottomAttributeId: int
+    UIA_MarginLeadingAttributeId: int
+    UIA_MarginTopAttributeId: int
+    UIA_MarginTrailingAttributeId: int
+    UIA_OutlineStylesAttributeId: int
+    UIA_OverlineColorAttributeId: int
+    UIA_OverlineStyleAttributeId: int
+    UIA_SayAsInterpretAsAttributeId: int
+    UIA_SelectionActiveEndAttributeId: int
+    UIA_StrikethroughColorAttributeId: int
+    UIA_StrikethroughStyleAttributeId: int
+    UIA_StyleIdAttributeId: int
+    UIA_StyleNameAttributeId: int
+    UIA_TabsAttributeId: int
+    UIA_TextFlowDirectionsAttributeId: int
+    UIA_UnderlineColorAttributeId: int
+    UIA_UnderlineStyleAttributeId: int
 
 class UiaChangeInfo:
-    extraInfo : typing.Any
-    payload : typing.Any
-    uiaId : int
-
+    extraInfo: typing.Any
+    payload: typing.Any
+    uiaId: int
 
 class WindowInteractionState(typing.SupportsInt):
     @typing.overload
-    def __init__(self, value : int) -> None: ...
+    def __init__(self, value: int) -> None: ...
     @typing.overload
-    def __init__(self, value : int, force_if_true: bool) -> None: ...
+    def __init__(self, value: int, force_if_true: bool) -> None: ...
     def __int__(self) -> int: ...
-    
-    # Values:
-    WindowInteractionState_Running : WindowInteractionState # 0
-    WindowInteractionState_Closing : WindowInteractionState # 1
-    WindowInteractionState_ReadyForUserInteraction : WindowInteractionState # 2
-    WindowInteractionState_BlockedByModalWindow : WindowInteractionState # 3
-    WindowInteractionState_NotResponding : WindowInteractionState # 4
 
+    # Values:
+    WindowInteractionState_Running: WindowInteractionState  # 0
+    WindowInteractionState_Closing: WindowInteractionState  # 1
+    WindowInteractionState_ReadyForUserInteraction: WindowInteractionState  # 2
+    WindowInteractionState_BlockedByModalWindow: WindowInteractionState  # 3
+    WindowInteractionState_NotResponding: WindowInteractionState  # 4
 
 class WindowVisualState(typing.SupportsInt):
     @typing.overload
-    def __init__(self, value : int) -> None: ...
+    def __init__(self, value: int) -> None: ...
     @typing.overload
-    def __init__(self, value : int, force_if_true: bool) -> None: ...
+    def __init__(self, value: int, force_if_true: bool) -> None: ...
     def __int__(self) -> int: ...
-    
-    # Values:
-    WindowVisualState_Normal : WindowVisualState # 0
-    WindowVisualState_Maximized : WindowVisualState # 1
-    WindowVisualState_Minimized : WindowVisualState # 2
 
+    # Values:
+    WindowVisualState_Normal: WindowVisualState  # 0
+    WindowVisualState_Maximized: WindowVisualState  # 1
+    WindowVisualState_Minimized: WindowVisualState  # 2
 
 class ZoomUnit(typing.SupportsInt):
     @typing.overload
-    def __init__(self, value : int) -> None: ...
+    def __init__(self, value: int) -> None: ...
     @typing.overload
-    def __init__(self, value : int, force_if_true: bool) -> None: ...
+    def __init__(self, value: int, force_if_true: bool) -> None: ...
     def __int__(self) -> int: ...
-    
-    # Values:
-    ZoomUnit_NoAmount : ZoomUnit # 0
-    ZoomUnit_LargeDecrement : ZoomUnit # 1
-    ZoomUnit_SmallDecrement : ZoomUnit # 2
-    ZoomUnit_LargeIncrement : ZoomUnit # 3
-    ZoomUnit_SmallIncrement : ZoomUnit # 4
 
+    # Values:
+    ZoomUnit_NoAmount: ZoomUnit  # 0
+    ZoomUnit_LargeDecrement: ZoomUnit  # 1
+    ZoomUnit_SmallDecrement: ZoomUnit  # 2
+    ZoomUnit_LargeIncrement: ZoomUnit  # 3
+    ZoomUnit_SmallIncrement: ZoomUnit  # 4

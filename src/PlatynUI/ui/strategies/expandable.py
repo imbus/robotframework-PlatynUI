@@ -6,7 +6,7 @@ from abc import abstractmethod
 
 from ...core import StrategyBase
 
-__all__ = ["HasExpanded", "Expandable"]
+__all__ = ["Expandable", "HasExpanded"]
 
 
 class HasExpanded(StrategyBase):

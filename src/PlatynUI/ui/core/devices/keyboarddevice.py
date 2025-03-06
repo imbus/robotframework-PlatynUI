@@ -12,11 +12,11 @@ from .basekeyboarddevice import BaseKeyboardDevice, BaseKeyCode, InputType, Key
 from .inputdevice import InputDevice
 
 __all__ = [
-    "KeyboardDevice",
     "DefaultKeyboardDevice",
-    "InvalidKeySequenceError",
     "InvalidKeyCodeError",
     "InvalidKeyError",
+    "InvalidKeySequenceError",
+    "KeyboardDevice",
 ]
 
 logger = logging.getLogger(__name__)

@@ -3,7 +3,6 @@
 # SPDX-License-Identifier: Apache-2.0
 
 
-
 from robotlibcore import keyword
 
 from ..ui.strategies import Activatable, Deactivatable, HasIsActive

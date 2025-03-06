@@ -137,12 +137,13 @@ def test_seventh() -> None:
 def test_eight() -> None:
     Window(Locator(path='Window[contains(@Name, "Rechner")]')).exists(5, raise_exception=True)
 
+
 if __name__ == "__main__":
     # test_first()
     # test_second()
     # test_third()
     # test_fourth()
-    #test_fifth()
+    # test_fifth()
     # test_sixth()
     # test_seventh()
     test_eight()

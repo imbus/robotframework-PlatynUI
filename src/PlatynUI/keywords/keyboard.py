@@ -20,5 +20,7 @@ class Keyboard:
         descriptor().keyboard.press_keys(*keys, delay=delay)
 
     @keyword
-    def release_keys(self, descriptor: ElementDescriptor[HasKeyboard], *keys: str, delay: Optional[float] = None) -> None:
+    def release_keys(
+        self, descriptor: ElementDescriptor[HasKeyboard], *keys: str, delay: Optional[float] = None
+    ) -> None:
         descriptor().keyboard.release_keys(*keys, delay=delay)
