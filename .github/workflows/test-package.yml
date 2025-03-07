@@ -68,7 +68,7 @@ jobs:
         run: pip install robotframework
 
       - name: Merge Test Results
-        run: rebot --outputdir merged-results --merge test-results/**/*.xml
+        run: rebot --outputdir merged-results --merge **/test-results/**/*.xml
 
       - name: Upload Merged Test Results
         uses: actions/upload-artifact@v4
