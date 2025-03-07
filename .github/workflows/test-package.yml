@@ -63,8 +63,6 @@ jobs:
     steps:
       - name: Download Test Results
         uses: actions/download-artifact@v4
-        with:
-          path: test-results
 
       - name: Install Robot Framework
         run: pip install robotframework
