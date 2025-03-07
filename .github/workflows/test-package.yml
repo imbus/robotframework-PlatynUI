@@ -49,3 +49,31 @@ jobs:
 
       - name: Run Robot Framework Tests
         run: hatch run robot-tests
+
+      - name: Upload Test Results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-os-${{ matrix.os }}-py-${{ matrix.python-version }}-robotframework-${{ matrix.robot-version }}
+          path: test-results
+
+  publish-test-results:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download Test Results
+        uses: actions/download-artifact@v4
+        with:
+          path: test-results
+
+      - name: Install Robot Framework
+        run: pip install robotframework
+
+      - name: Merge Test Results
+        run: rebot --outputdir merged-results --merge test-results/**/*.xml
+
+      - name: Upload Merged Test Results
+        uses: actions/upload-artifact@v4
+        with:
+          name: merged-test-results
+          path: merged-results
