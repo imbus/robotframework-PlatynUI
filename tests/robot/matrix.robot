@@ -1,3 +1,7 @@
+*** Settings ***
+Documentation       Suite for testing the workflow matrix configuration
+
+
 *** Variables ***
 ${PLATFORM}             ${{ platform.system() }}
 ${PLATFORM_VERSION}     ${{ platform.version() }}
