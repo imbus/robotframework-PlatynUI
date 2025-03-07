@@ -75,6 +75,7 @@ dependencies = [
   "GitPython",
   "semantic-version",
   "robotremoteserver",
+  "robotframework",
   "robotframework-tidy",
   "robotframework-robocop",
   "reuse",
@@ -93,8 +94,11 @@ pre-commit-check-log = "pre-commit run --all-files > pre-commit.log 2>&1"
 format-black = "black ."
 format-ruff = "ruff format ."
 format-robotidy = "robotidy ."
-format = ["format-black", "format-ruff" ,"format-robotidy"]
+format = ["format-black", "format-ruff", "format-robotidy"]
 
+# Run tests
+python-tests = "pytest tests/python/test_types.py"
+robot-tests = "robot tests/robot/matrix.robot"
 
 [tool.hatch.envs.types]
 extra-dependencies = ["mypy>=1.0.0"]
@@ -106,7 +110,14 @@ check-robocop = "robocop ."
 check-black = "black --check ."
 check-ruff = "ruff check ."
 check-pytest = "pytest"
-check = ["check-mypy", "check-robotidy", "check-robocop", "check-black", "check-ruff", "check-pytest"]
+check = [
+  "check-mypy",
+  "check-robotidy",
+  "check-robocop",
+  "check-black",
+  "check-ruff",
+  "check-pytest",
+]
 
 [tool.hatch.envs.build]
 skip-install = true
@@ -146,7 +157,16 @@ target-version = "py38"
 extend-exclude = ["typings"]
 
 [tool.ruff.lint]
-ignore = ["E741", "N805", "N999", "RUF012", "RUF006", "RUF100", "ISC001", "E501"]
+ignore = [
+  "E741",
+  "N805",
+  "N999",
+  "RUF012",
+  "RUF006",
+  "RUF100",
+  "ISC001",
+  "E501",
+]
 select = [
   "E",
   "F",
@@ -189,13 +209,31 @@ select = [
 
 [tool.ruff.lint.per-file-ignores]
 "__init__.py" = ["F401", "F403"]
-"src/PlatynUI/technology/uiautomation/core/loader.py" = ["G004"] # TODO: Fix logging statement uses f-string
-"src/PlatynUI/ui/core/devices/displaydevice.py" = ["E501"] # TODO: Fix line too long
-"src/PlatynUI/ui/dialog.py" = ["F403", "F405"] # TODO: Fix star imports and undefined names
-"src/PlatynUI/ui/graphic.py" = ["F403", "F405"] # TODO: Fix star imports and undefined names
-"src/PlatynUI/ui/scrollbar.py" = ["F403", "F405"] # TODO: Fix star imports and undefined names
-"src/PlatynUI/ui/table.py" = ["F403", "F405"] # TODO: Fix star imports and undefined names
-"tests/robot/WpfTestApp/mapping.py" = ["N802"] # TODO: Fix function name should be lowercase
+"src/PlatynUI/technology/uiautomation/core/loader.py" = [
+  "G004",
+] # TODO: Fix logging statement uses f-string
+"src/PlatynUI/ui/core/devices/displaydevice.py" = [
+  "E501",
+] # TODO: Fix line too long
+"src/PlatynUI/ui/dialog.py" = [
+  "F403",
+  "F405",
+] # TODO: Fix star imports and undefined names
+"src/PlatynUI/ui/graphic.py" = [
+  "F403",
+  "F405",
+] # TODO: Fix star imports and undefined names
+"src/PlatynUI/ui/scrollbar.py" = [
+  "F403",
+  "F405",
+] # TODO: Fix star imports and undefined names
+"src/PlatynUI/ui/table.py" = [
+  "F403",
+  "F405",
+] # TODO: Fix star imports and undefined names
+"tests/robot/WpfTestApp/mapping.py" = [
+  "N802",
+] # TODO: Fix function name should be lowercase
 
 
 [tool.ruff.lint.isort]
@@ -261,22 +299,22 @@ ignore_missing_imports = true # TODO: enable this
 mypy_path = ["src", "typings"]
 disable_error_code = [
   "type-abstract",
-  "attr-defined", # TODO: Fix attribute errors
-  "arg-type", # TODO: Fix argument type errors
-  "no-any-return", # TODO: Fix functions returning Any
-  "var-annotated", # TODO: Fix variable annotations
-  "no-untyped-def", # TODO: Add type annotations to functions
+  "attr-defined",    # TODO: Fix attribute errors
+  "arg-type",        # TODO: Fix argument type errors
+  "no-any-return",   # TODO: Fix functions returning Any
+  "var-annotated",   # TODO: Fix variable annotations
+  "no-untyped-def",  # TODO: Add type annotations to functions
   "no-untyped-call", # TODO: Add type annotations to function calls
-  "valid-type", # TODO: Fix invalid type errors
-  "misc", # TODO: Fix miscellaneous errors
-  "assignment", # TODO: Fix assignment errors
-  "return-value", # TODO: Fix return value errors
-  "type-var", # TODO: Fix type variable errors
-  "unused-ignore", # TODO: Remove unused ignore comments
-  "override", # TODO: Fix method override errors
-  "no-redef", # TODO: Fix redefinition errors
-  "unreachable", # TODO: Fix unreachable code
-  ]
+  "valid-type",      # TODO: Fix invalid type errors
+  "misc",            # TODO: Fix miscellaneous errors
+  "assignment",      # TODO: Fix assignment errors
+  "return-value",    # TODO: Fix return value errors
+  "type-var",        # TODO: Fix type variable errors
+  "unused-ignore",   # TODO: Remove unused ignore comments
+  "override",        # TODO: Fix method override errors
+  "no-redef",        # TODO: Fix redefinition errors
+  "unreachable",     # TODO: Fix unreachable code
+]
 
 # allow_untyped_calls = true
 
@@ -307,14 +345,14 @@ ignore_missing_imports = true
 # robocop
 [tool.robocop]
 exclude = [
-    "0201", # TODO: Fix missing documentation in keywords
-    "0202", # TODO: Fix missing documentation in test cases
-    "0203", # TODO: Fix missing documentation in suite
-    "0302", # TODO: Fix keyword names to follow case convention
-    "0308", # TODO: Fix test case titles to start with capital letter
-    "0504", # TODO: Fix test cases that are too long
-    "0505", # TODO: Fix test cases with too many keywords
-    "0920", # TODO: Fix unused variables
+  "0201", # TODO: Fix missing documentation in keywords
+  "0202", # TODO: Fix missing documentation in test cases
+  "0203", # TODO: Fix missing documentation in suite
+  "0302", # TODO: Fix keyword names to follow case convention
+  "0308", # TODO: Fix test case titles to start with capital letter
+  "0504", # TODO: Fix test cases that are too long
+  "0505", # TODO: Fix test cases with too many keywords
+  "0920", # TODO: Fix unused variables
 ]
 
 # pyright
