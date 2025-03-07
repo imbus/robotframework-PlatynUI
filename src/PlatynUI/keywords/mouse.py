@@ -24,8 +24,11 @@ class Mouse:
         descriptor().mouse.click(x=x, y=y, button=button, times=times)
 
     @keyword
-    def double_click(self, descriptor: ElementDescriptor[HasMouse],
+    def double_click(
+        self,
+        descriptor: ElementDescriptor[HasMouse],
         x: Optional[float] = None,
         y: Optional[float] = None,
-        button: Optional[MouseButton] = None) -> None:
+        button: Optional[MouseButton] = None,
+    ) -> None:
         descriptor().mouse.double_click(x=x, y=y, button=button)

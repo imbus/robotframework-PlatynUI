@@ -4,10 +4,14 @@ import typing, abc
 from System import Action_1, Exception
 
 class IValueTaskSource_GenericClasses(abc.ABCMeta):
-    Generic_IValueTaskSource_GenericClasses_IValueTaskSource_1_TResult = typing.TypeVar('Generic_IValueTaskSource_GenericClasses_IValueTaskSource_1_TResult')
-    def __getitem__(self, types : typing.Type[Generic_IValueTaskSource_GenericClasses_IValueTaskSource_1_TResult]) -> typing.Type[IValueTaskSource_1[Generic_IValueTaskSource_GenericClasses_IValueTaskSource_1_TResult]]: ...
+    Generic_IValueTaskSource_GenericClasses_IValueTaskSource_1_TResult = typing.TypeVar(
+        "Generic_IValueTaskSource_GenericClasses_IValueTaskSource_1_TResult"
+    )
+    def __getitem__(
+        self, types: typing.Type[Generic_IValueTaskSource_GenericClasses_IValueTaskSource_1_TResult]
+    ) -> typing.Type[IValueTaskSource_1[Generic_IValueTaskSource_GenericClasses_IValueTaskSource_1_TResult]]: ...
 
-class IValueTaskSource(IValueTaskSource_0, metaclass =IValueTaskSource_GenericClasses): ...
+class IValueTaskSource(IValueTaskSource_0, metaclass=IValueTaskSource_GenericClasses): ...
 
 class IValueTaskSource_0(typing.Protocol):
     @abc.abstractmethod
@@ -15,26 +19,49 @@ class IValueTaskSource_0(typing.Protocol):
     @abc.abstractmethod
     def GetStatus(self, token: int) -> ValueTaskSourceStatus: ...
     @abc.abstractmethod
-    def OnCompleted(self, continuation: Action_1[typing.Any], state: typing.Optional[typing.Any], token: int, flags: ValueTaskSourceOnCompletedFlags) -> None: ...
+    def OnCompleted(
+        self,
+        continuation: Action_1[typing.Any],
+        state: typing.Optional[typing.Any],
+        token: int,
+        flags: ValueTaskSourceOnCompletedFlags,
+    ) -> None: ...
 
+IValueTaskSource_1_TResult = typing.TypeVar("IValueTaskSource_1_TResult", covariant=True)
 
-IValueTaskSource_1_TResult = typing.TypeVar('IValueTaskSource_1_TResult', covariant=True)
 class IValueTaskSource_1(typing.Generic[IValueTaskSource_1_TResult], typing.Protocol):
     @abc.abstractmethod
     def GetResult(self, token: int) -> typing.Optional[IValueTaskSource_1_TResult]: ...
     @abc.abstractmethod
     def GetStatus(self, token: int) -> ValueTaskSourceStatus: ...
     @abc.abstractmethod
-    def OnCompleted(self, continuation: Action_1[typing.Any], state: typing.Optional[typing.Any], token: int, flags: ValueTaskSourceOnCompletedFlags) -> None: ...
-
+    def OnCompleted(
+        self,
+        continuation: Action_1[typing.Any],
+        state: typing.Optional[typing.Any],
+        token: int,
+        flags: ValueTaskSourceOnCompletedFlags,
+    ) -> None: ...
 
 class ManualResetValueTaskSourceCore_GenericClasses(abc.ABCMeta):
-    Generic_ManualResetValueTaskSourceCore_GenericClasses_ManualResetValueTaskSourceCore_1_TResult = typing.TypeVar('Generic_ManualResetValueTaskSourceCore_GenericClasses_ManualResetValueTaskSourceCore_1_TResult')
-    def __getitem__(self, types : typing.Type[Generic_ManualResetValueTaskSourceCore_GenericClasses_ManualResetValueTaskSourceCore_1_TResult]) -> typing.Type[ManualResetValueTaskSourceCore_1[Generic_ManualResetValueTaskSourceCore_GenericClasses_ManualResetValueTaskSourceCore_1_TResult]]: ...
+    Generic_ManualResetValueTaskSourceCore_GenericClasses_ManualResetValueTaskSourceCore_1_TResult = typing.TypeVar(
+        "Generic_ManualResetValueTaskSourceCore_GenericClasses_ManualResetValueTaskSourceCore_1_TResult"
+    )
+    def __getitem__(
+        self,
+        types: typing.Type[
+            Generic_ManualResetValueTaskSourceCore_GenericClasses_ManualResetValueTaskSourceCore_1_TResult
+        ],
+    ) -> typing.Type[
+        ManualResetValueTaskSourceCore_1[
+            Generic_ManualResetValueTaskSourceCore_GenericClasses_ManualResetValueTaskSourceCore_1_TResult
+        ]
+    ]: ...
 
-ManualResetValueTaskSourceCore : ManualResetValueTaskSourceCore_GenericClasses
+ManualResetValueTaskSourceCore: ManualResetValueTaskSourceCore_GenericClasses
 
-ManualResetValueTaskSourceCore_1_TResult = typing.TypeVar('ManualResetValueTaskSourceCore_1_TResult')
+ManualResetValueTaskSourceCore_1_TResult = typing.TypeVar("ManualResetValueTaskSourceCore_1_TResult")
+
 class ManualResetValueTaskSourceCore_1(typing.Generic[ManualResetValueTaskSourceCore_1_TResult]):
     @property
     def RunContinuationsAsynchronously(self) -> bool: ...
@@ -44,35 +71,38 @@ class ManualResetValueTaskSourceCore_1(typing.Generic[ManualResetValueTaskSource
     def Version(self) -> int: ...
     def GetResult(self, token: int) -> typing.Optional[ManualResetValueTaskSourceCore_1_TResult]: ...
     def GetStatus(self, token: int) -> ValueTaskSourceStatus: ...
-    def OnCompleted(self, continuation: Action_1[typing.Any], state: typing.Optional[typing.Any], token: int, flags: ValueTaskSourceOnCompletedFlags) -> None: ...
+    def OnCompleted(
+        self,
+        continuation: Action_1[typing.Any],
+        state: typing.Optional[typing.Any],
+        token: int,
+        flags: ValueTaskSourceOnCompletedFlags,
+    ) -> None: ...
     def Reset(self) -> None: ...
     def SetException(self, error: Exception) -> None: ...
     def SetResult(self, result: typing.Optional[ManualResetValueTaskSourceCore_1_TResult]) -> None: ...
 
-
 class ValueTaskSourceOnCompletedFlags(typing.SupportsInt):
     @typing.overload
-    def __init__(self, value : int) -> None: ...
+    def __init__(self, value: int) -> None: ...
     @typing.overload
-    def __init__(self, value : int, force_if_true: bool) -> None: ...
+    def __init__(self, value: int, force_if_true: bool) -> None: ...
     def __int__(self) -> int: ...
-    
-    # Values:
-    None_ : ValueTaskSourceOnCompletedFlags # 0
-    UseSchedulingContext : ValueTaskSourceOnCompletedFlags # 1
-    FlowExecutionContext : ValueTaskSourceOnCompletedFlags # 2
 
+    # Values:
+    None_: ValueTaskSourceOnCompletedFlags  # 0
+    UseSchedulingContext: ValueTaskSourceOnCompletedFlags  # 1
+    FlowExecutionContext: ValueTaskSourceOnCompletedFlags  # 2
 
 class ValueTaskSourceStatus(typing.SupportsInt):
     @typing.overload
-    def __init__(self, value : int) -> None: ...
+    def __init__(self, value: int) -> None: ...
     @typing.overload
-    def __init__(self, value : int, force_if_true: bool) -> None: ...
+    def __init__(self, value: int, force_if_true: bool) -> None: ...
     def __int__(self) -> int: ...
-    
-    # Values:
-    Pending : ValueTaskSourceStatus # 0
-    Succeeded : ValueTaskSourceStatus # 1
-    Faulted : ValueTaskSourceStatus # 2
-    Canceled : ValueTaskSourceStatus # 3
 
+    # Values:
+    Pending: ValueTaskSourceStatus  # 0
+    Succeeded: ValueTaskSourceStatus  # 1
+    Faulted: ValueTaskSourceStatus  # 2
+    Canceled: ValueTaskSourceStatus  # 3

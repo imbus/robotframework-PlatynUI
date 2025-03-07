@@ -3,21 +3,21 @@
 # SPDX-License-Identifier: Apache-2.0
 
 __all__ = [
-    "NotSupportedError",
-    "InvalidArgumentError",
-    "PlatynUiException",
-    "PlatyUiError",
-    "PlatynUiFatalError",
-    "AdapterNotValidError",
     "AdapterNotFoundError",
     "AdapterNotFoundFatalError",
-    "NotAStrategyTypeError",
     "AdapterNotSupportsStrategyError",
+    "AdapterNotValidError",
     "CannotEnsureError",
-    "NoKeyboardProxyError",
-    "NoMouseProxyError",
+    "InvalidArgumentError",
     "NoDisplayProxyError",
+    "NoKeyboardProxyError",
     "NoLocatorDefinedError",
+    "NoMouseProxyError",
+    "NotAStrategyTypeError",
+    "NotSupportedError",
+    "PlatyUiError",
+    "PlatynUiException",
+    "PlatynUiFatalError",
 ]
 
 

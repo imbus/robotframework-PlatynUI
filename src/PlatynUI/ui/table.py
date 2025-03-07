@@ -8,7 +8,7 @@ from ..core import LocatorScope, context
 from ..core.strategies import *
 from . import Control, Item
 
-__all__ = ["Table", "Cell", "Row"]
+__all__ = ["Cell", "Row", "Table"]
 
 
 @context

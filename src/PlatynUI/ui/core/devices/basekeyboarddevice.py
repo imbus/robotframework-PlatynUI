@@ -9,7 +9,7 @@ from typing import Any, Optional, Union
 
 from ....core.strategybase import StrategyBase
 
-__all__ = ["BaseKeyboardDevice", "BaseKeyCode", "InputType"]
+__all__ = ["BaseKeyCode", "BaseKeyboardDevice", "InputType"]
 
 Key = Union[str, Any]
 

@@ -9,11 +9,9 @@ class ICredentials(typing.Protocol):
     @abc.abstractmethod
     def GetCredential(self, uri: Uri, authType: str) -> typing.Optional[NetworkCredential]: ...
 
-
 class ICredentialsByHost(typing.Protocol):
     @abc.abstractmethod
     def GetCredential(self, host: str, port: int, authenticationType: str) -> typing.Optional[NetworkCredential]: ...
-
 
 class NetworkCredential(ICredentialsByHost, ICredentials):
     @typing.overload
@@ -23,9 +21,13 @@ class NetworkCredential(ICredentialsByHost, ICredentials):
     @typing.overload
     def __init__(self, userName: typing.Optional[str], password: typing.Optional[SecureString]) -> None: ...
     @typing.overload
-    def __init__(self, userName: typing.Optional[str], password: typing.Optional[str], domain: typing.Optional[str]) -> None: ...
+    def __init__(
+        self, userName: typing.Optional[str], password: typing.Optional[str], domain: typing.Optional[str]
+    ) -> None: ...
     @typing.overload
-    def __init__(self, userName: typing.Optional[str], password: typing.Optional[SecureString], domain: typing.Optional[str]) -> None: ...
+    def __init__(
+        self, userName: typing.Optional[str], password: typing.Optional[SecureString], domain: typing.Optional[str]
+    ) -> None: ...
     @property
     def Domain(self) -> str: ...
     @Domain.setter
@@ -44,40 +46,47 @@ class NetworkCredential(ICredentialsByHost, ICredentials):
     def UserName(self, value: str) -> str: ...
     # Skipped GetCredential due to it being static, abstract and generic.
 
-    GetCredential : GetCredential_MethodGroup
+    GetCredential: GetCredential_MethodGroup
+
     class GetCredential_MethodGroup:
         @typing.overload
-        def __call__(self, uri: typing.Optional[Uri], authenticationType: typing.Optional[str]) -> NetworkCredential:...
+        def __call__(
+            self, uri: typing.Optional[Uri], authenticationType: typing.Optional[str]
+        ) -> NetworkCredential: ...
         @typing.overload
-        def __call__(self, host: typing.Optional[str], port: int, authenticationType: typing.Optional[str]) -> NetworkCredential:...
-
-
+        def __call__(
+            self, host: typing.Optional[str], port: int, authenticationType: typing.Optional[str]
+        ) -> NetworkCredential: ...
 
 class WebUtility(abc.ABC):
     @staticmethod
     def UrlDecode(encodedValue: typing.Optional[str]) -> typing.Optional[str]: ...
     @staticmethod
-    def UrlDecodeToBytes(encodedValue: typing.Optional[Array_1[int]], offset: int, count: int) -> typing.Optional[Array_1[int]]: ...
+    def UrlDecodeToBytes(
+        encodedValue: typing.Optional[Array_1[int]], offset: int, count: int
+    ) -> typing.Optional[Array_1[int]]: ...
     @staticmethod
     def UrlEncode(value: typing.Optional[str]) -> typing.Optional[str]: ...
     @staticmethod
-    def UrlEncodeToBytes(value: typing.Optional[Array_1[int]], offset: int, count: int) -> typing.Optional[Array_1[int]]: ...
+    def UrlEncodeToBytes(
+        value: typing.Optional[Array_1[int]], offset: int, count: int
+    ) -> typing.Optional[Array_1[int]]: ...
     # Skipped HtmlDecode due to it being static, abstract and generic.
 
-    HtmlDecode : HtmlDecode_MethodGroup
+    HtmlDecode: HtmlDecode_MethodGroup
+
     class HtmlDecode_MethodGroup:
         @typing.overload
-        def __call__(self, value: typing.Optional[str]) -> str:...
+        def __call__(self, value: typing.Optional[str]) -> str: ...
         @typing.overload
-        def __call__(self, value: typing.Optional[str], output: TextWriter) -> None:...
+        def __call__(self, value: typing.Optional[str], output: TextWriter) -> None: ...
 
     # Skipped HtmlEncode due to it being static, abstract and generic.
 
-    HtmlEncode : HtmlEncode_MethodGroup
+    HtmlEncode: HtmlEncode_MethodGroup
+
     class HtmlEncode_MethodGroup:
         @typing.overload
-        def __call__(self, value: typing.Optional[str]) -> str:...
+        def __call__(self, value: typing.Optional[str]) -> str: ...
         @typing.overload
-        def __call__(self, value: typing.Optional[str], output: TextWriter) -> None:...
-
-
+        def __call__(self, value: typing.Optional[str], output: TextWriter) -> None: ...

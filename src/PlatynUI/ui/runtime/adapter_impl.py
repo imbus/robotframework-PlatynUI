@@ -8,9 +8,6 @@ from typing import TYPE_CHECKING, Any, Dict, List, Optional, Set, Tuple, Type, c
 
 from PlatynUI.core import Adapter
 from PlatynUI.core.adapter import TStrategyBase
-from PlatynUI.core.adapterproxy import AdapterProxyFactory
-from PlatynUI.core.exceptions import NotAStrategyTypeError
-from PlatynUI.core.strategies import Properties
 from PlatynUI.core.types import Point, Rect
 from PlatynUI.ui.strategies import Element
 
@@ -59,7 +56,6 @@ class ElementImpl(Element, AdapterImplBase):
 
         center = vr.center
         return bool(center and top_level_parent.get_strategy(Element).bounding_rectangle.contains(center))
-
 
     @property
     def toplevel_parent_is_active(self) -> bool:
@@ -196,7 +192,6 @@ class AdapterImpl(Adapter, ElementImpl):
     def children(self) -> List["Adapter"]:
         raise NotImplementedError("children")
 
-
     @property
     def supported_strategies(self) -> Set[str]:
         result = super().supported_strategies
@@ -204,7 +199,6 @@ class AdapterImpl(Adapter, ElementImpl):
             result.union(set(self.adapter_interface.SupportedStrategies))
 
         return result
-
 
     @overload
     def get_strategy(self, strategy_type: Type[TStrategyBase]) -> TStrategyBase: ...

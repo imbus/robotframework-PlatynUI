@@ -13,8 +13,8 @@ if TYPE_CHECKING:
 
 __all__ = [
     "StrategyImpl",
-    "strategy_impl_for",
     "StrategyImplFactory",
+    "strategy_impl_for",
 ]
 
 

@@ -2,12 +2,10 @@
 #
 # SPDX-License-Identifier: Apache-2.0
 
-from pythonnet import load, get_runtime_info
+from pythonnet import get_runtime_info
 
-import clr
-
-#load("netfx")
-#load("coreclr")
+# load("netfx")
+# load("coreclr")
 
 # #import clr
 # from System import Environment

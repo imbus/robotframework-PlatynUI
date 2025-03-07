@@ -11,7 +11,7 @@ from ....core.settings import Settings
 from ....core.types import Rect
 from .basedisplaydevice import BaseDisplayDevice
 
-__all__ = ["DisplayDevice", "DefaultDisplayDevice"]
+__all__ = ["DefaultDisplayDevice", "DisplayDevice"]
 
 
 class DisplayDevice(metaclass=ABCMeta):

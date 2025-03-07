@@ -9,13 +9,11 @@ class CriticalHandleMinusOneIsInvalid(CriticalHandle):
     @property
     def IsInvalid(self) -> bool: ...
 
-
 class CriticalHandleZeroOrMinusOneIsInvalid(CriticalHandle):
     @property
     def IsClosed(self) -> bool: ...
     @property
     def IsInvalid(self) -> bool: ...
-
 
 class SafeFileHandle(SafeHandleZeroOrMinusOneIsInvalid):
     @typing.overload
@@ -29,20 +27,17 @@ class SafeFileHandle(SafeHandleZeroOrMinusOneIsInvalid):
     @property
     def IsInvalid(self) -> bool: ...
 
-
 class SafeHandleMinusOneIsInvalid(SafeHandle):
     @property
     def IsClosed(self) -> bool: ...
     @property
     def IsInvalid(self) -> bool: ...
 
-
 class SafeHandleZeroOrMinusOneIsInvalid(SafeHandle):
     @property
     def IsClosed(self) -> bool: ...
     @property
     def IsInvalid(self) -> bool: ...
-
 
 class SafeWaitHandle(SafeHandleZeroOrMinusOneIsInvalid):
     @typing.overload
@@ -53,4 +48,3 @@ class SafeWaitHandle(SafeHandleZeroOrMinusOneIsInvalid):
     def IsClosed(self) -> bool: ...
     @property
     def IsInvalid(self) -> bool: ...
-

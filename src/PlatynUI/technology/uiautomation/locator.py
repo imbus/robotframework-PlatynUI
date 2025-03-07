@@ -15,7 +15,7 @@ from PlatynUI.core import Adapter, ContextBase, LocatorBase, LocatorScope, TCont
 
 from .core.technology import get_technology
 
-__all__ = ["Locator", "locator", "LocatorScope"]
+__all__ = ["Locator", "LocatorScope", "locator"]
 
 
 class Locator(LocatorBase):
@@ -353,7 +353,7 @@ class Locator(LocatorBase):
                 "scope",
                 "runtime_id",
                 "position",
-                "use_default_prefix"
+                "use_default_prefix",
             ]:
 
                 v = getattr(self, n)
