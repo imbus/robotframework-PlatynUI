@@ -98,7 +98,7 @@ format = ["format-black", "format-ruff", "format-robotidy"]
 
 # Run tests
 python-tests = "pytest tests/python/test_types.py"
-robot-tests = "robot tests/robot/matrix.robot --outputdir test-results"
+robot-tests = "robot --outputdir test-results tests/robot/matrix.robot"
 
 [tool.hatch.envs.types]
 extra-dependencies = ["mypy>=1.0.0"]
