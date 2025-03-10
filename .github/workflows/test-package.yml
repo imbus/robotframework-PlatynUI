@@ -64,6 +64,9 @@ jobs:
       - name: Download Test Results
         uses: actions/download-artifact@v4
 
+      - name: List Downloaded Test Results
+        run: ls -R
+
       - name: Install Robot Framework
         run: pip install robotframework
 
