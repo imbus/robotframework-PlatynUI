@@ -35,14 +35,25 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
+      - name: Cache Hatch environment
+        id: cache-hatch
+        uses: actions/cache@v3
+        with:
+          path: ~/.local/share/hatch/env
+          key: ${{ runner.os }}-hatch-${{ matrix.python-version }}-${{ matrix.robot-version }}-${{ hashFiles('**/pyproject.toml') }}
+          restore-keys: |
+            ${{ runner.os }}-hatch-
+
       - name: Install Hatch
+        if: steps.cache-hatch.outputs.cache-hit != 'true'
         run: pipx install hatch
 
-      - name: Install Robot Framework ${{ matrix.robot-version }}
-        run: pip install robotframework==${{ matrix.robot-version }}
-
       - name: Create Hatch environment
+        if: steps.cache-hatch.outputs.cache-hit != 'true'
         run: hatch env create
+
+      - name: Install Robot Framework ${{ matrix.robot-version }}
+        run: hatch run pip install robotframework==${{ matrix.robot-version }}
 
       - name: Run Python Tests
         run: hatch run python-tests
@@ -61,13 +72,30 @@ jobs:
     needs: test
     runs-on: ubuntu-latest
     steps:
+      - name: Cache Downloaded Test Results
+        id: cache-test-results
+        uses: actions/cache@v3
+        with:
+          path: test-results
+          key: ${{ runner.os }}-test-results-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-test-results-
+
       - name: Download Test Results
+        if: steps.cache-test-results.outputs.cache-hit != 'true'
         uses: actions/download-artifact@v4
 
-      - name: List Downloaded Test Results
-        run: ls -R
+      - name: Cache Python environment for Robot Framework
+        id: cache-python-rf
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-python-rf-${{ hashFiles('**/pyproject.toml') }}
+          restore-keys: |
+            ${{ runner.os }}-python-rf-
 
       - name: Install Robot Framework
+        if: steps.cache-python-rf.outputs.cache-hit != 'true'
         run: pip install robotframework
 
       - name: Merge Test Results
