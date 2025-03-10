@@ -39,7 +39,7 @@ jobs:
         id: cache-hatch
         uses: actions/cache@v3
         with:
-          path: ~/.local/share/hatch/env
+          path: ~/.cache/hatch
           key: ${{ runner.os }}-hatch-${{ matrix.python-version }}-${{ matrix.robot-version }}-${{ hashFiles('**/pyproject.toml') }}
           restore-keys: |
             ${{ runner.os }}-hatch-
