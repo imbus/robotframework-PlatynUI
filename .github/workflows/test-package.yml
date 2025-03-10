@@ -22,9 +22,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [macos-latest] #, ubuntu-latest, windows-latest]
-        python-version: ["3.10"] #, "3.11", "3.12", "3.13"]
-        robot-version: ["4.1"] #, "5.0", "6.0", "6.1", "7.0", "7.1", "7.2"]
+        os: [macos-latest, ubuntu-latest, windows-latest]
+        python-version: ["3.10", "3.11", "3.12", "3.13"]
+        robot-version: ["4.1", "5.0", "6.0", "6.1", "7.0", "7.1", "7.2"]
 
     steps:
       - uses: actions/checkout@v4
@@ -64,14 +64,11 @@ jobs:
       - name: Download Test Results
         uses: actions/download-artifact@v4
 
-      - name: List Downloaded Test Results
-        run: ls -R
-
       - name: Install Robot Framework
         run: pip install robotframework
 
       - name: Merge Test Results
-        run: rebot --outputdir merged-results --merge test-results/**/**/*.xml
+        run: rebot --outputdir merged-results --merge test-os-*/os-*/output.xml
 
       - name: Upload Merged Test Results
         uses: actions/upload-artifact@v4
