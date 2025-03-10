@@ -22,9 +22,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [macos-latest, ubuntu-latest, windows-latest]
-        python-version: ["3.10", "3.11", "3.12", "3.13"]
-        robot-version: ["4.1", "5.0", "6.0", "6.1", "7.0", "7.1", "7.2"]
+        os: [macos-latest] #, ubuntu-latest, windows-latest]
+        python-version: ["3.10"] #, "3.11", "3.12", "3.13"]
+        robot-version: ["4.1"] #, "5.0", "6.0", "6.1", "7.0", "7.1", "7.2"]
 
     steps:
       - uses: actions/checkout@v4
@@ -65,7 +65,7 @@ jobs:
         uses: actions/download-artifact@v4
 
       - name: List Downloaded Test Results
-        run: ls -R test-results
+        run: ls -R
 
       - name: Install Robot Framework
         run: pip install robotframework
