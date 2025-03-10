@@ -35,22 +35,27 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
-      - name: Cache Hatch environment
+      - name: Set up pip cache
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('pyproject.toml') }}
+          restore-keys: ${{ runner.os }}-pip-
+
+      - name: Install Hatch
+        run: pipx install hatch
+
+      - name: Create Hatch environment
+        run: hatch env create
+
+      - name: Set up hatch cache
         id: cache-hatch
         uses: actions/cache@v3
         with:
           path: ~/.cache/hatch
-          key: ${{ runner.os }}-hatch-${{ matrix.python-version }}-${{ matrix.robot-version }}-${{ hashFiles('**/pyproject.toml') }}
+          key: ${{ runner.os }}-hatch-py-${{ matrix.python-version }}-rf-${{ matrix.robot-version }}-${{ hashFiles('**/pyproject.toml') }}
           restore-keys: |
             ${{ runner.os }}-hatch-
-
-      - name: Install Hatch
-        if: steps.cache-hatch.outputs.cache-hit != 'true'
-        run: pipx install hatch
-
-      - name: Create Hatch environment
-        if: steps.cache-hatch.outputs.cache-hit != 'true'
-        run: hatch env create
 
       - name: Install Robot Framework ${{ matrix.robot-version }}
         run: hatch run pip install robotframework==${{ matrix.robot-version }}
