@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main
-      - 28-setup-workflow   # temporary for debugging
+      - 28-setup-workflow # temporary for debugging
     paths-ignore:
       - ".github/**"
       - "!.github/workflows/**"
@@ -71,7 +71,7 @@ jobs:
         run: pip install robotframework
 
       - name: Merge Test Results
-        run: rebot --outputdir merged-results test-os-*/os-*/output.xml
+        run: rebot --name Robotframework_Tests --outputdir merged-results test-os-*/os-*/output.xml
 
       - name: Upload Merged Test Results
         uses: actions/upload-artifact@v4
