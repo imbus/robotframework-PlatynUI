@@ -3,7 +3,8 @@
     x:Class="PlatynUI.Spy.App"
     xmlns:local="using:PlatynUI.Spy"
     xmlns:sty="using:FluentAvalonia.Styling"
-    RequestedThemeVariant="Default">
+    RequestedThemeVariant="Default"
+    Name="PlatynUI.Spy">
     <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available
     options. -->
 
