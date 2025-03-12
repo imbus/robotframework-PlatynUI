@@ -35,27 +35,11 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
-      - name: Set up pip cache
-        uses: actions/cache@v3
-        with:
-          path: ~/.cache/pip
-          key: ${{ runner.os }}-pip-${{ hashFiles('pyproject.toml') }}
-          restore-keys: ${{ runner.os }}-pip-
-
       - name: Install Hatch
         run: pipx install hatch
 
       - name: Create Hatch environment
         run: hatch env create
-
-      - name: Set up hatch cache
-        id: cache-hatch
-        uses: actions/cache@v3
-        with:
-          path: ~/.cache/hatch
-          key: ${{ runner.os }}-hatch-py-${{ matrix.python-version }}-rf-${{ matrix.robot-version }}-${{ hashFiles('**/pyproject.toml') }}
-          restore-keys: |
-            ${{ runner.os }}-hatch-
 
       - name: Install Robot Framework ${{ matrix.robot-version }}
         run: hatch run pip install robotframework==${{ matrix.robot-version }}
@@ -77,30 +61,11 @@ jobs:
     needs: test
     runs-on: ubuntu-latest
     steps:
-      - name: Cache Downloaded Test Results
-        id: cache-test-results
-        uses: actions/cache@v3
-        with:
-          path: test-results
-          key: ${{ runner.os }}-test-results-${{ github.sha }}
-          restore-keys: |
-            ${{ runner.os }}-test-results-
 
       - name: Download Test Results
-        if: steps.cache-test-results.outputs.cache-hit != 'true'
         uses: actions/download-artifact@v4
 
-      - name: Cache Python environment for Robot Framework
-        id: cache-python-rf
-        uses: actions/cache@v3
-        with:
-          path: ~/.cache/pip
-          key: ${{ runner.os }}-python-rf-${{ hashFiles('**/pyproject.toml') }}
-          restore-keys: |
-            ${{ runner.os }}-python-rf-
-
       - name: Install Robot Framework
-        if: steps.cache-python-rf.outputs.cache-hit != 'true'
         run: pip install robotframework
 
       - name: Merge Test Results
