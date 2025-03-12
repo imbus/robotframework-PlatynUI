@@ -81,6 +81,15 @@ dependencies = [
   "hatchling",
   "pre-commit",
 ]
+
+[tool.hatch.envs.test]
+python = "3.10"
+
+[[tool.hatch.envs.test.matrix]]
+python = ["3.10", "3.11", "3.12", "3.13"]
+robotframework = ["4.1", "5.0", "6.0", "6.1", "7.0", "7.1", "7.2"]
+os = ["macos", "linux", "windows"]
+
 # features = ["all"]
 # pre-install-commands = ["install-packages"]
 
@@ -383,13 +392,15 @@ pre_bump_hooks = [
 [tool.cibuildwheel]
 build-verbosity = 1
 skip = ["pp*"]
+archs = "auto"
 
-manylinux-x86_64-image = "manylinux_2_28"
-
-[tool.cibuildwheel.windows]
-archs = ["auto64"]
+[tool.cibuildwheel.macos]
+archs = ["x86_64", "arm64"]
 
 [tool.cibuildwheel.linux]
+archs = ["x86_64", "aarch64"]
+
+[tool.cibuildwheel.windows]
 archs = ["x86_64"]
 
 before-all = """\
