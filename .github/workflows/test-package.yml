@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - 28-setup-workflow # temporary for debugging
     paths-ignore:
       - ".github/**"
       - "!.github/workflows/**"
