@@ -16,7 +16,6 @@ class AllowPartiallyTrustedCallersAttribute(Attribute):
     @property
     def TypeId(self) -> typing.Any: ...
 
-
 class IPermission(ISecurityEncodable, typing.Protocol):
     @abc.abstractmethod
     def Copy(self) -> IPermission: ...
@@ -29,13 +28,11 @@ class IPermission(ISecurityEncodable, typing.Protocol):
     @abc.abstractmethod
     def Union(self, target: typing.Optional[IPermission]) -> typing.Optional[IPermission]: ...
 
-
 class ISecurityEncodable(typing.Protocol):
     @abc.abstractmethod
     def FromXml(self, e: SecurityElement) -> None: ...
     @abc.abstractmethod
     def ToXml(self) -> typing.Optional[SecurityElement]: ...
-
 
 class IStackWalk(typing.Protocol):
     @abc.abstractmethod
@@ -47,18 +44,16 @@ class IStackWalk(typing.Protocol):
     @abc.abstractmethod
     def PermitOnly(self) -> None: ...
 
-
 class PartialTrustVisibilityLevel(typing.SupportsInt):
     @typing.overload
-    def __init__(self, value : int) -> None: ...
+    def __init__(self, value: int) -> None: ...
     @typing.overload
-    def __init__(self, value : int, force_if_true: bool) -> None: ...
+    def __init__(self, value: int, force_if_true: bool) -> None: ...
     def __int__(self) -> int: ...
-    
-    # Values:
-    VisibleToAllHosts : PartialTrustVisibilityLevel # 0
-    NotVisibleByDefault : PartialTrustVisibilityLevel # 1
 
+    # Values:
+    VisibleToAllHosts: PartialTrustVisibilityLevel  # 0
+    NotVisibleByDefault: PartialTrustVisibilityLevel  # 1
 
 class PermissionSet(ICollection, IStackWalk, ISecurityEncodable, IDeserializationCallback):
     @typing.overload
@@ -100,7 +95,6 @@ class PermissionSet(ICollection, IStackWalk, ISecurityEncodable, IDeserializatio
     def ToXml(self) -> typing.Optional[SecurityElement]: ...
     def Union(self, other: typing.Optional[PermissionSet]) -> typing.Optional[PermissionSet]: ...
 
-
 class SecureString(IDisposable):
     @typing.overload
     def __init__(self) -> None: ...
@@ -118,7 +112,6 @@ class SecureString(IDisposable):
     def RemoveAt(self, index: int) -> None: ...
     def SetAt(self, index: int, c: str) -> None: ...
 
-
 class SecurityCriticalAttribute(Attribute):
     @typing.overload
     def __init__(self) -> None: ...
@@ -129,18 +122,16 @@ class SecurityCriticalAttribute(Attribute):
     @property
     def TypeId(self) -> typing.Any: ...
 
-
 class SecurityCriticalScope(typing.SupportsInt):
     @typing.overload
-    def __init__(self, value : int) -> None: ...
+    def __init__(self, value: int) -> None: ...
     @typing.overload
-    def __init__(self, value : int, force_if_true: bool) -> None: ...
+    def __init__(self, value: int, force_if_true: bool) -> None: ...
     def __int__(self) -> int: ...
-    
-    # Values:
-    Explicit : SecurityCriticalScope # 0
-    Everything : SecurityCriticalScope # 1
 
+    # Values:
+    Explicit: SecurityCriticalScope  # 0
+    Everything: SecurityCriticalScope  # 1
 
 class SecurityElement:
     @typing.overload
@@ -184,7 +175,6 @@ class SecurityElement:
     def SearchForTextOfTag(self, tag: str) -> typing.Optional[str]: ...
     def ToString(self) -> str: ...
 
-
 class SecurityException(SystemException):
     @typing.overload
     def __init__(self) -> None: ...
@@ -195,7 +185,9 @@ class SecurityException(SystemException):
     @typing.overload
     def __init__(self, message: typing.Optional[str], type: typing.Optional[typing.Type[typing.Any]]) -> None: ...
     @typing.overload
-    def __init__(self, message: typing.Optional[str], type: typing.Optional[typing.Type[typing.Any]], state: typing.Optional[str]) -> None: ...
+    def __init__(
+        self, message: typing.Optional[str], type: typing.Optional[typing.Type[typing.Any]], state: typing.Optional[str]
+    ) -> None: ...
     @property
     def Data(self) -> IDictionary: ...
     @property
@@ -237,7 +229,9 @@ class SecurityException(SystemException):
     @property
     def PermissionType(self) -> typing.Optional[typing.Type[typing.Any]]: ...
     @PermissionType.setter
-    def PermissionType(self, value: typing.Optional[typing.Type[typing.Any]]) -> typing.Optional[typing.Type[typing.Any]]: ...
+    def PermissionType(
+        self, value: typing.Optional[typing.Type[typing.Any]]
+    ) -> typing.Optional[typing.Type[typing.Any]]: ...
     @property
     def PermitOnlySetInstance(self) -> typing.Optional[typing.Any]: ...
     @PermitOnlySetInstance.setter
@@ -261,7 +255,6 @@ class SecurityException(SystemException):
     def GetObjectData(self, info: SerializationInfo, context: StreamingContext) -> None: ...
     def ToString(self) -> str: ...
 
-
 class SecurityRulesAttribute(Attribute):
     def __init__(self, ruleSet: SecurityRuleSet) -> None: ...
     @property
@@ -273,49 +266,42 @@ class SecurityRulesAttribute(Attribute):
     @property
     def TypeId(self) -> typing.Any: ...
 
-
 class SecurityRuleSet(typing.SupportsInt):
     @typing.overload
-    def __init__(self, value : int) -> None: ...
+    def __init__(self, value: int) -> None: ...
     @typing.overload
-    def __init__(self, value : int, force_if_true: bool) -> None: ...
+    def __init__(self, value: int, force_if_true: bool) -> None: ...
     def __int__(self) -> int: ...
-    
-    # Values:
-    None_ : SecurityRuleSet # 0
-    Level1 : SecurityRuleSet # 1
-    Level2 : SecurityRuleSet # 2
 
+    # Values:
+    None_: SecurityRuleSet  # 0
+    Level1: SecurityRuleSet  # 1
+    Level2: SecurityRuleSet  # 2
 
 class SecuritySafeCriticalAttribute(Attribute):
     def __init__(self) -> None: ...
     @property
     def TypeId(self) -> typing.Any: ...
 
-
 class SecurityTransparentAttribute(Attribute):
     def __init__(self) -> None: ...
     @property
     def TypeId(self) -> typing.Any: ...
-
 
 class SecurityTreatAsSafeAttribute(Attribute):
     def __init__(self) -> None: ...
     @property
     def TypeId(self) -> typing.Any: ...
 
-
 class SuppressUnmanagedCodeSecurityAttribute(Attribute):
     def __init__(self) -> None: ...
     @property
     def TypeId(self) -> typing.Any: ...
 
-
 class UnverifiableCodeAttribute(Attribute):
     def __init__(self) -> None: ...
     @property
     def TypeId(self) -> typing.Any: ...
-
 
 class VerificationException(SystemException):
     @typing.overload
@@ -346,4 +332,3 @@ class VerificationException(SystemException):
     def StackTrace(self) -> typing.Optional[str]: ...
     @property
     def TargetSite(self) -> typing.Optional[MethodBase]: ...
-

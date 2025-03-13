@@ -11,8 +11,8 @@ from .weight_calculator import WeightCalculator
 
 __all__ = [
     "AdapterProxy",
-    "adapter_proxy_for",
     "AdapterProxyFactory",
+    "adapter_proxy_for",
 ]
 
 

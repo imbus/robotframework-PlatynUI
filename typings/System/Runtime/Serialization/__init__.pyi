@@ -8,11 +8,9 @@ from System.Reflection import MethodBase
 class DeserializationToken(IDisposable):
     def Dispose(self) -> None: ...
 
-
 class IDeserializationCallback(typing.Protocol):
     @abc.abstractmethod
     def OnDeserialization(self, sender: typing.Optional[typing.Any]) -> None: ...
-
 
 class IFormatterConverter(typing.Protocol):
     @abc.abstractmethod
@@ -47,53 +45,45 @@ class IFormatterConverter(typing.Protocol):
     def ToUInt64(self, value: typing.Any) -> int: ...
     # Skipped Convert due to it being static, abstract and generic.
 
-    Convert : Convert_MethodGroup
+    Convert: Convert_MethodGroup
+
     class Convert_MethodGroup:
         @typing.overload
-        def __call__(self, value: typing.Any, typeCode: TypeCode) -> typing.Any:...
+        def __call__(self, value: typing.Any, typeCode: TypeCode) -> typing.Any: ...
         @typing.overload
-        def __call__(self, value: typing.Any, type: typing.Type[typing.Any]) -> typing.Any:...
-
-
+        def __call__(self, value: typing.Any, type: typing.Type[typing.Any]) -> typing.Any: ...
 
 class IObjectReference(typing.Protocol):
     @abc.abstractmethod
     def GetRealObject(self, context: StreamingContext) -> typing.Any: ...
 
-
 class ISafeSerializationData(typing.Protocol):
     @abc.abstractmethod
     def CompleteDeserialization(self, deserialized: typing.Any) -> None: ...
 
-
 class ISerializable(typing.Protocol):
     @abc.abstractmethod
     def GetObjectData(self, info: SerializationInfo, context: StreamingContext) -> None: ...
-
 
 class OnDeserializedAttribute(Attribute):
     def __init__(self) -> None: ...
     @property
     def TypeId(self) -> typing.Any: ...
 
-
 class OnDeserializingAttribute(Attribute):
     def __init__(self) -> None: ...
     @property
     def TypeId(self) -> typing.Any: ...
-
 
 class OnSerializedAttribute(Attribute):
     def __init__(self) -> None: ...
     @property
     def TypeId(self) -> typing.Any: ...
 
-
 class OnSerializingAttribute(Attribute):
     def __init__(self) -> None: ...
     @property
     def TypeId(self) -> typing.Any: ...
-
 
 class OptionalFieldAttribute(Attribute):
     def __init__(self) -> None: ...
@@ -104,12 +94,10 @@ class OptionalFieldAttribute(Attribute):
     @VersionAdded.setter
     def VersionAdded(self, value: int) -> int: ...
 
-
 class SafeSerializationEventArgs(EventArgs):
     @property
     def StreamingContext(self) -> StreamingContext: ...
     def AddSerializedState(self, serializedState: ISafeSerializationData) -> None: ...
-
 
 class SerializationEntry:
     @property
@@ -118,7 +106,6 @@ class SerializationEntry:
     def ObjectType(self) -> typing.Type[typing.Any]: ...
     @property
     def Value(self) -> typing.Optional[typing.Any]: ...
-
 
 class SerializationException(SystemException):
     @typing.overload
@@ -150,12 +137,13 @@ class SerializationException(SystemException):
     @property
     def TargetSite(self) -> typing.Optional[MethodBase]: ...
 
-
 class SerializationInfo:
     @typing.overload
     def __init__(self, type: typing.Type[typing.Any], converter: IFormatterConverter) -> None: ...
     @typing.overload
-    def __init__(self, type: typing.Type[typing.Any], converter: IFormatterConverter, requireSameTokenInPartialTrust: bool) -> None: ...
+    def __init__(
+        self, type: typing.Type[typing.Any], converter: IFormatterConverter, requireSameTokenInPartialTrust: bool
+    ) -> None: ...
     @property
     def AssemblyName(self) -> str: ...
     @AssemblyName.setter
@@ -198,13 +186,14 @@ class SerializationInfo:
     def StartDeserialization() -> DeserializationToken: ...
     # Skipped AddValue due to it being static, abstract and generic.
 
-    AddValue : AddValue_MethodGroup
+    AddValue: AddValue_MethodGroup
+
     class AddValue_MethodGroup:
         @typing.overload
-        def __call__(self, name: str, value: float) -> None:...
+        def __call__(self, name: str, value: float) -> None: ...
         # Method AddValue(name : String, value : Double) was skipped since it collides with above method
         @typing.overload
-        def __call__(self, name: str, value: str) -> None:...
+        def __call__(self, name: str, value: str) -> None: ...
         # Method AddValue(name : String, value : SByte) was skipped since it collides with above method
         # Method AddValue(name : String, value : Byte) was skipped since it collides with above method
         # Method AddValue(name : String, value : Int16) was skipped since it collides with above method
@@ -214,16 +203,14 @@ class SerializationInfo:
         # Method AddValue(name : String, value : Int64) was skipped since it collides with above method
         # Method AddValue(name : String, value : UInt64) was skipped since it collides with above method
         @typing.overload
-        def __call__(self, name: str, value: Decimal) -> None:...
+        def __call__(self, name: str, value: Decimal) -> None: ...
         # Method AddValue(name : String, value : Boolean) was skipped since it collides with above method
         @typing.overload
-        def __call__(self, name: str, value: DateTime) -> None:...
+        def __call__(self, name: str, value: DateTime) -> None: ...
         @typing.overload
-        def __call__(self, name: str, value: typing.Optional[typing.Any]) -> None:...
+        def __call__(self, name: str, value: typing.Optional[typing.Any]) -> None: ...
         @typing.overload
-        def __call__(self, name: str, value: typing.Optional[typing.Any], type: typing.Type[typing.Any]) -> None:...
-
-
+        def __call__(self, name: str, value: typing.Optional[typing.Any], type: typing.Type[typing.Any]) -> None: ...
 
 class SerializationInfoEnumerator(IEnumerator):
     @property
@@ -237,7 +224,6 @@ class SerializationInfoEnumerator(IEnumerator):
     def MoveNext(self) -> bool: ...
     def Reset(self) -> None: ...
 
-
 class StreamingContext:
     @typing.overload
     def __init__(self, state: StreamingContextStates) -> None: ...
@@ -250,22 +236,20 @@ class StreamingContext:
     def Equals(self, obj: typing.Optional[typing.Any]) -> bool: ...
     def GetHashCode(self) -> int: ...
 
-
 class StreamingContextStates(typing.SupportsInt):
     @typing.overload
-    def __init__(self, value : int) -> None: ...
+    def __init__(self, value: int) -> None: ...
     @typing.overload
-    def __init__(self, value : int, force_if_true: bool) -> None: ...
+    def __init__(self, value: int, force_if_true: bool) -> None: ...
     def __int__(self) -> int: ...
-    
-    # Values:
-    CrossProcess : StreamingContextStates # 1
-    CrossMachine : StreamingContextStates # 2
-    File : StreamingContextStates # 4
-    Persistence : StreamingContextStates # 8
-    Remoting : StreamingContextStates # 16
-    Other : StreamingContextStates # 32
-    Clone : StreamingContextStates # 64
-    CrossAppDomain : StreamingContextStates # 128
-    All : StreamingContextStates # 255
 
+    # Values:
+    CrossProcess: StreamingContextStates  # 1
+    CrossMachine: StreamingContextStates  # 2
+    File: StreamingContextStates  # 4
+    Persistence: StreamingContextStates  # 8
+    Remoting: StreamingContextStates  # 16
+    Other: StreamingContextStates  # 32
+    Clone: StreamingContextStates  # 64
+    CrossAppDomain: StreamingContextStates  # 128
+    All: StreamingContextStates  # 255

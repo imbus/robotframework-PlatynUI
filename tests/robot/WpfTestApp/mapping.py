@@ -1,5 +1,6 @@
 from typing import Optional
-from PlatynUI.ui import Window, Button, locator
+
+from PlatynUI.ui import Button, Window, locator
 
 
 @locator(AutomationId="Shell", ProcessName="WpfTestApp")

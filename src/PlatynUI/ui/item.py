@@ -93,7 +93,10 @@ class Item(Element):
 
     def select(self):
         self.ensure_that(
-            self._toplevel_parent_is_active, self._element_is_in_view, self._element_is_enabled, self._item_is_selectable
+            self._toplevel_parent_is_active,
+            self._element_is_in_view,
+            self._element_is_enabled,
+            self._item_is_selectable,
         )
 
         if not self.is_selected:

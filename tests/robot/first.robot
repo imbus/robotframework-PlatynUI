@@ -5,8 +5,7 @@ Variables       mapping.py
 
 *** Test Cases ***
 first
-    Ensure Exists  Window[contains(@Name, "Rechner")]    30s
-
+    Ensure Exists    Window[contains(@Name, "Rechner")]    30s
 
     # Activate    ${calculator}
     # Type Keys    ${calculator}    <ALT+1>
@@ -40,9 +39,9 @@ first
     # Type Keys    ${calculator}    <ENTER>
     # Type Keys    .    <ALT+F4>
 
-    #Set Text    ${calculator}    12345
+    # Set Text    ${calculator}    12345
     # ${text}    Get Text    ${calculator.n1}
-    # Get Text   ${calculator.n1}   ==  ein text123445
+    # Get Text    ${calculator.n1}    ==    ein text123445
 
     Click    ${calculator.n1}    button=right
     Click    ${calculator.results}    button=right

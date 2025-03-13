@@ -21,14 +21,18 @@ class Attribute(IAttribute):
     @property
     def Value(self) -> typing.Optional[typing.Any]: ...
 
-
 class AttributesEnumerator_GenericClasses(abc.ABCMeta):
-    Generic_AttributesEnumerator_GenericClasses_AttributesEnumerator_1_T = typing.TypeVar('Generic_AttributesEnumerator_GenericClasses_AttributesEnumerator_1_T')
-    def __getitem__(self, types : typing.Type[Generic_AttributesEnumerator_GenericClasses_AttributesEnumerator_1_T]) -> typing.Type[AttributesEnumerator_1[Generic_AttributesEnumerator_GenericClasses_AttributesEnumerator_1_T]]: ...
+    Generic_AttributesEnumerator_GenericClasses_AttributesEnumerator_1_T = typing.TypeVar(
+        "Generic_AttributesEnumerator_GenericClasses_AttributesEnumerator_1_T"
+    )
+    def __getitem__(
+        self, types: typing.Type[Generic_AttributesEnumerator_GenericClasses_AttributesEnumerator_1_T]
+    ) -> typing.Type[AttributesEnumerator_1[Generic_AttributesEnumerator_GenericClasses_AttributesEnumerator_1_T]]: ...
 
-AttributesEnumerator : AttributesEnumerator_GenericClasses
+AttributesEnumerator: AttributesEnumerator_GenericClasses
 
-AttributesEnumerator_1_T = typing.TypeVar('AttributesEnumerator_1_T')
+AttributesEnumerator_1_T = typing.TypeVar("AttributesEnumerator_1_T")
+
 class AttributesEnumerator_1(typing.Generic[AttributesEnumerator_1_T], IAttributesEnumerator):
     def __init__(self, attributes: IEnumerable_1[AttributesEnumerator_1_T]) -> None: ...
     @property
@@ -36,7 +40,6 @@ class AttributesEnumerator_1(typing.Generic[AttributesEnumerator_1_T], IAttribut
     def Dispose(self) -> None: ...
     def MoveNext(self) -> bool: ...
     def Reset(self) -> None: ...
-
 
 class IAdapter(typing.Protocol):
     @property
@@ -62,7 +65,6 @@ class IAdapter(typing.Protocol):
     @abc.abstractmethod
     def IsValid(self) -> bool: ...
 
-
 class IAttribute(typing.Protocol):
     @property
     def Name(self) -> str: ...
@@ -71,17 +73,14 @@ class IAttribute(typing.Protocol):
     @property
     def Value(self) -> typing.Optional[typing.Any]: ...
 
-
 class IAttributesEnumerator(IEnumerator_1[IAttribute], typing.Protocol):
     pass
-
 
 class IDisplayDevice(typing.Protocol):
     @abc.abstractmethod
     def GetBoundingRectangle(self) -> Rect: ...
     @abc.abstractmethod
     def HighlightRect(self, x: float, y: float, width: float, height: float, time: float) -> None: ...
-
 
 class IElement(typing.Protocol):
     @property
@@ -107,13 +106,11 @@ class IElement(typing.Protocol):
     @abc.abstractmethod
     def TryEnsureVisible(self) -> bool: ...
 
-
 class IKeyboardDevice(typing.Protocol):
     @abc.abstractmethod
     def KeyToKeyCode(self, key: typing.Optional[typing.Any]) -> Keycode: ...
     @abc.abstractmethod
     def SendKeyCode(self, keyCode: typing.Any, pressed: bool) -> bool: ...
-
 
 class IMouseDevice(typing.Protocol):
     @abc.abstractmethod
@@ -128,7 +125,6 @@ class IMouseDevice(typing.Protocol):
     def Press(self, button: MouseButton) -> None: ...
     @abc.abstractmethod
     def Release(self, button: MouseButton) -> None: ...
-
 
 class INode(typing.Protocol):
     @property
@@ -156,14 +152,18 @@ class INode(typing.Protocol):
     @abc.abstractmethod
     def IsSamePosition(self, other: INode) -> bool: ...
 
-
 class INodeProvider(typing.Protocol):
     @abc.abstractmethod
     def GetNodes(self, parent: INode) -> IEnumerable_1[INode]: ...
 
-
 class Keycode:
-    def __init__(self, key: typing.Optional[typing.Any], code: typing.Optional[typing.Any], valid: bool, errorText: typing.Optional[str]) -> None: ...
+    def __init__(
+        self,
+        key: typing.Optional[typing.Any],
+        code: typing.Optional[typing.Any],
+        valid: bool,
+        errorText: typing.Optional[str],
+    ) -> None: ...
     @property
     def Code(self) -> typing.Optional[typing.Any]: ...
     @property
@@ -174,29 +174,26 @@ class Keycode:
     def Valid(self) -> bool: ...
     def ToString(self) -> str: ...
 
-
 class MouseButton(typing.SupportsInt):
     @typing.overload
-    def __init__(self, value : int) -> None: ...
+    def __init__(self, value: int) -> None: ...
     @typing.overload
-    def __init__(self, value : int, force_if_true: bool) -> None: ...
+    def __init__(self, value: int, force_if_true: bool) -> None: ...
     def __int__(self) -> int: ...
-    
-    # Values:
-    Left : MouseButton # 0
-    Right : MouseButton # 1
-    Middle : MouseButton # 2
-    X1 : MouseButton # 3
-    X2 : MouseButton # 4
 
+    # Values:
+    Left: MouseButton  # 0
+    Right: MouseButton  # 1
+    Middle: MouseButton  # 2
+    X1: MouseButton  # 3
+    X2: MouseButton  # 4
 
 class Namespaces(abc.ABC):
-    App : str
-    Element : str
-    Item : str
-    Native : str
-    Raw : str
-
+    App: str
+    Element: str
+    Item: str
+    Native: str
+    Raw: str
 
 class XsltContext(System.Xml.Xsl.XsltContext):
     def __init__(self) -> None: ...
@@ -210,4 +207,3 @@ class XsltContext(System.Xml.Xsl.XsltContext):
     def PreserveWhitespace(self, node: XPathNavigator) -> bool: ...
     def ResolveFunction(self, prefix: str, name: str, ArgTypes: Array_1[XPathResultType]) -> IXsltContextFunction: ...
     def ResolveVariable(self, prefix: str, name: str) -> IXsltContextVariable: ...
-

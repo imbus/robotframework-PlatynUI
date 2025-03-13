@@ -16,37 +16,34 @@ class CodeAccessSecurityAttribute(SecurityAttribute):
     @Unrestricted.setter
     def Unrestricted(self, value: bool) -> bool: ...
 
-
 class PermissionState(typing.SupportsInt):
     @typing.overload
-    def __init__(self, value : int) -> None: ...
+    def __init__(self, value: int) -> None: ...
     @typing.overload
-    def __init__(self, value : int, force_if_true: bool) -> None: ...
+    def __init__(self, value: int, force_if_true: bool) -> None: ...
     def __int__(self) -> int: ...
-    
-    # Values:
-    None_ : PermissionState # 0
-    Unrestricted : PermissionState # 1
 
+    # Values:
+    None_: PermissionState  # 0
+    Unrestricted: PermissionState  # 1
 
 class SecurityAction(typing.SupportsInt):
     @typing.overload
-    def __init__(self, value : int) -> None: ...
+    def __init__(self, value: int) -> None: ...
     @typing.overload
-    def __init__(self, value : int, force_if_true: bool) -> None: ...
+    def __init__(self, value: int, force_if_true: bool) -> None: ...
     def __int__(self) -> int: ...
-    
-    # Values:
-    Demand : SecurityAction # 2
-    Assert : SecurityAction # 3
-    Deny : SecurityAction # 4
-    PermitOnly : SecurityAction # 5
-    LinkDemand : SecurityAction # 6
-    InheritanceDemand : SecurityAction # 7
-    RequestMinimum : SecurityAction # 8
-    RequestOptional : SecurityAction # 9
-    RequestRefuse : SecurityAction # 10
 
+    # Values:
+    Demand: SecurityAction  # 2
+    Assert: SecurityAction  # 3
+    Deny: SecurityAction  # 4
+    PermitOnly: SecurityAction  # 5
+    LinkDemand: SecurityAction  # 6
+    InheritanceDemand: SecurityAction  # 7
+    RequestMinimum: SecurityAction  # 8
+    RequestOptional: SecurityAction  # 9
+    RequestRefuse: SecurityAction  # 10
 
 class SecurityAttribute(Attribute):
     @property
@@ -61,7 +58,6 @@ class SecurityAttribute(Attribute):
     def Unrestricted(self, value: bool) -> bool: ...
     @abc.abstractmethod
     def CreatePermission(self) -> typing.Optional[IPermission]: ...
-
 
 class SecurityPermissionAttribute(CodeAccessSecurityAttribute):
     def __init__(self, action: SecurityAction) -> None: ...
@@ -137,29 +133,27 @@ class SecurityPermissionAttribute(CodeAccessSecurityAttribute):
     def Unrestricted(self, value: bool) -> bool: ...
     def CreatePermission(self) -> typing.Optional[IPermission]: ...
 
-
 class SecurityPermissionFlag(typing.SupportsInt):
     @typing.overload
-    def __init__(self, value : int) -> None: ...
+    def __init__(self, value: int) -> None: ...
     @typing.overload
-    def __init__(self, value : int, force_if_true: bool) -> None: ...
+    def __init__(self, value: int, force_if_true: bool) -> None: ...
     def __int__(self) -> int: ...
-    
-    # Values:
-    NoFlags : SecurityPermissionFlag # 0
-    Assertion : SecurityPermissionFlag # 1
-    UnmanagedCode : SecurityPermissionFlag # 2
-    SkipVerification : SecurityPermissionFlag # 4
-    Execution : SecurityPermissionFlag # 8
-    ControlThread : SecurityPermissionFlag # 16
-    ControlEvidence : SecurityPermissionFlag # 32
-    ControlPolicy : SecurityPermissionFlag # 64
-    SerializationFormatter : SecurityPermissionFlag # 128
-    ControlDomainPolicy : SecurityPermissionFlag # 256
-    ControlPrincipal : SecurityPermissionFlag # 512
-    ControlAppDomain : SecurityPermissionFlag # 1024
-    RemotingConfiguration : SecurityPermissionFlag # 2048
-    Infrastructure : SecurityPermissionFlag # 4096
-    BindingRedirects : SecurityPermissionFlag # 8192
-    AllFlags : SecurityPermissionFlag # 16383
 
+    # Values:
+    NoFlags: SecurityPermissionFlag  # 0
+    Assertion: SecurityPermissionFlag  # 1
+    UnmanagedCode: SecurityPermissionFlag  # 2
+    SkipVerification: SecurityPermissionFlag  # 4
+    Execution: SecurityPermissionFlag  # 8
+    ControlThread: SecurityPermissionFlag  # 16
+    ControlEvidence: SecurityPermissionFlag  # 32
+    ControlPolicy: SecurityPermissionFlag  # 64
+    SerializationFormatter: SecurityPermissionFlag  # 128
+    ControlDomainPolicy: SecurityPermissionFlag  # 256
+    ControlPrincipal: SecurityPermissionFlag  # 512
+    ControlAppDomain: SecurityPermissionFlag  # 1024
+    RemotingConfiguration: SecurityPermissionFlag  # 2048
+    Infrastructure: SecurityPermissionFlag  # 4096
+    BindingRedirects: SecurityPermissionFlag  # 8192
+    AllFlags: SecurityPermissionFlag  # 16383

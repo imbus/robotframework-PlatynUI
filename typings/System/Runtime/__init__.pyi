@@ -37,7 +37,6 @@ class AmbiguousImplementationException(Exception):
     @property
     def TargetSite(self) -> typing.Optional[MethodBase]: ...
 
-
 class AssemblyTargetedPatchBandAttribute(Attribute):
     def __init__(self, targetedPatchBand: str) -> None: ...
     @property
@@ -45,11 +44,9 @@ class AssemblyTargetedPatchBandAttribute(Attribute):
     @property
     def TypeId(self) -> typing.Any: ...
 
-
 class ControlledExecution(abc.ABC):
     @staticmethod
     def Run(action: Action, cancellationToken: CancellationToken) -> None: ...
-
 
 class DependentHandle(IDisposable):
     def __init__(self, target: typing.Optional[typing.Any], dependent: typing.Optional[typing.Any]) -> None: ...
@@ -67,33 +64,30 @@ class DependentHandle(IDisposable):
     def TargetAndDependent(self) -> ValueTuple_2[typing.Any, typing.Any]: ...
     def Dispose(self) -> None: ...
 
-
 class GCLargeObjectHeapCompactionMode(typing.SupportsInt):
     @typing.overload
-    def __init__(self, value : int) -> None: ...
+    def __init__(self, value: int) -> None: ...
     @typing.overload
-    def __init__(self, value : int, force_if_true: bool) -> None: ...
+    def __init__(self, value: int, force_if_true: bool) -> None: ...
     def __int__(self) -> int: ...
-    
-    # Values:
-    Default : GCLargeObjectHeapCompactionMode # 1
-    CompactOnce : GCLargeObjectHeapCompactionMode # 2
 
+    # Values:
+    Default: GCLargeObjectHeapCompactionMode  # 1
+    CompactOnce: GCLargeObjectHeapCompactionMode  # 2
 
 class GCLatencyMode(typing.SupportsInt):
     @typing.overload
-    def __init__(self, value : int) -> None: ...
+    def __init__(self, value: int) -> None: ...
     @typing.overload
-    def __init__(self, value : int, force_if_true: bool) -> None: ...
+    def __init__(self, value: int, force_if_true: bool) -> None: ...
     def __int__(self) -> int: ...
-    
-    # Values:
-    Batch : GCLatencyMode # 0
-    Interactive : GCLatencyMode # 1
-    LowLatency : GCLatencyMode # 2
-    SustainedLowLatency : GCLatencyMode # 3
-    NoGCRegion : GCLatencyMode # 4
 
+    # Values:
+    Batch: GCLatencyMode  # 0
+    Interactive: GCLatencyMode  # 1
+    LowLatency: GCLatencyMode  # 2
+    SustainedLowLatency: GCLatencyMode  # 3
+    NoGCRegion: GCLatencyMode  # 4
 
 class GCSettings(abc.ABC):
     @classmethod
@@ -104,14 +98,15 @@ class GCSettings(abc.ABC):
     def LargeObjectHeapCompactionMode(cls) -> GCLargeObjectHeapCompactionMode: ...
     @classmethod
     @LargeObjectHeapCompactionMode.setter
-    def LargeObjectHeapCompactionMode(cls, value: GCLargeObjectHeapCompactionMode) -> GCLargeObjectHeapCompactionMode: ...
+    def LargeObjectHeapCompactionMode(
+        cls, value: GCLargeObjectHeapCompactionMode
+    ) -> GCLargeObjectHeapCompactionMode: ...
     @classmethod
     @property
     def LatencyMode(cls) -> GCLatencyMode: ...
     @classmethod
     @LatencyMode.setter
     def LatencyMode(cls, value: GCLatencyMode) -> GCLatencyMode: ...
-
 
 class JitInfo(abc.ABC):
     @staticmethod
@@ -121,11 +116,9 @@ class JitInfo(abc.ABC):
     @staticmethod
     def GetCompiledMethodCount(currentThread: bool = ...) -> int: ...
 
-
 class MemoryFailPoint(CriticalFinalizerObject, IDisposable):
     def __init__(self, sizeInMegabytes: int) -> None: ...
     def Dispose(self) -> None: ...
-
 
 class ProfileOptimization(abc.ABC):
     @staticmethod
@@ -133,11 +126,9 @@ class ProfileOptimization(abc.ABC):
     @staticmethod
     def StartProfile(profile: typing.Optional[str]) -> None: ...
 
-
 class TargetedPatchingOptOutAttribute(Attribute):
     def __init__(self, reason: str) -> None: ...
     @property
     def Reason(self) -> str: ...
     @property
     def TypeId(self) -> typing.Any: ...
-

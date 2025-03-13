@@ -7,7 +7,7 @@ from typing import Any, ClassVar, List
 
 from ..strategybase import StrategyBase
 
-__all__ = ["Properties", "NativeProperties"]
+__all__ = ["NativeProperties", "Properties"]
 
 
 class Properties(StrategyBase):
