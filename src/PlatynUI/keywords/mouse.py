@@ -32,3 +32,12 @@ class Mouse:
         button: Optional[MouseButton] = None,
     ) -> None:
         descriptor().mouse.double_click(x=x, y=y, button=button)
+
+    @keyword
+    def move_to(
+        self,
+        descriptor: ElementDescriptor[HasMouse],
+        x: Optional[float] = None,
+        y: Optional[float] = None,
+    ) -> None:
+        descriptor().mouse.move_to(x=x, y=y)
