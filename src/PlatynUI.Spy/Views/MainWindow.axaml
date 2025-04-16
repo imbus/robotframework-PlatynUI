@@ -29,6 +29,8 @@
     <Window.KeyBindings>
         <KeyBinding Gesture="F5"
             Command="{Binding Refresh}" />
+        <KeyBinding Gesture="F6"
+            Command="{Binding Highlight}" />
         <KeyBinding Gesture="Escape"
             Command="{Binding CancelSearch}" />
     </Window.KeyBindings>

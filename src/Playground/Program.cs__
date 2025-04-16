@@ -1,0 +1,146 @@
+using System;
+using System.Runtime.InteropServices;
+
+internal partial class Program
+{
+    public static void Main()
+    {
+        // Init AppKit Context
+        IntPtr nsAppClass = objc_getClass("NSApplication");
+        IntPtr sharedAppSel = sel_registerName("sharedApplication");
+        IntPtr runSel = sel_registerName("run");
+        IntPtr nsApp = objc_msgSend(nsAppClass, sharedAppSel);
+
+        // Activate app (no Dock/Menu if LSUIElement=true)
+        IntPtr activateSel = sel_registerName("activateIgnoringOtherApps:");
+        objc_msgSend_bool(nsApp, activateSel, true);
+
+        // Create transparent window
+        IntPtr nsWindowClass = objc_getClass("NSWindow");
+        IntPtr allocSel = sel_registerName("alloc");
+        IntPtr initSel = sel_registerName("initWithContentRect:styleMask:backing:defer:");
+        IntPtr setTitleSel = sel_registerName("setTitle:");
+        IntPtr makeKeyAndOrderFrontSel = sel_registerName("makeKeyAndOrderFront:");
+        IntPtr setLevelSel = sel_registerName("setLevel:");
+        IntPtr setOpaqueSel = sel_registerName("setOpaque:");
+        IntPtr setBackgroundColorSel = sel_registerName("setBackgroundColor:");
+        IntPtr setHasShadowSel = sel_registerName("setHasShadow:");
+
+        var rect = new NSRect(100, 100, 800, 600);
+        IntPtr rectPtr = Marshal.AllocHGlobal(Marshal.SizeOf<NSRect>());
+        Marshal.StructureToPtr(rect, rectPtr, false);
+
+        IntPtr styleMask = (IntPtr)0; // borderless
+        IntPtr backing = (IntPtr)2; // buffered
+        IntPtr defer = IntPtr.Zero;
+
+        IntPtr windowAlloc = objc_msgSend(objc_msgSend(nsWindowClass, allocSel), initSel);
+        IntPtr window = objc_msgSend_IntPtr_IntPtr_IntPtr_IntPtr(
+            windowAlloc,
+            initSel,
+            rectPtr,
+            styleMask,
+            backing,
+            defer
+        );
+        Marshal.FreeHGlobal(rectPtr);
+
+        objc_msgSend_IntPtr(window, setTitleSel, NSStringFrom("Overlay Window"));
+        objc_msgSend_Int(window, setLevelSel, 1000); // Floating
+        objc_msgSend_bool(window, setOpaqueSel, false);
+
+        IntPtr nsColorClass = objc_getClass("NSColor");
+        IntPtr clearColorSel = sel_registerName("clearColor");
+        IntPtr clearColor = objc_msgSend(nsColorClass, clearColorSel);
+        objc_msgSend_IntPtr(window, setBackgroundColorSel, clearColor);
+        objc_msgSend_bool(window, setHasShadowSel, false);
+
+        objc_msgSend_IntPtr(window, makeKeyAndOrderFrontSel, IntPtr.Zero);
+
+        // Start event loop
+        objc_msgSend(nsApp, runSel);
+    }
+
+    static IntPtr NSStringFrom(string str)
+    {
+        IntPtr cls = objc_getClass("NSString");
+        IntPtr sel = sel_registerName("stringWithUTF8String:");
+        IntPtr utf8 = Marshal.StringToHGlobalAnsi(str);
+        IntPtr nsStr = objc_msgSend_IntPtr(cls, sel, utf8);
+        Marshal.FreeHGlobal(utf8);
+        return nsStr;
+    }
+
+    // Structs
+    [StructLayout(LayoutKind.Sequential)]
+    struct NSPoint
+    {
+        public double X,
+            Y;
+
+        public NSPoint(double x, double y)
+        {
+            X = x;
+            Y = y;
+        }
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    struct NSSize
+    {
+        public double Width,
+            Height;
+
+        public NSSize(double w, double h)
+        {
+            Width = w;
+            Height = h;
+        }
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    struct NSRect
+    {
+        public NSPoint Origin;
+        public NSSize Size;
+
+        public NSRect(double x, double y, double w, double h)
+        {
+            Origin = new NSPoint(x, y);
+            Size = new NSSize(w, h);
+        }
+    }
+
+    // Objective-C bindings
+    [LibraryImport("/usr/lib/libobjc.A.dylib", StringMarshalling = StringMarshalling.Utf8)]
+    public static partial IntPtr sel_registerName(string selectorName);
+
+    [LibraryImport("/usr/lib/libobjc.A.dylib", StringMarshalling = StringMarshalling.Utf8)]
+    public static partial IntPtr objc_getClass(string name);
+
+    [LibraryImport("/usr/lib/libobjc.A.dylib", EntryPoint = "objc_msgSend")]
+    public static partial IntPtr objc_msgSend(IntPtr receiver, IntPtr selector);
+
+    [LibraryImport("/usr/lib/libobjc.A.dylib", EntryPoint = "objc_msgSend")]
+    public static partial IntPtr objc_msgSend_Int(IntPtr receiver, IntPtr selector, int arg1);
+
+    [LibraryImport("/usr/lib/libobjc.A.dylib", EntryPoint = "objc_msgSend")]
+    public static partial IntPtr objc_msgSend_bool(
+        IntPtr receiver,
+        IntPtr selector,
+        [MarshalAs(UnmanagedType.I1)] bool arg1
+    );
+
+    [LibraryImport("/usr/lib/libobjc.A.dylib", EntryPoint = "objc_msgSend")]
+    public static partial IntPtr objc_msgSend_IntPtr(IntPtr receiver, IntPtr selector, IntPtr arg1);
+
+    [LibraryImport("/usr/lib/libobjc.A.dylib", EntryPoint = "objc_msgSend")]
+    public static partial IntPtr objc_msgSend_IntPtr_IntPtr_IntPtr_IntPtr(
+        IntPtr receiver,
+        IntPtr selector,
+        IntPtr arg1,
+        IntPtr arg2,
+        IntPtr arg3,
+        IntPtr arg4
+    );
+}

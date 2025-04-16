@@ -15,7 +15,6 @@ __all__ = ["Window"]
 
 @context
 class Window(Control):
-
     @property
     def has_focus(self) -> bool:
         return self.is_active

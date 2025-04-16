@@ -2,11 +2,46 @@
 
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
-## [0.7.0](https://github.com/imbus/robotframework-PlatynUI/compare/v0.6.0..v0.7.0) - 2024-12-19
+## [0.7.0](https://github.com/imbus/robotframework-PlatynUI/compare/v0.6.0..v0.7.0) - 2025-04-11
+
+### Bug Fixes
+
+- **Runtime:** Introduce IDisposable for IDisplayDevice implementations ([33a7a5d](https://github.com/imbus/robotframework-PlatynUI/commit/33a7a5df55c46e91137144728336bdc47da0bc80))
+- **macOS:** Correct swift package file ([0538bb0](https://github.com/imbus/robotframework-PlatynUI/commit/0538bb074c4425b15bfc459dbae6761194bd280f))
+- **macOS:** Corrected loading of native libraries ([88c8f2b](https://github.com/imbus/robotframework-PlatynUI/commit/88c8f2bc6a0e44fda0a7387eb65da1e9e976e0bf))
+- **spy:** Add application title for macox ([80dac35](https://github.com/imbus/robotframework-PlatynUI/commit/80dac35ebce8e7098104189a6bb33f7783f77cbc))
+- **testapps:** Correct xamls ([f45ff50](https://github.com/imbus/robotframework-PlatynUI/commit/f45ff50819f51ac60835b382019332acf9b278ad))
+- Added outputdir for test results ([6597bd0](https://github.com/imbus/robotframework-PlatynUI/commit/6597bd032bf744e4783ed0c2bec4d74e25d4a981))
+- Corrected flag ([0687247](https://github.com/imbus/robotframework-PlatynUI/commit/06872472d2507a7a319e8039290e253b362aa0db))
+- Result path now passed as argument to hatch ([85a08fa](https://github.com/imbus/robotframework-PlatynUI/commit/85a08fa5d0efbbe8f5a13445165fdaa1419c3f25))
+
+
+### Documentation
+
+- Added basic installation process and example templates ([69422bb](https://github.com/imbus/robotframework-PlatynUI/commit/69422bb17ebc0980bea3a738dabf0ded5c3accc8))
+- Update README file ([b76df73](https://github.com/imbus/robotframework-PlatynUI/commit/b76df7384644a6923b226d5ab26ed52e2a2e17e1))
+- Created a code of conduct ([a689f72](https://github.com/imbus/robotframework-PlatynUI/commit/a689f720f231ea2f4d931de490c63a8ca00bb16c))
+
 
 ### Features
 
+- **MacOS:** Introduce first MacOS support for IDisplayDevice ([320b052](https://github.com/imbus/robotframework-PlatynUI/commit/320b052eeccacd932d5003a13957b9e0c09a7c48))
+- **Server:** Implemented first version of PlatynUI.Server CLI ([0cc4848](https://github.com/imbus/robotframework-PlatynUI/commit/0cc48483bb3b885468c4529e27bead3811850ce2))
+- **Spy:** Introduce shortcut F6 to highlight the current element ([9a3c69d](https://github.com/imbus/robotframework-PlatynUI/commit/9a3c69d6200a125c6121784d3696b112f6c542fc))
+- **runtime:** Support loading .NET extensions from paths defined in PLATYNUI_EXTENSIONS environment variable ([48c13a4](https://github.com/imbus/robotframework-PlatynUI/commit/48c13a4f4102eab0110e4ecd333adf8c269498f6))
 - Introduce ElementDescriptor ([b5f431b](https://github.com/imbus/robotframework-PlatynUI/commit/b5f431bcf5f041f3f0be207d5da4a18e8679fb92))
+- Make spy compilable on MacOS ([ed47619](https://github.com/imbus/robotframework-PlatynUI/commit/ed476195599031564e149d3646d0aa1e967215c4))
+- Add position and button to mouse click keywords ([a6fa01b](https://github.com/imbus/robotframework-PlatynUI/commit/a6fa01b9177ef19646e6aee5e85b748a79059588))
+- Implemented `get text` keyword ([39737ba](https://github.com/imbus/robotframework-PlatynUI/commit/39737ba8b882892e58869200f41fa9c135be41fc))
+- Added pre-commit hooks ([f303673](https://github.com/imbus/robotframework-PlatynUI/commit/f3036737bd2f56fc3a700626de0f9ca2e38c9f44))
+- Added autoformatting, checks and temporary execptions ([4f1b5aa](https://github.com/imbus/robotframework-PlatynUI/commit/4f1b5aa5cf826e142368b516d35437f9d784f1c7))
+- Added test execution commands ([777119b](https://github.com/imbus/robotframework-PlatynUI/commit/777119be5a6ae2c498b254313cc6892ceb56b840))
+
+
+### Testing
+
+- Added matrix configuration test ([fb4447a](https://github.com/imbus/robotframework-PlatynUI/commit/fb4447a8a017045c3b83f8ab26d6e14771f911f9))
+- Added matrix configuration test ([45def32](https://github.com/imbus/robotframework-PlatynUI/commit/45def3261d638001f7caca4719a05b2ebbd1cbb0))
 
 
 ## [0.6.0](https://github.com/imbus/robotframework-PlatynUI/compare/v0.5.0..v0.6.0) - 2024-12-13

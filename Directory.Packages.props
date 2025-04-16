@@ -1,0 +1,34 @@
+<Project>
+  <PropertyGroup>
+    <!-- Enable central package management,
+    https://learn.microsoft.com/en-us/nuget/consume-packages/Central-Package-Management -->
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageVersion Include="System.ComponentModel.Composition" Version="9.0.3" />
+    <PackageVersion Include="StreamJsonRpc" Version="2.21.69" />
+    <PackageVersion Include="System.CommandLine.NamingConventionBinder"
+      Version="2.0.0-beta4.22272.1" />
+    <PackageVersion Include="Microsoft.Windows.CsWin32" Version="0.3.183" />
+    <PackageVersion Include="System.Memory" Version="4.6.2" />
+    <PackageVersion Include="System.CodeDom" Version="9.0.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageVersion Include="Tmds.DBus.Protocol" Version="0.21.2" />
+    <PackageVersion Include="Tmds.DBus.SourceGenerator" Version="0.0.20" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageVersion Include="Avalonia" Version="11.2.7" />
+    <PackageVersion Include="Avalonia.Controls.DataGrid" Version="11.2.7" />
+    <PackageVersion Include="Avalonia.Desktop" Version="11.2.7" />
+    <PackageVersion Include="Avalonia.Themes.Fluent" Version="11.2.7" />
+    <PackageVersion Include="Avalonia.Themes.Simple" Version="11.2.7" />
+    <PackageVersion Include="Avalonia.Fonts.Inter" Version="11.2.7" />
+    <PackageVersion Include="Avalonia.Diagnostics" Version="11.2.7" />
+    <PackageVersion Include="Avalonia.ReactiveUI" Version="11.2.7" />
+    <PackageVersion Include="FluentAvaloniaUI" Version="2.3.0" />
+
+  </ItemGroup>
+</Project>

@@ -299,7 +299,6 @@ class ContextBase(metaclass=ABCMeta):
             return
 
         if self.locator is not None:
-
             for a in adapter.children:
                 loc = self.locator.create_child_locator(a)
                 res: ContextBase = loc.create_context(self, ContextFactory.find_context_class_for(a))
@@ -364,7 +363,6 @@ class ContextFactory:
     def find_context_class_for(
         cls, adapter: Adapter, context_type: Optional[Type[TContextBase]] = None
     ) -> Type[Union[TContextBase, ContextBase]]:
-
         if context_type is not None:
             return context_type
 
@@ -449,7 +447,6 @@ def context(
     **decorator_kwargs: Any,
 ) -> Union[Type[TContextBase], Callable[[Type[TContextBase]], Type[TContextBase]]]:
     def decorator(cls: Type[TContextBase]) -> Type[TContextBase]:
-
         setattr(cls, "default_role", role or cls.__name__)
 
         if prefix is not None:

@@ -1,0 +1,8 @@
+<Project>
+    <Import Project="..\Directory.Build.props" />
+
+    <PropertyGroup>
+        <NeedsPlatynUIExtensions>false</NeedsPlatynUIExtensions>
+    </PropertyGroup>
+
+</Project>

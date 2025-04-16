@@ -83,6 +83,28 @@ public class MainWindowViewModel : ViewModelBase, INotifyDataErrorInfo
         return SelectedNode != null;
     }
 
+    public void Highlight()
+    {
+        var node = SelectedNode;
+
+        if (node == null)
+            return;
+
+        SelectedNodeAttributes = node?.Attributes ?? [];
+
+        if (node != null && node.Node is IElement element && element.IsVisible && element.IsInView)
+        {
+            var r = element.BoundingRectangle;
+            DisplayDevice.HighlightRect(r.X, r.Y, r.Width, r.Height, 2);
+        }
+    }
+
+    [DependsOn(nameof(SelectedNode))]
+    public bool CanHighlight()
+    {
+        return SelectedNode != null;
+    }
+
     public TreeNode[] Root { get; } =
         [new TreeNode(null, Desktop.GetInstance()) { IsExpanded = true, IsSelected = true }];
 

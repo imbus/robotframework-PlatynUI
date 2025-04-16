@@ -125,46 +125,70 @@ static class PlatynUiExtensions
             }
         }
 
-        // TODO: Load assemblies from extensions/plugins directory
-
+        // Load assemblies from extensions directory
         string? currentDirectory = Directory.GetParent(Assembly.GetExecutingAssembly().Location)?.FullName;
+        var extensionDirectories = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 
         if (currentDirectory != null)
         {
+            extensionDirectories.Add(Path.GetFullPath(currentDirectory));
+            var localExtensionsDirectory = Path.Combine(currentDirectory, "extensions");
+            if (Directory.Exists(localExtensionsDirectory))
+            {
+                extensionDirectories.Add(Path.GetFullPath(localExtensionsDirectory));
+            }
+        }
+
+        // Load directories from PLATYNUI_EXTENSIONS environment variable
+        string? envExtensions = Environment.GetEnvironmentVariable("PLATYNUI_EXTENSIONS");
+        if (!string.IsNullOrEmpty(envExtensions))
+        {
+            var paths = envExtensions.Split(Path.PathSeparator, StringSplitOptions.RemoveEmptyEntries);
+            foreach (var path in paths)
+            {
+                if (Directory.Exists(path))
+                {
+                    extensionDirectories.Add(Path.GetFullPath(path));
+                }
+            }
+        }
+
+        foreach (var directory in extensionDirectories)
+        {
             try
             {
-                string[] files =
+                string[] extensionFiles =
                 [
-                    .. Directory.GetFiles(currentDirectory, "PlatynUI.Platform.*.dll"),
-                    .. Directory.GetFiles(currentDirectory, "PlatynUI.Extension.*.dll"),
+                    .. Directory.GetFiles(directory, "PlatynUI.Platform.*.dll"),
+                    .. Directory.GetFiles(directory, "PlatynUI.Extension.*.dll"),
                 ];
 
-                foreach (var dll in files)
+                foreach (var extensionDll in extensionFiles)
                 {
                     try
                     {
-                        var assemblyName = AssemblyName.GetAssemblyName(dll);
+                        var assemblyName = AssemblyName.GetAssemblyName(extensionDll);
                         if (addedAssemblies.Any(x => AssemblyName.ReferenceMatchesDefinition(x, assemblyName)))
                         {
                             continue;
                         }
-                        var assembly = Assembly.LoadFrom(dll);
-                        Debug.WriteLine($"Loaded assembly {dll}");
+                        var assembly = Assembly.LoadFrom(extensionDll);
+                        Debug.WriteLine($"Loaded extension assembly {extensionDll}");
                         if (assembly.IsValidPlatyUiPlatformExtension())
                         {
-                            Debug.WriteLine($"Adding assembly {dll} to catalog");
+                            Debug.WriteLine($"Adding extension assembly {extensionDll} to catalog");
                             catalog.Catalogs.Add(new AssemblyCatalog(assembly));
                         }
                     }
                     catch (Exception ex)
                     {
-                        Debug.WriteLine($"Failed to load assembly {dll}: {ex.Message}");
+                        Debug.WriteLine($"Failed to load extension assembly {extensionDll}: {ex.Message}");
                     }
                 }
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"Failed to load assemblies from {currentDirectory}: {ex.Message}");
+                Debug.WriteLine($"Failed to load extension assemblies from {directory}: {ex.Message}");
             }
         }
 

@@ -13,7 +13,6 @@ __all__ = ["Tree", "TreeItem"]
 
 @context
 class TreeItem(Item):
-
     @property
     def item_count(self) -> int:
         self.ensure_that(self._application_is_ready)
@@ -80,7 +79,6 @@ class TreeItem(Item):
 
 @context
 class Tree(Control):
-
     @property
     def item_count(self):
         self.ensure_that(self._application_is_ready)

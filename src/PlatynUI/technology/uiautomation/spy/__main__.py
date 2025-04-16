@@ -30,8 +30,7 @@ def main() -> None:
 
     exe_name = "PlatynUI.Spy.exe"
     debug_path = (
-        Path(__file__).parent
-        / f"../../../../PlatynUI.Spy/bin/Debug/net8.0-windows/{exe_name}"
+        Path(__file__).parent / f"../../../../PlatynUI.Spy/bin/Debug/net8.0-windows/{exe_name}"
         # Path(__file__).parent
         # / f"../../../../PlatynUI.Extension.Win32.UiAutomation.Spy/bin/Debug/net481/{ASSEMBLY_NAME}"
     )

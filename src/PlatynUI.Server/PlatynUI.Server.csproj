@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <RuntimeIdentifiers>win-x64;win-arm64;linux-x64;linux-arm;osx-arm64</RuntimeIdentifiers>
+    <NeedsPlatynUIExtensions>true</NeedsPlatynUIExtensions>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="StreamJsonRpc" />
+    <PackageReference Include="System.CommandLine.NamingConventionBinder" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PlatynUI.Runtime\PlatynUI.Runtime.csproj" />
+  </ItemGroup>
+</Project>

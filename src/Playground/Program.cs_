@@ -1,0 +1,418 @@
+using System;
+using System.Collections.Generic;
+using System.Runtime.InteropServices;
+using Terminal.Gui;
+
+partial class MacAxTree
+{
+    private const string AppServices = "/System/Library/Frameworks/ApplicationServices.framework/ApplicationServices";
+    private const string CoreFoundation = "/System/Library/Frameworks/CoreFoundation.framework/CoreFoundation";
+    private const uint kCFStringEncodingUTF8 = 0x08000100;
+    private const int kCFNumberDoubleType = 13;
+
+    // Library imports
+    [LibraryImport(AppServices)]
+    public static partial IntPtr AXUIElementCreateApplication(int pid);
+
+    [LibraryImport(AppServices)]
+    public static partial int AXUIElementCopyAttributeValue(IntPtr element, IntPtr attribute, out IntPtr value);
+
+    [LibraryImport(AppServices)]
+    public static partial int AXUIElementCopyAttributeNames(IntPtr element, out IntPtr names);
+
+    [LibraryImport(CoreFoundation, StringMarshalling = StringMarshalling.Utf8)]
+    public static partial IntPtr CFStringCreateWithCString(IntPtr alloc, string str, uint encoding);
+
+    [LibraryImport(CoreFoundation)]
+    public static partial IntPtr CFStringGetCStringPtr(IntPtr theString, uint encoding);
+
+    [LibraryImport(CoreFoundation)]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool CFStringGetCString(IntPtr theString, IntPtr buffer, int bufferSize, uint encoding);
+
+    [LibraryImport(CoreFoundation)]
+    public static partial void CFRelease(IntPtr cf);
+
+    [LibraryImport(CoreFoundation)]
+    public static partial int CFArrayGetCount(IntPtr array);
+
+    [LibraryImport(CoreFoundation)]
+    public static partial IntPtr CFArrayGetValueAtIndex(IntPtr array, int index);
+
+    [LibraryImport(CoreFoundation)]
+    public static partial int CFGetTypeID(IntPtr cf);
+
+    [LibraryImport(CoreFoundation)]
+    public static partial IntPtr CFGetTypeIDDescription(int typeId);
+
+    [LibraryImport(CoreFoundation)]
+    public static partial IntPtr CFStringGetTypeID();
+
+    [LibraryImport(CoreFoundation)]
+    public static partial IntPtr CFBooleanGetTypeID();
+
+    [LibraryImport(CoreFoundation)]
+    public static partial IntPtr CFNumberGetTypeID();
+
+    [LibraryImport(CoreFoundation)]
+    public static partial IntPtr CFArrayGetTypeID();
+
+    [LibraryImport(CoreFoundation)]
+    public static partial byte CFBooleanGetValue(IntPtr boolean);
+
+    [LibraryImport(CoreFoundation)]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool CFNumberGetValue(IntPtr number, int theType, out double value);
+
+    static readonly IntPtr kAXChildren = CFSTR("AXChildren");
+    static readonly IntPtr kAXWindows = CFSTR("AXWindows");
+    static readonly IntPtr kAXTitle = CFSTR("AXTitle");
+    static readonly IntPtr kAXRole = CFSTR("AXRole");
+    static readonly IntPtr kAXMain = CFSTR("AXMain");
+
+    static readonly int CFStringTypeID = CFStringGetTypeID().ToInt32();
+    static readonly int CFBooleanTypeID = CFBooleanGetTypeID().ToInt32();
+    static readonly int CFNumberTypeID = CFNumberGetTypeID().ToInt32();
+    static readonly int CFArrayTypeID = CFArrayGetTypeID().ToInt32();
+
+    static IntPtr CFSTR(string s) => CFStringCreateWithCString(IntPtr.Zero, s, kCFStringEncodingUTF8);
+
+    static void Main(string[] args)
+    {
+        if (args.Length > 0 && args[0] == "--tui")
+        {
+            RunTui();
+        }
+        else
+        {
+            RunCli();
+        }
+    }
+
+    static void RunCli()
+    {
+        var processes = ListVisibleAccessibilityApps();
+
+        Console.WriteLine("Wähle eine App:");
+        for (int i = 0; i < processes.Count; i++)
+            Console.WriteLine($"[{i}] {processes[i].Name} (PID {processes[i].Pid})");
+
+        Console.Write("\nDeine Auswahl: ");
+        if (int.TryParse(Console.ReadLine(), out int index) && index >= 0 && index < processes.Count)
+        {
+            var app = AXUIElementCreateApplication(processes[index].Pid);
+            Console.WriteLine($"\n🔍 Fenster & UI von {processes[index].Name} (PID {processes[index].Pid}):\n");
+            ShowWindowsOfApp(app);
+        }
+        else
+            Console.WriteLine("Ungültige Auswahl.");
+    }
+
+    static void RunTui()
+    {
+        Application.Init();
+
+        var menu = new MenuBar(
+            new MenuBarItem[]
+            {
+                new MenuBarItem(
+                    "_Datei",
+                    new MenuItem[]
+                    {
+                        new MenuItem("_Beenden", "Beendet die Anwendung", () => Application.RequestStop()),
+                    }
+                ),
+            }
+        );
+        Application.Init();
+
+        var top = Application.Top;
+        var win = new Window("macOS Accessibility Explorer")
+        {
+            X = 0,
+            Y = 0,
+            Width = Dim.Fill(),
+            Height = Dim.Fill(),
+        };
+        top.Add(menu);
+        top.Add(win);
+
+        var appList = new List<AppInfo>(ListVisibleAccessibilityApps());
+        var listView = new ListView(appList)
+        {
+            Width = Dim.Fill(),
+            Height = Dim.Fill(),
+            AllowsMarking = false,
+        };
+
+        listView.OpenSelectedItem += args =>
+        {
+            var selected = appList[args.Item];
+            ShowWindowTreeUI(selected);
+        };
+
+        win.Add(listView);
+        top.Add(new Label("Drücke 'q' zum Beenden") { X = 1, Y = Pos.Bottom(win) - 1 });
+
+        Application.Top.KeyPress += args =>
+        {
+            if (args.KeyEvent.Key == Key.Q)
+                Application.RequestStop();
+        };
+
+        Application.Run();
+    }
+
+    static List<AppInfo> ListVisibleAccessibilityApps()
+    {
+        var result = new List<AppInfo>();
+        var processes = System.Diagnostics.Process.GetProcesses();
+
+        foreach (var proc in processes)
+        {
+            try
+            {
+                if (proc.Id == 0 || string.IsNullOrWhiteSpace(proc.ProcessName))
+                    continue;
+                var appElement = AXUIElementCreateApplication(proc.Id);
+
+                if (
+                    AXUIElementCopyAttributeValue(appElement, kAXWindows, out var windowsPtr) == 0
+                    && windowsPtr != IntPtr.Zero
+                )
+                {
+                    int count = CFArrayGetCount(windowsPtr);
+                    if (count > 0)
+                    {
+                        result.Add(new AppInfo(proc.ProcessName, proc.Id));
+                    }
+                    CFRelease(windowsPtr);
+                }
+            }
+            catch { }
+        }
+
+        return result;
+    }
+
+    static void ShowWindowsOfApp(IntPtr appElement)
+    {
+        if (
+            AXUIElementCopyAttributeValue(appElement, kAXWindows, out var windowArrayPtr) != 0
+            || windowArrayPtr == IntPtr.Zero
+        )
+        {
+            Console.WriteLine("⚠️ Keine Fenster gefunden.");
+            return;
+        }
+
+        int count = CFArrayGetCount(windowArrayPtr);
+        for (int i = 0; i < count; i++)
+        {
+            var window = CFArrayGetValueAtIndex(windowArrayPtr, i);
+            Console.WriteLine($"\n🪟 Fenster {i}:");
+            Traverse(window, 1);
+        }
+
+        CFRelease(windowArrayPtr);
+    }
+
+    static void ShowWindowTreeUI(AppInfo app)
+    {
+        var appElement = AXUIElementCreateApplication(app.Pid);
+        if (
+            AXUIElementCopyAttributeValue(appElement, kAXWindows, out var windowArrayPtr) != 0
+            || windowArrayPtr == IntPtr.Zero
+        )
+        {
+            MessageBox.ErrorQuery("Fehler", "Keine Fenster gefunden", "OK");
+            return;
+        }
+
+        var win = new Window($"Fenster von {app.Name}")
+        {
+            X = 0,
+            Y = 1,
+            Width = Dim.Fill(),
+            Height = Dim.Fill(),
+        };
+
+        var count = CFArrayGetCount(windowArrayPtr);
+        var lines = new List<string>();
+
+        for (int i = 0; i < count; i++)
+        {
+            var window = CFArrayGetValueAtIndex(windowArrayPtr, i);
+            lines.Add($"Fenster {i}: {GetStringAttr(window, kAXTitle)}");
+            BuildTreeLines(window, 1, lines);
+        }
+
+        var listView = new ListView(lines) { Width = Dim.Fill(), Height = Dim.Fill() };
+
+        win.Add(listView);
+        Application.Top.Add(win);
+        CFRelease(windowArrayPtr);
+    }
+
+    static void BuildTreeLines(IntPtr element, int depth, List<string> lines)
+    {
+        string title = GetStringAttr(element, kAXTitle);
+        string role = GetStringAttr(element, kAXRole);
+        string indent = new string(' ', depth * 2);
+        lines.Add($"{indent}{role} - {title}");
+
+        if (AXUIElementCopyAttributeValue(element, kAXChildren, out var childrenPtr) == 0 && childrenPtr != IntPtr.Zero)
+        {
+            int count = CFArrayGetCount(childrenPtr);
+            for (int i = 0; i < count; i++)
+            {
+                var child = CFArrayGetValueAtIndex(childrenPtr, i);
+                BuildTreeLines(child, depth + 1, lines);
+            }
+            CFRelease(childrenPtr);
+        }
+    }
+
+    static void Traverse(IntPtr element, int depth)
+    {
+        string indent = new string(' ', depth * 2);
+        Console.WriteLine($"{indent}Element:");
+        DumpAllAttributes(element, depth + 1);
+
+        if (AXUIElementCopyAttributeValue(element, kAXChildren, out var childrenPtr) == 0 && childrenPtr != IntPtr.Zero)
+        {
+            int count = CFArrayGetCount(childrenPtr);
+            for (int i = 0; i < count; i++)
+            {
+                IntPtr child = CFArrayGetValueAtIndex(childrenPtr, i);
+                Traverse(child, depth + 1);
+            }
+            CFRelease(childrenPtr);
+        }
+    }
+
+    static void DumpAllAttributes(IntPtr element, int depth)
+    {
+        string indent = new string(' ', depth * 2);
+        if (AXUIElementCopyAttributeNames(element, out var attrNamesPtr) != 0 || attrNamesPtr == IntPtr.Zero)
+        {
+            Console.WriteLine($"{indent}(keine Attribute gefunden)");
+            return;
+        }
+
+        int count = CFArrayGetCount(attrNamesPtr);
+        for (int i = 0; i < count; i++)
+        {
+            var attrNamePtr = CFArrayGetValueAtIndex(attrNamesPtr, i);
+            string attrName = CFTypeToString(attrNamePtr);
+
+            if (string.IsNullOrWhiteSpace(attrName))
+                continue;
+
+            if (AXUIElementCopyAttributeValue(element, attrNamePtr, out var valuePtr) == 0 && valuePtr != IntPtr.Zero)
+            {
+                string displayValue = CFTypeToDisplayString(valuePtr);
+                Console.WriteLine($"{indent}- {attrName}: {displayValue}");
+                CFRelease(valuePtr);
+            }
+            else
+                Console.WriteLine($"{indent}- {attrName}: (kein Wert)");
+        }
+
+        CFRelease(attrNamesPtr);
+    }
+
+    static string GetStringAttr(IntPtr element, IntPtr attr)
+    {
+        if (AXUIElementCopyAttributeValue(element, attr, out var ptr) == 0 && ptr != IntPtr.Zero)
+        {
+            string s = CFTypeToString(ptr);
+            CFRelease(ptr);
+            return s;
+        }
+        return "";
+    }
+
+    static string CFTypeToDisplayString(IntPtr cf)
+    {
+        if (cf == IntPtr.Zero)
+            return "(null)";
+
+        int typeId = CFGetTypeID(cf);
+
+        if (typeId == CFStringTypeID)
+        {
+            return CFStringToString(cf);
+        }
+        if (typeId == CFBooleanTypeID)
+        {
+            return CFBooleanGetValue(cf) != 0 ? "true" : "false";
+        }
+        if (typeId == CFNumberTypeID)
+        {
+            if (CFNumberGetValue(cf, kCFNumberDoubleType, out double val))
+                return val.ToString();
+            return "(ungültige Zahl)";
+        }
+        if (typeId == CFArrayTypeID)
+        {
+            int count = CFArrayGetCount(cf);
+            var items = new List<string>();
+            for (int i = 0; i < count; i++)
+            {
+                var item = CFArrayGetValueAtIndex(cf, i);
+                items.Add(CFTypeToDisplayString(item));
+            }
+            return $"[{string.Join(", ", items)}]";
+        }
+
+        string role = GetStringAttr(cf, kAXRole);
+        string title = GetStringAttr(cf, kAXTitle);
+        if (!string.IsNullOrEmpty(role) || !string.IsNullOrEmpty(title))
+            return $"AXUIElement(role={role}, title={title})";
+
+        return $"[unbekannter Typ: {typeId}]";
+    }
+
+    static string CFStringToString(IntPtr cfString)
+    {
+        if (cfString == IntPtr.Zero)
+            return "(null)";
+
+        IntPtr strPtr = CFStringGetCStringPtr(cfString, kCFStringEncodingUTF8);
+        if (strPtr != IntPtr.Zero)
+        {
+            return Marshal.PtrToStringUTF8(strPtr) ?? "(null)";
+        }
+
+        const int bufferSize = 1024;
+        IntPtr buffer = Marshal.AllocHGlobal(bufferSize);
+        try
+        {
+            bool success = CFStringGetCString(cfString, buffer, bufferSize, kCFStringEncodingUTF8);
+            if (success)
+            {
+                return Marshal.PtrToStringUTF8(buffer) ?? "(null)";
+            }
+            return "(fehlgeschlagen)";
+        }
+        finally
+        {
+            Marshal.FreeHGlobal(buffer);
+        }
+    }
+
+    static string CFTypeToString(IntPtr cf)
+    {
+        if (cf == IntPtr.Zero)
+            return "";
+        int typeId = CFGetTypeID(cf);
+        if (typeId == CFStringTypeID)
+        {
+            return CFStringToString(cf);
+        }
+        return $"[type {typeId}]";
+    }
+
+    record AppInfo(string Name, int Pid);
+}

@@ -25,7 +25,6 @@ class MenuBar(Control):
 
 @context
 class MenuItem(Control):
-
     def activate(self) -> None:
         items = []
         p: Optional[ContextBase] = self

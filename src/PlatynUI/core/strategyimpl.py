@@ -85,9 +85,7 @@ def strategy_impl_for(
     native_properties: Optional[Dict[str, Any]] = None,
     **decorator_kwargs: Any,
 ) -> Callable[[Type[StrategyImpl]], Type[StrategyImpl]]:
-
     def decorator(cls: Type[StrategyImpl]) -> Type[StrategyImpl]:
-
         StrategyImplFactory.register_proxy(
             cls,
             {

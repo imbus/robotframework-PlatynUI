@@ -88,7 +88,6 @@ class LocatorBase(decorator.Decorator):
     def create_context(
         self, context_parent: Optional["ContextBase"], context_type: Optional[Type["TContextBase"]]
     ) -> "TContextBase":
-
         if context_type is None:
             from .contextbase import UnknownContext
 

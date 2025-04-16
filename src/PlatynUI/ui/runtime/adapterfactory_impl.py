@@ -55,7 +55,6 @@ class AdapterFactoryImpl(AdapterFactory):
         context_type: Optional[Type["ContextBase"]] = None,
         raise_error: bool = True,
     ) -> Optional["Adapter"]:
-
         if not isinstance(locator, Locator):
             if raise_error:
                 raise ValueError(f"Invalid locator type: {locator}")

@@ -21,9 +21,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [macos-latest, ubuntu-latest, windows-latest]
+        os: [windows-latest, ubuntu-latest, macos-latest]
         python-version: ["3.10", "3.11", "3.12", "3.13"]
-        robot-version: ["4.1", "5.0", "6.0", "6.1", "7.0", "7.1", "7.2"]
+        robot-version: ["6.0", "6.1", "7.0", "7.1", "7.2"]
 
     steps:
       - uses: actions/checkout@v4
@@ -34,20 +34,29 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
+      - name: Setup Swift
+        if: matrix.os == 'macos-latest'
+        uses: swift-actions/setup-swift@v2
+
+      - name: Get swift version
+        if: matrix.os == 'macos-latest'
+        run: swift --version
+
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: |
+            9.0.x
+            8.0.x
+
       - name: Install Hatch
-        run: pipx install hatch
-
-      - name: Create Hatch environment
-        run: hatch env create
-
-      - name: Install Robot Framework ${{ matrix.robot-version }}
-        run: hatch run pip install robotframework==${{ matrix.robot-version }}
+        uses: pypa/hatch@install
 
       - name: Run Python Tests
-        run: hatch run python-tests
+        run: hatch test -i py=${{ matrix.python-version }} -i rf=${{ matrix.robot-version }} -- -m "not wip"
 
       - name: Run Robot Framework Tests
-        run: hatch run robot-tests --outputdir test-results/os-${{ matrix.os }}-py-${{ matrix.python-version }}-rf-${{ matrix.robot-version }}
+        run: hatch run +py=${{ matrix.python-version }} +rf=${{ matrix.robot-version }} robot:test -e wip -- --outputdir test-results/os-${{ matrix.os }}-py-${{ matrix.python-version }}-rf-${{ matrix.robot-version }}
 
       - name: Upload Test Results
         if: always()

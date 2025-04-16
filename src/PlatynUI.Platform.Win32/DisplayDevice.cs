@@ -38,4 +38,24 @@ public class DisplayDevice() : IDisplayDevice
     {
         Highlighter.Show(new Rect(x, y, width, height), (int)time * 1000);
     }
+
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);
+    }
+
+    protected virtual void Dispose(bool disposing)
+    {
+        if (disposing)
+        {
+            _highlighter?.Dispose();
+            _highlighter = null;
+        }
+    }
+
+    ~DisplayDevice()
+    {
+        Dispose(false);
+    }
 }

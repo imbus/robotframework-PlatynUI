@@ -2,9 +2,9 @@
 #
 # SPDX-License-Identifier: Apache-2.0
 
+paths = ["tests/robot"]
+
 log-level = "TRACE"
 
 [env]
 PYTHONNET_RUNTIME = "coreclr"
-# PYTHONNET_RUNTIME = "netfx"
-# PYTHONNET_CORECLR_DOTNET_ROOT = "C:\\Users\\daniel\\Downloads\\dotnet-sdk-8.0.302-win-x64"

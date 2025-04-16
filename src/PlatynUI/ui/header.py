@@ -20,7 +20,6 @@ class HeaderItem(Item):
 
 @context
 class Header(Control):
-
     @property
     def orientation(self) -> Orientation:
         self.ensure_that(self._application_is_ready)

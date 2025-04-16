@@ -1,0 +1,9 @@
+<Project>
+    <Target Name="PrintOS" BeforeTargets="PrepareForBuild">
+        <Message Text="Running on Windows: $(IsWindows)" Importance="high" />
+        <Message Text="Running on Linux: $(IsLinux)" Importance="high" />
+        <Message Text="Running on macOS: $(IsMacOS)" Importance="high" />
+        <Message Text="Needs macOS: $(IncludeMacOSPlatform)" Importance="high" />
+        <Message Text="Needs PlatynUI extensions: $(NeedsPlatynUIExtensions)" Importance="high" />
+    </Target>
+</Project>

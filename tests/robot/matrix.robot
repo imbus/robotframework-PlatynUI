@@ -1,8 +1,6 @@
 *** Settings ***
 Documentation       Suite for testing the workflow matrix configuration
 
-Name                Matrix Version Tests
-
 
 *** Variables ***
 ${PLATFORM}             ${{ platform.system() }}

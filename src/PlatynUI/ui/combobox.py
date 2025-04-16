@@ -15,7 +15,6 @@ __all__ = ["ComboBox"]
 
 @context
 class ComboBox(Control):
-
     @property
     def can_expand(self) -> bool:
         self.ensure_that(self._application_is_ready)

@@ -21,7 +21,6 @@ if TYPE_CHECKING:
 
 
 class UiaElement(Element, UiaBase):
-
     @property
     def is_readonly(self) -> bool:
         return DotNetInterface.adapter().IsReadOnly(self.element)

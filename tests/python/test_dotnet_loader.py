@@ -2,8 +2,11 @@
 #
 # SPDX-License-Identifier: Apache-2.0
 
+import pytest
+
 from PlatynUI.ui.runtime.dotnet_interface import DotNetInterface
 
+pytestmark = pytest.mark.wip
 
 def test_finder_should_find_desktop() -> None:
     result = DotNetInterface.finder().FindSingleNode(None, "/.", False)

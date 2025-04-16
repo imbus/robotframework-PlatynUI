@@ -18,7 +18,6 @@ class Cell(Item):
 
 @context
 class Row(Item):
-
     @property
     def column_count(self):
         self.ensure_that(self._application_is_ready)
@@ -37,7 +36,6 @@ class Row(Item):
 
 @context
 class Table(Control):
-
     @property
     def row_count(self):
         self.ensure_that(self._application_is_ready)

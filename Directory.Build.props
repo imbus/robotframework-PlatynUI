@@ -1,10 +1,41 @@
 <Project>
-    <PropertyGroup>
-        <Version>0.7.0</Version>
-        <Authors>Daniel Biehl &lt;daniel.biehl@imbus.de&gt;</Authors>
-        <Product>PlatynUI</Product>
+  <PropertyGroup>
+    <Version>0.7.0</Version>
+    <Authors>Daniel Biehl &lt;daniel.biehl@imbus.de&gt;</Authors>
+    <Product>PlatynUI</Product>
 
-        <Company>imbus</Company>
-        <Copyright>2024 Daniel Biehl &lt;daniel.biehl@imbus.de&gt;</Copyright>
-    </PropertyGroup>
+    <Company>imbus</Company>
+    <Copyright>2024 Daniel Biehl &lt;daniel.biehl@imbus.de&gt;</Copyright>
+
+    <ArtifactsPath>$(MSBuildThisFileDirectory)artifacts</ArtifactsPath>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <IsLinux>$([System.OperatingSystem]::IsLinux().toString().ToLower())</IsLinux>
+    <IsWindows>$([System.OperatingSystem]::IsWindows().toString().ToLower())</IsWindows>
+    <IsMacOS>$([System.OperatingSystem]::IsMacOS().toString().ToLower())</IsMacOS>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <IncludeMacOSPlatform
+      Condition=" '$(IsMacOS)' == 'true' or '$(RuntimeIdentifier)' == 'osx-arm64' or '$(RuntimeIdentifier)' == 'osx-x64' ">
+      true</IncludeMacOSPlatform>
+    <IncludeMacOSPlatform>$([System.String]::Copy('$(IncludeMacOSPlatform)').Trim())</IncludeMacOSPlatform>
+    <IncludeLinuxPlatform
+      Condition=" '$(IsLinux)' == 'true' or '$(RuntimeIdentifier)' == 'linux-x64' or '$(RuntimeIdentifier)' == 'linux-arm64' ">
+      true</IncludeLinuxPlatform>
+    <IncludeLinuxPlatform>$([System.String]::Copy('$(IncludeLinuxPlatform)').Trim())</IncludeLinuxPlatform>
+    <IncludeWindowsPlatform
+      Condition=" '$(IsWindows)' == 'true' or '$(RuntimeIdentifier)' == 'win-x64' or '$(RuntimeIdentifier)' == 'win-arm64' ">
+      true</IncludeWindowsPlatform>
+    <IncludeWindowsPlatform>$([System.String]::Copy('$(IncludeWindowsPlatform)').Trim())</IncludeWindowsPlatform>
+  </PropertyGroup>
+
 </Project>

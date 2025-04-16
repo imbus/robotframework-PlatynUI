@@ -151,9 +151,7 @@ def adapter_proxy_for(
     native_properties: Optional[Dict[str, str]] = None,
     **decorator_kwargs: Any,
 ) -> Callable[[Type[AdapterProxy]], Type[AdapterProxy]]:
-
     def decorator(cls: Type[AdapterProxy]) -> Type[AdapterProxy]:
-
         AdapterProxyFactory.register_proxy(
             cls,
             {

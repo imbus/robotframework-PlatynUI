@@ -52,7 +52,6 @@ class UiaAdapterFactory(AdapterFactory):
         context_type: Optional[Type["ContextBase"]] = None,
         raise_error: bool = True,
     ) -> Optional["Adapter"]:
-
         if not isinstance(locator, Locator):
             return None
 

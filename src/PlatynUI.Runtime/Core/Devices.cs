@@ -4,7 +4,7 @@
 
 namespace PlatynUI.Runtime.Core;
 
-public interface IDisplayDevice
+public interface IDisplayDevice : IDisposable
 {
     Rect GetBoundingRectangle();
     void HighlightRect(double x, double y, double width, double height, double time);

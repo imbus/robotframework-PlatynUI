@@ -38,11 +38,9 @@ def report_as_keyword(
     name: Optional[str] = None,
 ) -> Union[Callable[P, T], Callable[[Callable[P, T]], Callable[P, T]]]:
     def decorator(func: Callable[P, T]) -> Callable[P, T]:
-
         implementation = LibraryKeyword(None, name or func.__qualname__)
 
         def wrapper(*args: P.args, **kwds: P.kwargs) -> T:
-
             report_args = (*args, *(Argument(k, v) for k, v in kwds.items()))
             if ismethod(func):
                 report_args = report_args[1:]

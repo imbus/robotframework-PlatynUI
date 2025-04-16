@@ -1,7 +1,10 @@
 {
   "profiles": {
     "PlatynUI.Spy": {
-      "commandName": "Project"
+      "commandName": "Project",
+      "environmentVariables": {
+        "PLATYNUI_EXTENSIONS": "../../../../PlatynUI.Platform.MacOS/bin/Debug/net8.0-macos"
+      }
     },
     "PlatynUI.Spy X11 ssh :10.0": {
       "commandName": "Project",

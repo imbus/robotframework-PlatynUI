@@ -32,21 +32,14 @@ class DotNetBuildHook(BuildHookInterface[BuilderConfig]):
 
     @cached_property
     def _dotnet_runtime_identifier(self) -> str:
-        from pythonnet import load
-
-        load("coreclr")
-
-        import clr  # noqa: F401
-        from System.Runtime.InteropServices import RuntimeInformation  # pyright: ignore[reportMissingModuleSource]
-
-        result = str(RuntimeInformation.RuntimeIdentifier)
+        result = self._run_shell("dotnet script scripts/get_runtime_identifier.csx").strip()
         self.app.display_debug(f"Dotnet RuntimeIdentifier: {result}")
         return result
 
-    def _run_shell(self, command: str) -> None:
+    def _run_shell(self, command: str) -> str:
         self.app.display_debug(f"Run command '{command}'")
         try:
-            subprocess.run(command, check=True, shell=True, capture_output=self.app.verbosity == 0)
+            return subprocess.run(command, check=True, shell=True, capture_output=True).stdout.decode()
         except subprocess.CalledProcessError as e:
             if self.app.verbosity == 0:
                 if e.stdout:
@@ -59,15 +52,16 @@ class DotNetBuildHook(BuildHookInterface[BuilderConfig]):
         rm(self.BASE_OUTPUT_DIR)
         rm(self.BASE_PROVIDERS_DIR)
 
-        self._run_shell("dotnet restore")
+        self._run_shell("dotnet restore -v diag")
+        self._run_shell("dotnet tool restore -v diag")
 
         self._run_shell(
-            "dotnet publish -c Release -f net8.0 -p:DebugSymbols=false -P:DebugType=None "
+            "dotnet publish -v diag -c Release -f net8.0 -p:DebugSymbols=false -P:DebugType=None "
             f"-o {self.BASE_OUTPUT_DIR} "
             f"-r {self._dotnet_runtime_identifier} ./src/PlatynUI.Spy"
         )
         self._run_shell(
-            "dotnet publish -c Release -f net8.0 -p:DebugSymbols=false -P:DebugType=None "
+            "dotnet publish -v diag -c Release -f net8.0 -p:DebugSymbols=false -P:DebugType=None "
             f"-o {self.BASE_PROVIDERS_DIR / 'avalonia'} "
             f"-r {self._dotnet_runtime_identifier} ./src/PlatynUI.Provider.Avalonia"
         )

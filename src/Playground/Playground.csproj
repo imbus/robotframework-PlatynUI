@@ -1,18 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
-  <ItemGroup>
-    <ProjectReference Include="..\PlatynUI.Platform.X11\PlatynUI.Platform.X11.csproj" />
-    <ProjectReference Include="..\PlatynUI.Provider.Core\PlatynUI.Provider.Core.csproj" />
-    <ProjectReference Include="..\PlatynUI.Extension.Linux.AtSpi2\PlatynUI.Extension.Linux.AtSpi2.csproj" />
-    <ProjectReference Include="..\PlatynUI.Extension.Provider.Client\PlatynUI.Extension.Provider.Client.csproj" />
-  </ItemGroup>
-
   <PropertyGroup>
+    <Description>PlatynUI Playground</Description>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net8.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <NeedsPlatynUIExtensions>true</NeedsPlatynUIExtensions>
   </PropertyGroup>
-
 </Project>

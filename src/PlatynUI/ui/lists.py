@@ -25,7 +25,6 @@ class ListItem(Item):
 
 @context
 class List(Control):
-
     def get_items(self, *args, **kwargs) -> typing.List[ListItem]:
         return self.get_all(ListItem, scope=LocatorScope.Children, *args, **kwargs)
 

@@ -10,7 +10,6 @@ __all__ = ["Text"]
 
 @context
 class Text(Control):
-
     @property
     def text(self) -> str:
         self.ensure_that(self._application_is_ready)

@@ -1,11 +1,10 @@
 # SPDX-FileCopyrightText: 2024 Daniel Biehl <daniel.biehl@imbus.de>
 #
 # SPDX-License-Identifier: Apache-2.0
-
 import logging
 import os
 import subprocess
-import warnings
+import sys
 from pathlib import Path
 
 logger = logging.getLogger(__name__)
@@ -15,39 +14,26 @@ if LOGLEVEL:
 
 
 def main() -> None:
-    from pythonnet import load
-
-    load("coreclr")
-    import clr  # noqa: F401
-    from pythonnet import get_runtime_info
-
-    rt_kind = get_runtime_info().kind
-    logger.debug(f"Runtime kind: {rt_kind}")  # noqa: G004
-
-    if rt_kind == "CoreCLR":
-        kind = "coreclr"
-    elif rt_kind == ".NET Framework":
-        kind = "netfx"
-    else:
-        warnings.warn(f"Unsupported runtime: {get_runtime_info().kind}")
-        raise RuntimeError(f"Unsupported runtime: {get_runtime_info().kind}")
-
     if os.name == "nt":
         exe_name = "PlatynUI.Spy.exe"
     else:
         exe_name = "PlatynUI.Spy"
 
-    debug_path = Path(__file__).parent / f"../../PlatynUI.Spy/bin/Debug/net8.0/{exe_name}"
-    runtime_path = Path(__file__).parent.parent / f"ui/runtime/{kind}/{exe_name}"
+    debug_path = (Path(__file__).parent.parent.parent.parent / f"artifacts/bin/PlatynUI.Spy/Debug/{exe_name}").resolve()
+    runtime_path = (Path(__file__).parent.parent / f"ui/runtime/coreclr/{exe_name}").resolve()
 
     if debug_path.exists():
         logger.debug(f"Starting {exe_name} from {debug_path}")  # noqa: G004
-        subprocess.run([debug_path])
+        subprocess.run([debug_path], shell=True)
     elif runtime_path.exists():
         logger.debug(f"Starting {exe_name} from {runtime_path}")  # noqa: G004
         subprocess.run([runtime_path])
     else:
-        print(f"Can't find the executable {exe_name} in the debug or runtime folder.")
+        print(f"Can't find the executable {exe_name} in the debug or runtime folder.", file=sys.stderr)
+        print("Search paths:", file=sys.stderr)
+        print(f"  {debug_path}", file=sys.stderr)
+        print(f"  {runtime_path}", file=sys.stderr)
+        sys.exit(1)
 
 
 if __name__ == "__main__":

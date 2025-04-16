@@ -15,7 +15,6 @@ _current: Optional["Settings"] = None
 
 @dataclass
 class Settings:
-
     wait_for_timeout: float = 1.0
     wait_for_delay: float = 0.1
 

@@ -28,10 +28,10 @@ classifiers = [
   "Programming Language :: C#",
 ]
 dependencies = [
+  "robotframework>=6.0.0",
   "typing-extensions",
   "robotframework-pythonlibcore>=4.4.0",
   "robotframework-assertion-engine>=3.0.0",
-  "pythonnet>=3.0.0",
 ]
 
 [project.urls]
@@ -56,6 +56,7 @@ sources = ["src"]
 [tool.hatch.build.targets.sdist]
 exclude = ["src/PlatynUI/technology/uiautomation/runtime"]
 
+# this needs to be enabled only for hatch build
 [tool.hatch.build.targets.wheel.hooks.custom]
 path = "scripts/dotnet_build_hook.py"
 
@@ -70,10 +71,8 @@ dependencies = [
   "pytest-cov",
   "mypy",
   "ruff",
-  "black",
   "GitPython",
   "semantic-version",
-  "robotremoteserver",
   "robotframework",
   "robotframework-tidy",
   "robotframework-robocop",
@@ -82,27 +81,15 @@ dependencies = [
   "pre-commit",
 ]
 
-[tool.hatch.envs.test]
-python = "3.10"
-
-[[tool.hatch.envs.test.matrix]]
-python = ["3.10", "3.11", "3.12", "3.13"]
-robotframework = ["4.1", "5.0", "6.0", "6.1", "7.0", "7.1", "7.2"]
-os = ["macos", "linux", "windows"]
-
-# features = ["all"]
-# pre-install-commands = ["install-packages"]
-
 [tool.hatch.envs.default.scripts]
 # pre-commit checks
 pre-commit-check = "pre-commit run --all-files"
 pre-commit-check-log = "pre-commit run --all-files > pre-commit.log 2>&1"
 
 # Auto-formatting scripts
-format-black = "black ."
 format-ruff = "ruff format ."
 format-robotidy = "robotidy ."
-format = ["format-black", "format-ruff", "format-robotidy"]
+format = ["format-ruff", "format-robotidy"]
 
 # Run tests
 python-tests = "pytest tests/python/test_types.py"
@@ -115,14 +102,12 @@ extra-dependencies = ["mypy>=1.0.0"]
 check-mypy = "mypy --install-types --non-interactive {args:src/PlatynUI tests}"
 check-robotidy = "robotidy --check ."
 check-robocop = "robocop ."
-check-black = "black --check ."
 check-ruff = "ruff check ."
 check-pytest = "pytest"
 check = [
   "check-mypy",
   "check-robotidy",
   "check-robocop",
-  "check-black",
   "check-ruff",
   "check-pytest",
 ]
@@ -130,18 +115,111 @@ check = [
 [tool.hatch.envs.build]
 skip-install = true
 detached = true
-python = "3.8"
+python = "3.10"
 dependencies = ["GitPython", "semantic-version", "commitizen", "git-cliff"]
 
 [tool.hatch.envs.build.scripts]
 update-changelog = ["python scripts/update_changelog.py"]
 update-git-versions = ["python scripts/update_git_versions.py"]
-update-doc-links = ["python scripts/update_doc_links.py"]
-package = ["python scripts/package.py"]
-publish = ["python scripts/publish.py"]
-extract-release-notes = ["python scripts/extract_release_notes.py"]
-is-prerelease = ["python scripts/is_prerelease.py"]
 bump = ["cz bump"]
+
+
+[tool.hatch.envs.hatch-test]
+matrix-name-format = "{variable}{value}"
+
+#[tool.hatch.envs.hatch-test.scripts]
+# run = "override"
+
+[[tool.hatch.envs.hatch-test.matrix]]
+python = ["3.10", "3.11", "3.12", "3.13"]
+rf = ["6.0", "6.1", "7.0", "7.1", "7.2"]
+
+[tool.hatch.envs.hatch-test.overrides]
+matrix.rf.dependencies = [
+  { value = "robotframework>6.0.0, <6.1", if = [
+    "6.0",
+  ] },
+  { value = "robotframework>=6.1, <7.0", if = [
+    "6.1",
+  ] },
+  { value = "robotframework>=7.0, <7.1", if = [
+    "7.0",
+  ] },
+  { value = "robotframework>=7.1, <7.2", if = [
+    "7.1",
+  ] },
+  { value = "robotframework>=7.2, <7.3", if = [
+    "7.2",
+  ] },
+]
+
+[tool.hatch.envs.robot]
+matrix-name-format = "{variable}{value}"
+python = "3.10"
+extra-dependencies = ["robotcode[runner]"]
+
+[[tool.hatch.envs.robot.matrix]]
+python = ["3.10", "3.11", "3.12", "3.13"]
+rf = ["6.0", "6.1", "7.0", "7.1", "7.2"]
+
+[tool.hatch.envs.robot.overrides]
+matrix.rf.dependencies = [
+  { value = "robotframework>6.0.0, <6.1", if = [
+    "6.0",
+  ] },
+  { value = "robotframework>=6.1, <7.0", if = [
+    "6.1",
+  ] },
+  { value = "robotframework>=7.0, <7.1", if = [
+    "7.0",
+  ] },
+  { value = "robotframework>=7.1, <7.2", if = [
+    "7.1",
+  ] },
+  { value = "robotframework>=7.2, <7.3", if = [
+    "7.2",
+  ] },
+]
+
+[tool.hatch.envs.robot.scripts]
+test = "robotcode robot {args:}"
+
+[tool.hatch.envs.hatch-static-analysis]
+installer = "uv"
+dependencies = ["ruff"]
+
+[tool.hatch.envs.hatch-static-analysis.scripts]
+format-check = ["ruff format --check --diff {args:.}"]
+format-fix = ["ruff format {args:.}"]
+lint-check = ["ruff check {args:.}"]
+lint-fix = "ruff check --fix {args:.}"
+
+[tool.hatch.envs.devel]
+python = "3.10"
+matrix-name-format = "{variable}{value}"
+
+[[tool.hatch.envs.devel.matrix]]
+python = ["3.10", "3.11", "3.12", "3.13"]
+rf = ["6.0", "6.1", "7.0", "7.1", "7.2"]
+
+[tool.hatch.envs.devel.overrides]
+matrix.rf.dependencies = [
+  { value = "robotframework>6.0.0, <6.1", if = [
+    "6.0",
+  ] },
+  { value = "robotframework>=6.1, <7.0", if = [
+    "6.1",
+  ] },
+  { value = "robotframework>=7.0, <7.1", if = [
+    "7.0",
+  ] },
+  { value = "robotframework>=7.1, <7.2", if = [
+    "7.1",
+  ] },
+  { value = "robotframework>=7.2, <7.3", if = [
+    "7.2",
+  ] },
+]
 
 [tool.coverage.run]
 source_pkgs = ["robotframework_platynui", "tests"]
@@ -161,7 +239,7 @@ exclude_lines = ["no cov", "if __name__ == .__main__.:", "if TYPE_CHECKING:"]
 
 [tool.ruff]
 line-length = 120
-target-version = "py38"
+target-version = "py310"
 extend-exclude = ["typings"]
 
 [tool.ruff.lint]
@@ -216,6 +294,7 @@ select = [
 
 
 [tool.ruff.lint.per-file-ignores]
+
 "__init__.py" = ["F401", "F403"]
 "src/PlatynUI/technology/uiautomation/core/loader.py" = [
   "G004",
@@ -252,45 +331,24 @@ detect-same-package = true
 fixture-parentheses = false
 mark-parentheses = false
 
-# black
-
-[tool.black]
-line-length = 120
-target-version = ['py39']
-exclude = '''
-/(
-    \.eggs
-  | \.git
-  | \.hg
-  | \.mypy_cache
-  | \.tox
-  | \.venv
-  | _build
-  | buck-out
-  | build
-  | dist
-  | typings/System/Runtime/InteropServices/ObjectiveC/__init__.pyi # TODO: Fix cannot parse for target version Python 3.9
-)/
-'''
 
 [tool.pytest.ini_options]
 minversion = "6.0"
 #addopts = "-ra -vv -rf"
 addopts = "-ra -rf --tb=short -vv"
 filterwarnings = "ignore:.*Using or importing the ABCs from 'collections' instead of from 'collections.abc'.*:DeprecationWarning"
-testpaths = ["tests/python/test_types.py"]
 junit_suite_name = "robotcode"
 #console_output_style = "classic"
 log_cli = true
 log_cli_level = 4
 # log_cli_format = "%(levelname)s %(name)s: %(message)s"
 faulthandler_timeout = 240
+markers = ["wip: work in progress"]
 
 
 # mypy
-
 [tool.mypy]
-python_version = "3.8"
+python_version = "3.10"
 strict = true
 warn_redundant_casts = true
 warn_unused_ignores = true
@@ -367,7 +425,7 @@ exclude = [
 [tool.pyright]
 exclude = ["**/.hatch", "**/node_modules", "**/__pycache__", "bundled/libs"]
 typeCheckingMode = "off"
-pythonVersion = "3.8"
+pythonVersion = "3.10"
 stubPath = "typings"
 
 [tool.commitizen]
@@ -395,30 +453,35 @@ skip = ["pp*"]
 archs = "auto"
 
 [tool.cibuildwheel.macos]
-archs = ["x86_64", "arm64"]
-
-[tool.cibuildwheel.linux]
-archs = ["x86_64", "aarch64"]
+archs = ["auto"]
 
 [tool.cibuildwheel.windows]
-archs = ["x86_64"]
+archs = ["auto"]
+
+[tool.cibuildwheel.linux]
+archs = ["auto"]
 
 before-all = """\
 if command -v yum 2>&1 > /dev/null
 then
-  yum -y install libicu wget
+  yum -y install libicu curl
 fi
 
 if command -v apk 2>&1 > /dev/null
 then
-  apk add icu-libs wget
+  apk add icu-libs curl
 fi
 
-wget https://dot.net/v1/dotnet-install.sh -O dotnet-install.sh
+#wget https://dot.net/v1/dotnet-install.sh -O dotnet-install.sh
+curl -SL --output dotnet-install.sh https://dot.net/v1/dotnet-install.sh
 chmod +x ./dotnet-install.sh
-./dotnet-install.sh --version latest
-ln -s /root/.dotnet/dotnet /bin/dotnet
+./dotnet-install.sh --version latest --channel STS --install-dir /usr/share/dotnet
+./dotnet-install.sh --version latest --channel LTS --install-dir /usr/share/dotnet
+ln -s /usr/share/dotnet/dotnet /usr/bin/dotnet
+dotnet --version
 """
+
 [tool.cibuildwheel.environment]
 HATCH_BUILD_HOOKS_ENABLE = "1"
 HATCH_VERBOSE = "1"
+MACOSX_DEPLOYMENT_TARGET="15.0"

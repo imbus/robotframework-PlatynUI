@@ -12,7 +12,6 @@ from ..core.devices import AdapterKeyboardProxy, AdapterMouseProxy
 
 @adapter_proxy_for(role="Element")
 class ElementProxy(AdapterProxy, strategies.Element):
-
     @property
     def bounding_rectangle(self) -> Rect:
         return self.adapter.get_strategy(strategies.Element).bounding_rectangle
@@ -131,7 +130,6 @@ class ItemProxy(
     strategies.Deactivatable,
     strategies.HasIsActive,
 ):
-
     def activate(self) -> None:
         AdapterMouseProxy(self.adapter).click()
         wait_for(lambda: self.is_active)
@@ -265,7 +263,6 @@ class WindowProxy(
     strategies.Movable,
     strategies.Resizable,
 ):
-
     @property
     def can_maximize(self) -> bool:
         return self.adapter.get_strategy(strategies.HasCanMaximize).can_maximize

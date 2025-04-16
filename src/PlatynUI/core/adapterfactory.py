@@ -14,7 +14,6 @@ __all__ = ["AdapterFactory"]
 
 
 class AdapterFactory(ABC):
-
     @overload
     def get_adapter(
         self,

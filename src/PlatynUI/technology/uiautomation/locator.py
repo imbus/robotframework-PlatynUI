@@ -67,7 +67,6 @@ class Locator(LocatorBase):
         position: Optional[int] = None,
         **kwargs: Any,
     ) -> None:
-
         super().__init__()
 
         self.custom_attributes: List[Any] = list(args)
@@ -178,7 +177,6 @@ class Locator(LocatorBase):
     def create_context(
         self, context_parent: Optional[ContextBase], context_type: Optional[Type[TContextBase]]
     ) -> TContextBase:
-
         if isinstance(context_parent, ui.DesktopBase):
             context_parent = None
 
@@ -245,7 +243,6 @@ class Locator(LocatorBase):
     __last_custom_attributes: Optional[List[Any]] = None
 
     def get_path(self, parent: Optional[ContextBase], context_type: Optional[Type[TContextBase]]) -> str:
-
         combined = (
             self.copy_from(getattr(context_type, "_locator"))
             if context_type is not None and hasattr(context_type, "_locator")
@@ -355,7 +352,6 @@ class Locator(LocatorBase):
                 "position",
                 "use_default_prefix",
             ]:
-
                 v = getattr(self, n)
                 if v is None:
                     setattr(self, n, getattr(other, n))
