@@ -15,11 +15,6 @@ repos:
         entry: hatch run types:check-robotidy
         language: system
 
-      - id: robocop-checks
-        name: Robocop Checks
-        entry: hatch run types:check-robocop
-        language: system
-
       - id: ruff-checks
         name: Ruff Checks
         entry: hatch run types:check-ruff
