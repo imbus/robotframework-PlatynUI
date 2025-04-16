@@ -52,8 +52,8 @@ class DotNetBuildHook(BuildHookInterface[BuilderConfig]):
         rm(self.BASE_OUTPUT_DIR)
         rm(self.BASE_PROVIDERS_DIR)
 
-        self._run_shell("dotnet restore -v diag")
         self._run_shell("dotnet tool restore -v diag")
+        self._run_shell("dotnet restore -v diag ./src/PlatynUI.Spy")
 
         self._run_shell(
             "dotnet publish -v diag -c Release -f net8.0 -p:DebugSymbols=false -P:DebugType=None "
@@ -66,7 +66,7 @@ class DotNetBuildHook(BuildHookInterface[BuilderConfig]):
             f"-r {self._dotnet_runtime_identifier} ./src/PlatynUI.Provider.Avalonia"
         )
 
-        self._run_shell("dotnet clean -c Release")
+        self._run_shell("dotnet clean -c Release ./src/PlatynUI.Spy")
 
         build_data["infer_tag"] = True
         build_data["pure_python"] = False
