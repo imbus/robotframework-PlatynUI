@@ -1,7 +1,9 @@
 *** Settings ***
 Library         PlatynUI
 Variables       mapping.py
-Test Tags    wip
+
+Test Tags       wip
+
 
 *** Test Cases ***
 first
