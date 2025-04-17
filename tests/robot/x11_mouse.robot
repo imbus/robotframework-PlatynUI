@@ -7,6 +7,7 @@ Test X11 Mouse Position
     [Documentation]    Simple test case to demonstrate mouse movement in x11.
     ...    Open text editor "kate" in fullscreen before running the test.
     ...    Test shows movement over menubar and clicking on "new document" afterwards
+    [Tags]    wip
     Move To    .    x=0    y=85
     Move To    .    x=100    y=85
     Move To    .    x=200    y=85
