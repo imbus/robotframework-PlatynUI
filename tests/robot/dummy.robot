@@ -1,6 +1,8 @@
 *** Settings ***
-Library     PlatynUI
-Test Tags    wip
+Library         PlatynUI
+
+Test Tags       wip
+
 
 *** Variables ***
 ${ROOT_PATH}        /app:Application[@Name="explorer"]
