@@ -16,9 +16,9 @@ namespace PlatynUI.Platform.Win32;
 [Export(typeof(IMouseDevice))]
 public class MouseDevice() : IMouseDevice
 {
-    public double GetDoubleClickTime()
+    public int GetDoubleClickTime()
     {
-        return PInvoke.GetDoubleClickTime() / 1000.0;
+        return (int)PInvoke.GetDoubleClickTime();
     }
 
     public Size GetDoubleClickSize()

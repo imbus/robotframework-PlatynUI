@@ -13,7 +13,7 @@ from .types import ElementDescriptor
 
 class Mouse:
     @keyword
-    def click(
+    def mouse_click(
         self,
         descriptor: ElementDescriptor[HasMouse],
         x: Optional[float] = None,
@@ -24,7 +24,7 @@ class Mouse:
         descriptor().mouse.click(x=x, y=y, button=button, times=times)
 
     @keyword
-    def double_click(
+    def mouse_double_click(
         self,
         descriptor: ElementDescriptor[HasMouse],
         x: Optional[float] = None,
@@ -34,7 +34,7 @@ class Mouse:
         descriptor().mouse.double_click(x=x, y=y, button=button)
 
     @keyword
-    def move_to(
+    def mouse_move_to(
         self,
         descriptor: ElementDescriptor[HasMouse],
         x: Optional[float] = None,

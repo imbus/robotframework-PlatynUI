@@ -6,11 +6,22 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="StreamJsonRpc" />
+    <ProjectReference Include="..\PlatynUI.JsonRpc\PlatynUI.JsonRpc.csproj" />
+    <ProjectReference
+      Include="..\PlatynUI.JsonRpc.Generators\PlatynUI.JsonRpc.Generators.csproj"
+      OutputItemType="Analyzer"
+      ReferenceOutputAssembly="false" />
     <PackageReference Include="System.CommandLine.NamingConventionBinder" />
+    <ProjectReference Include="..\PlatynUI.JsonRpc.Endpoints\PlatynUI.JsonRpc.Endpoints.csproj" />
   </ItemGroup>
 
+  <!-- <PropertyGroup>
+    <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
+    <CompilerGeneratedFilesOutputPath>Generated</CompilerGeneratedFilesOutputPath>
+  </PropertyGroup>
+
   <ItemGroup>
-    <ProjectReference Include="..\PlatynUI.Runtime\PlatynUI.Runtime.csproj" />
+    <Compile Remove="Generated\**\*.cs" />
   </ItemGroup>
+   -->
 </Project>

@@ -58,15 +58,15 @@ class DotNetInterface:
         logger.debug(f"Runtime kind: {rt_kind}")  # noqa: G004
 
         assembly_name = "PlatynUI.Runtime.dll"
-        debug_assembly_path = Path(__file__).parent / f"../../../PlatynUI.Spy/bin/Debug/net8.0/{assembly_name}"
+        debug_assembly_path = Path(__file__).parent / f"../../../../artifacts/bin/PlatynUI.Spy/debug/{assembly_name}"
         runtime_assembly_path = Path(__file__).parent / f"{kind}/{assembly_name}"
 
         if debug_assembly_path.exists():
             logger.debug(f"Loading PlatynUI from {debug_assembly_path}")  # noqa: G004
-            clr.AddReference(str(debug_assembly_path))
+            clr.AddReference(str(debug_assembly_path)[:-4])
         elif runtime_assembly_path.exists():
             logger.debug(f"Loading PlatynUI from {runtime_assembly_path}")  # noqa: G004
-            clr.AddReference(str(runtime_assembly_path))
+            clr.AddReference(str(debug_assembly_path)[:-4])
         else:
             logger.error(
                 "Load PlatynUI failed: Could not find the assembly "

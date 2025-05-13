@@ -81,6 +81,27 @@ public struct Rect(double x, double y, double width, double height)
     public double Width { get; set; } = width;
     public double Height { get; set; } = height;
 
+    public readonly double Left => X;
+    public readonly double Right => X + Width;
+    public readonly double Top => Y;
+    public readonly double Bottom => Y + Height;
+
+    public readonly Point TopLeft => new(X, Y);
+    public readonly Point BottomRight => new(X + Width - 1, Y + Height - 1);
+    public readonly Point BottomLeft => new(X, Y + Height - 1);
+    public readonly Point TopRight => new(X + Width - 1, Y);
+    public readonly Point Center => new(X + Width / 2, Y + Height / 2);
+
+    public Size Size
+    {
+        readonly get => new(Width, Height);
+        set
+        {
+            Width = value.Width;
+            Height = value.Height;
+        }
+    }
+
     public override readonly string ToString() => $"({X}, {Y}, {Width}, {Height})";
 
     public static bool operator !=(Rect rect1, Rect rect2)
@@ -116,6 +137,19 @@ public struct Rect(double x, double y, double width, double height)
     public static bool Equals(Rect rect1, Rect rect2)
     {
         return rect1.Equals(rect2);
+    }
+
+    public readonly bool Contains(Point point)
+    {
+        return point.X >= X && point.X <= X + Width - 1 && point.Y >= Y && point.Y <= Y + Height - 1;
+    }
+
+    public readonly bool Contains(Rect other)
+    {
+        return X <= other.X
+            && Y <= other.Y
+            && X + Width >= other.X + other.Width
+            && Y + Height >= other.Y + other.Height;
     }
 
     public static readonly Rect Empty = new(0, 0, 0, 0);

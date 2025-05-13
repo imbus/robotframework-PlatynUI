@@ -191,7 +191,10 @@ class Adapter(Connection connection, INode? parent, ElementReference elementRefe
             ustate += (ulong)state[1] << 32;
             return (AtspiState)ustate;
         }
-        catch (Exception) { }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+        }
         return AtspiState.ATSPI_STATE_INVALID;
     }
 
@@ -267,14 +270,15 @@ class Adapter(Connection connection, INode? parent, ElementReference elementRefe
 
     public bool IsValid()
     {
-        throw new NotImplementedException();
+        return GetState() != AtspiState.ATSPI_STATE_INVALID;
     }
 }
 
 class ApplicationAdapter(Connection connection, INode? parent, ElementReference elementReference)
     : Adapter(connection, parent, elementReference)
 {
-    OrgA11yAtspiApplicationProxy Application { get; } = new(connection, elementReference.Service, elementReference.Path);
+    OrgA11yAtspiApplicationProxy Application { get; } =
+        new(connection, elementReference.Service, elementReference.Path);
 
     public override string NamespaceURI => Namespaces.App;
 
@@ -347,22 +351,61 @@ class ComponentAdapter(Connection connection, INode? parent, ElementReference el
 
     public bool TryEnsureVisible()
     {
-        throw new NotImplementedException();
+        //TODO: throw new NotImplementedException();
+        return true;
     }
 
     public bool TryEnsureApplicationIsReady()
     {
-        throw new NotImplementedException();
+        //TODO: throw new NotImplementedException();
+        return true;
     }
 
     public bool TryEnsureToplevelParentIsActive()
     {
-        throw new NotImplementedException();
+        //TODO: throw new NotImplementedException();
+        return true;
     }
 
     public bool TryBringIntoView()
     {
-        throw new NotImplementedException();
+        return true;
+    }
+
+    public virtual object? GetStrategy(string name, bool throwException = true)
+    {
+        return name switch
+        {
+            "org.platynui.strategies.Control" => this,
+            "org.platynui.strategies.Component" => this,
+            "org.platynui.strategies.Text" => this,
+            _ => null,
+        };
+    }
+
+    public bool has_focus =>
+        GetState().HasFlag(AtspiState.ATSPI_STATE_FOCUSABLE) && GetState().HasFlag(AtspiState.ATSPI_STATE_FOCUSED);
+
+    public bool try_ensure_focused()
+    {
+        if (has_focus)
+        {
+            return true;
+        }
+
+        Component.GrabFocusAsync().GetAwaiter().GetResult();
+
+        return has_focus;
+    }
+
+    public string text
+    {
+        get
+        {
+            var text = new OrgA11yAtspiTextProxy(Connection, ElementReference.Service, ElementReference.Path);
+            var l = text.GetCharacterCountPropertyAsync().GetAwaiter().GetResult();
+            return text.GetTextAsync(0, l).GetAwaiter().GetResult();
+        }
     }
 }
 

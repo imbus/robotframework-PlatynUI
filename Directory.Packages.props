@@ -5,20 +5,24 @@
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
   </PropertyGroup>
   <ItemGroup>
+    <PackageVersion Include="Microsoft.CodeAnalysis.Analyzers" Version="3.11.0">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageVersion>
+    <PackageVersion Include="Microsoft.CodeAnalysis.CSharp" Version="4.12.0" />
+    <PackageVersion Include="Microsoft.VisualStudio.Threading.Only" Version="17.13.61" />
     <PackageVersion Include="System.ComponentModel.Composition" Version="9.0.3" />
     <PackageVersion Include="StreamJsonRpc" Version="2.21.69" />
-    <PackageVersion Include="System.CommandLine.NamingConventionBinder"
-      Version="2.0.0-beta4.22272.1" />
+    <PackageVersion Include="System.CommandLine.NamingConventionBinder" Version="2.0.0-beta4.22272.1" />
     <PackageVersion Include="Microsoft.Windows.CsWin32" Version="0.3.183" />
     <PackageVersion Include="System.Memory" Version="4.6.2" />
     <PackageVersion Include="System.CodeDom" Version="9.0.4" />
+    <PackageVersion Include="System.Text.Json" Version="9.0.4" />
   </ItemGroup>
-
   <ItemGroup>
     <PackageVersion Include="Tmds.DBus.Protocol" Version="0.21.2" />
     <PackageVersion Include="Tmds.DBus.SourceGenerator" Version="0.0.20" />
   </ItemGroup>
-
   <ItemGroup>
     <PackageVersion Include="Avalonia" Version="11.2.7" />
     <PackageVersion Include="Avalonia.Controls.DataGrid" Version="11.2.7" />
@@ -29,6 +33,5 @@
     <PackageVersion Include="Avalonia.Diagnostics" Version="11.2.7" />
     <PackageVersion Include="Avalonia.ReactiveUI" Version="11.2.7" />
     <PackageVersion Include="FluentAvaloniaUI" Version="2.3.0" />
-
   </ItemGroup>
 </Project>

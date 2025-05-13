@@ -64,7 +64,7 @@ namespace PlatynUI.Provider.Server
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine($"Error while waiting for connection: {e}");
+                    Console.Error.WriteLine($"Error while waiting for connection: {e}");
                 }
             }
         }

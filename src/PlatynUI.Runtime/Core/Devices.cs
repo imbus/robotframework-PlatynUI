@@ -22,7 +22,7 @@ public enum MouseButton : int
 
 public interface IMouseDevice
 {
-    double GetDoubleClickTime();
+    int GetDoubleClickTime();
     Size GetDoubleClickSize();
     Point GetPosition();
 

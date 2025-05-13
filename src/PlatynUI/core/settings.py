@@ -33,10 +33,10 @@ class Settings:
     mouse_press_release_delay: float = 0.010
     mouse_after_move_delay: float = 0.010
     mouse_move_delay: float = 0.001
-    mouse_move_time: float = 0.4
+    mouse_move_time: float = 0.2
 
     keyboard_after_press_key_delay: float = 0.01
-    keyboard_after_release_key_delay: float = 0.1
+    keyboard_after_release_key_delay: float = 0.01
     keyboard_after_press_release_delay: float = 0.05
 
     display_screenshot_format: str = "png"

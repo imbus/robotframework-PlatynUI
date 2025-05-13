@@ -149,3 +149,7 @@ wheelhouse/
 # Swift Package Manager
 .build/
 Package.resolved
+
+# intellij
+.idea/
+*.DotSettings.user

@@ -52,3 +52,11 @@ class AdapterFactory(ABC):
         raise_error: bool = True,
     ) -> List["Adapter"]:
         pass
+
+    @abstractmethod
+    def get_parent_adapter(
+        self,
+        adapter: Optional["ContextBase"],
+        raise_error: bool = True,
+    ) -> Optional["Adapter"]:
+        pass

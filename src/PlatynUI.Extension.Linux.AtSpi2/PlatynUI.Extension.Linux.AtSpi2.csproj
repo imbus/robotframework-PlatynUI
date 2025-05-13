@@ -18,6 +18,11 @@
     <AdditionalFiles Include="xml/Component.xml" DBusGeneratorMode="Proxy" />
     <AdditionalFiles Include="xml/Application.xml" DBusGeneratorMode="Proxy" />
     <AdditionalFiles Include="xml/Registry.xml" DBusGeneratorMode="Proxy" />
+    <AdditionalFiles Include="xml/Action.xml" DBusGeneratorMode="Proxy" />
+    <AdditionalFiles Include="xml/Document.xml" DBusGeneratorMode="Proxy" />
+    <AdditionalFiles Include="xml/Text.xml" DBusGeneratorMode="Proxy" />
+    <AdditionalFiles Include="xml/EditableText.xml" DBusGeneratorMode="Proxy" />
+    <AdditionalFiles Include="xml/Value.xml" DBusGeneratorMode="Proxy" />
   </ItemGroup>
 
   <ItemGroup>

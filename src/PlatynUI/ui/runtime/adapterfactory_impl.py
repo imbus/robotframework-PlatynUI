@@ -107,3 +107,13 @@ class AdapterFactoryImpl(AdapterFactory):
     ) -> List["Adapter"]:
         # TODO
         return []
+
+    def get_parent_adapter(
+        self,
+        adapter: Optional["ContextBase"],
+        raise_error: bool = True,
+    ) -> Optional["Adapter"]:
+        result = DotNetInterface.finder().FindSingleNode(cast("INode", adapter.adapter_interface), "..", False, False)
+        if result is None and raise_error:
+            raise AdapterNotFoundError(f"Parent for '{result}' not found")
+        return AdapterProxyFactory.find_proxy_for(AdapterImpl(cast("IAdapter", result), self._technology))

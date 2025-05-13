@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Description>PlatynUI JsonRpc Endpoints</Description>
+    <RootNamespace>PlatynUI.JsonRpc.Endpoints</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PlatynUI.JsonRpc\PlatynUI.JsonRpc.csproj" />
+    <ProjectReference
+      Include="..\PlatynUI.JsonRpc.Generators\PlatynUI.JsonRpc.Generators.csproj"
+      OutputItemType="Analyzer"
+      ReferenceOutputAssembly="false" />
+    <ProjectReference Include="..\PlatynUI.Runtime\PlatynUI.Runtime.csproj" />
+  </ItemGroup>
+
+  <!-- <PropertyGroup>
+    <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
+    <CompilerGeneratedFilesOutputPath>Generated</CompilerGeneratedFilesOutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Generated\**\*.cs" />
+  </ItemGroup> -->
+
+</Project>

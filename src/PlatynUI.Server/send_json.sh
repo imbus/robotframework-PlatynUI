@@ -20,13 +20,10 @@ SERVER_PATH="dotnet run"
 # Debug-Information
 echo "Sende JSON mit Länge $content_length: $json_request" >&2
 
-# Erstelle temporäre Datei für die Anfrage
-request_file=$(mktemp)
-
 {
     printf "Content-Length: %d\r\n" "$content_length"
     printf "Content-Type: application/vscode-jsonrpc; charset=utf-8\r\n"
     printf "\r\n"  # Leerzeile als Trennung zwischen Header und Body
     printf "%s" "$json_request"  # JSON ohne extra Zeilenumbruch
-    sleep 1
+    sleep 5
 } | $SERVER_PATH

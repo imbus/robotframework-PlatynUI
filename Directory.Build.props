@@ -6,8 +6,16 @@
 
     <Company>imbus</Company>
     <Copyright>2024 Daniel Biehl &lt;daniel.biehl@imbus.de&gt;</Copyright>
+    <Description>PlatynUI is a cross-platform UI testing framework</Description>
+    <RepositoryUrl>https://github.com/imbus/robotframework-PlatynUI</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryRoot>$(MSBuildThisFileDirectory)</RepositoryRoot>
 
-    <ArtifactsPath>$(MSBuildThisFileDirectory)artifacts</ArtifactsPath>
+    <PackageReleaseNotes>https://github.com/imbus/robotframework-PlatynUI/blob/main/CHANGELOG.md</PackageReleaseNotes>
+    <!-- <PackageIcon>packageIcon.png</PackageIcon> -->
+    <!-- <PackageIconFullPath>$(MSBuildThisFileDirectory)packageIcon.png</PackageIconFullPath> -->
+    <LicenseFullPath>$(MSBuildThisFileDirectory)LICENSE.txt</LicenseFullPath>
+    <PackageProjectUrl>https://github.com/imbus/robotframework-PlatynUI</PackageProjectUrl>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -15,6 +23,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <LangVersion>latest</LangVersion>
+    <ArtifactsPath>$(MSBuildThisFileDirectory)artifacts</ArtifactsPath>
   </PropertyGroup>
 
   <PropertyGroup>

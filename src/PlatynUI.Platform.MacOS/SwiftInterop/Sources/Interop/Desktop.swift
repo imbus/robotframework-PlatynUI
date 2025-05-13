@@ -5,42 +5,52 @@
 import AppKit
 import Foundation
 
-import AppKit
-import Foundation
+public class MainScreenNotFoundException: Error, @unchecked Sendable {
+    var message: String
+    public init(message: String) {
+        self.message = message
+    }
+}
+
+public func getBoundingRect() throws -> NSRect {
+    guard let mainScreen = NSScreen.screens.first else {
+        throw MainScreenNotFoundException(message: "Main screen not found")
+    }
+
+    let mainFrame = mainScreen.frame
+    let allScreens = NSScreen.screens
+
+    // Bounding-Rect im nativen (unten links) Koordinatensystem
+    var globalBounding = mainFrame
+    for screen in allScreens {
+        globalBounding = globalBounding.union(screen.frame)
+    }
+
+    let topLeftOrigin = CGPoint(
+        x: globalBounding.origin.x - mainFrame.origin.x,
+        y: mainFrame.maxY - globalBounding.maxY
+    )
+
+    return NSRect(origin: topLeftOrigin, size: globalBounding.size)
+}
 
 @_cdecl("GetBoundingRectangle")
-public func GetBoundingRectangle(_ x: UnsafeMutablePointer<Double>, _ y: UnsafeMutablePointer<Double>, _ width: UnsafeMutablePointer<Double>, _ height: UnsafeMutablePointer<Double>) {
-    let screens = NSScreen.screens
+public func getBoundingRectangle(
+    _ x: UnsafeMutablePointer<Double>, _ y: UnsafeMutablePointer<Double>,
+    _ width: UnsafeMutablePointer<Double>, _ height: UnsafeMutablePointer<Double>
+) {
+    do {
+        let r = try getBoundingRect()
 
-    if screens.isEmpty {
-        x.pointee = 0.0
-        y.pointee = 0.0
-        width.pointee = 0.0
-        height.pointee = 0.0
-        return
+        x.pointee = r.minX
+        y.pointee = r.minY
+        width.pointee = r.width
+        height.pointee = r.height
+    } catch {
+        FileHandle.standardError.write("Error: \(error)\n".data(using: .utf8)!)
+        x.pointee = 0
+        y.pointee = 0
+        width.pointee = 0
+        height.pointee = 0
     }
-
-    // Berechne den Vereinigungsbereich (union) aller Screens (Cocoa-Koordinatensystem: Ursprung unten links)
-    var minX = screens[0].frame.minX
-    var minY = screens[0].frame.minY
-    var maxX = screens[0].frame.maxX
-    var maxY = screens[0].frame.maxY
-
-    for screen in screens {
-        let frame = screen.frame
-        minX = min(minX, frame.minX)
-        minY = min(minY, frame.minY)
-        maxX = max(maxX, frame.maxX)
-        maxY = max(maxY, frame.maxY)
-    }
-
-    let unionWidth = maxX - minX
-    let unionHeight = maxY - minY
-
-    // Statt einer Anpassung anhand des Hauptbildschirms verwenden wir hier direkt die
-    // im Cocoa-Koordinatensystem vorliegenden Werte, die bereits die vertikale Verschiebung der einzelnen Screens berücksichtigen.
-    x.pointee = minX
-    y.pointee = minY
-    width.pointee = unionWidth
-    height.pointee = unionHeight
 }

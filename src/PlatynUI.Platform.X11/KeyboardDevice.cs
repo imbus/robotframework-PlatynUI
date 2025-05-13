@@ -1,9 +1,6 @@
 using System.ComponentModel.Composition;
-using System.Runtime.InteropServices;
-
-using PlatynUI.Runtime.Core;
 using PlatynUI.Platform.X11.Interop.XCB;
-
+using PlatynUI.Runtime.Core;
 using static PlatynUI.Platform.X11.Interop.XCB.XCB;
 
 namespace PlatynUI.Platform.X11
@@ -139,17 +136,17 @@ namespace PlatynUI.Platform.X11
         public static readonly X11Key Win = Super;
 
         // Common symbol keys
-        public static readonly X11Key Grave = new("grave", 0x0060);  // `
-        public static readonly X11Key Minus = new("minus", 0x002d);  // -
-        public static readonly X11Key Equal = new("equal", 0x003d);  // =
-        public static readonly X11Key BracketLeft = new("bracketleft", 0x005b);  // [
-        public static readonly X11Key BracketRight = new("bracketright", 0x005d);  // ]
-        public static readonly X11Key Backslash = new("backslash", 0x005c);  // \
-        public static readonly X11Key Semicolon = new("semicolon", 0x003b);  // ;
-        public static readonly X11Key Apostrophe = new("apostrophe", 0x0027);  // '
-        public static readonly X11Key Comma = new("comma", 0x002c);  // ,
-        public static readonly X11Key Period = new("period", 0x002e);  // .
-        public static readonly X11Key Slash = new("slash", 0x002f);  // /
+        public static readonly X11Key Grave = new("grave", 0x0060); // `
+        public static readonly X11Key Minus = new("minus", 0x002d); // -
+        public static readonly X11Key Equal = new("equal", 0x003d); // =
+        public static readonly X11Key BracketLeft = new("bracketleft", 0x005b); // [
+        public static readonly X11Key BracketRight = new("bracketright", 0x005d); // ]
+        public static readonly X11Key Backslash = new("backslash", 0x005c); // \
+        public static readonly X11Key Semicolon = new("semicolon", 0x003b); // ;
+        public static readonly X11Key Apostrophe = new("apostrophe", 0x0027); // '
+        public static readonly X11Key Comma = new("comma", 0x002c); // ,
+        public static readonly X11Key Period = new("period", 0x002e); // .
+        public static readonly X11Key Slash = new("slash", 0x002f); // /
 
         static X11Key()
         {
@@ -186,8 +183,8 @@ namespace PlatynUI.Platform.X11
         // Common modifier masks
         private const uint XCB_MOD_MASK_SHIFT = 0x01;
         private const uint XCB_MOD_MASK_CONTROL = 0x04;
-        private const uint XCB_MOD_MASK_MOD1 = 0x08;  // Alt
-        private const uint XCB_MOD_MASK_MOD4 = 0x40;  // Super/Windows key
+        private const uint XCB_MOD_MASK_MOD1 = 0x08; // Alt
+        private const uint XCB_MOD_MASK_MOD4 = 0x40; // Super/Windows key
 
         public static XCBConnection Connection => XCBConnection.Default;
 
@@ -230,17 +227,17 @@ namespace PlatynUI.Platform.X11
             switch (key)
             {
                 case string keystr:
+                {
+                    if (X11Key.Keys.TryGetValue(keystr, out var x11Key))
+                        return new Keycode(key, x11Key, true, null);
+
+                    if (keystr.Length == 1)
                     {
-                        if (X11Key.Keys.TryGetValue(keystr, out var x11Key))
-                            return new Keycode(key, x11Key, true, null);
-
-                        if (keystr.Length == 1)
-                        {
-                            return new Keycode(key, ToKeysymWithModifiers(keystr[0]), true, null);
-                        }
-
-                        return new Keycode(key, key, true, null);
+                        return new Keycode(key, ToKeysymWithModifiers(keystr[0]), true, null);
                     }
+
+                    return new Keycode(key, key, true, null);
+                }
 
                 case char keychar:
                     return new Keycode(key, ToKeysymWithModifiers(keychar), true, null);
@@ -341,7 +338,10 @@ namespace PlatynUI.Platform.X11
                 keycode.Value,
                 XCB_CURRENT_TIME,
                 rootWindow,
-                0, 0, 0);
+                0,
+                0,
+                0
+            );
 
             // Check for errors
             var error = xcb_request_check(Connection, cookie);
@@ -369,17 +369,18 @@ namespace PlatynUI.Platform.X11
             var cookie = xcb_get_keyboard_mapping_unchecked(
                 Connection,
                 min_keycode,
-                (byte)(max_keycode - min_keycode + 1));
+                (byte)(max_keycode - min_keycode + 1)
+            );
 
             xcb_generic_error_t* error_ptr = null;
-            IntPtr reply = (IntPtr)xcb_get_keyboard_mapping_reply(Connection, cookie, &error_ptr);
-            if (reply == IntPtr.Zero)
+            var reply = xcb_get_keyboard_mapping_reply(Connection, cookie, &error_ptr);
+            if (reply == null)
                 return FallbackKeysymToKeycode(keysym);
 
             try
             {
                 // Extract keysyms_per_keycode
-                byte keysyms_per_keycode = *(byte*)((byte*)reply + 1);
+                byte keysyms_per_keycode = *((byte*)reply + 1);
 
                 // Get keysyms array
                 uint* keysyms = (uint*)xcb_get_keyboard_mapping_keysyms((xcb_get_keyboard_mapping_reply_t*)reply);
@@ -407,7 +408,7 @@ namespace PlatynUI.Platform.X11
             {
                 // Get the raw connection handle and free reply
                 IntPtr rawConnection = (nint)Connection.Connection;
-                xcb_free_reply(rawConnection, reply);
+                free(reply);
             }
         }
 
@@ -441,19 +442,19 @@ namespace PlatynUI.Platform.X11
                 0xff57 => 115, // End
 
                 // Control keys
-                0xff0d => 36,  // Return
-                0xff1b => 9,   // Escape
+                0xff0d => 36, // Return
+                0xff1b => 9, // Escape
                 0xffff => 119, // Delete
-                0xff08 => 22,  // BackSpace
-                0xff09 => 23,  // Tab
-                0x0020 => 65,  // space
+                0xff08 => 22, // BackSpace
+                0xff09 => 23, // Tab
+                0x0020 => 65, // space
 
                 // Modifiers
-                0xffe1 => 50,  // Shift_L
-                0xffe2 => 62,  // Shift_R
-                0xffe3 => 37,  // Control_L
+                0xffe1 => 50, // Shift_L
+                0xffe2 => 62, // Shift_R
+                0xffe3 => 37, // Control_L
                 0xffe4 => 105, // Control_R
-                0xffe9 => 64,  // Alt_L
+                0xffe9 => 64, // Alt_L
                 0xffea => 108, // Alt_R
                 0xffeb => 133, // Super_L
                 0xffec => 134, // Super_R
@@ -498,7 +499,7 @@ namespace PlatynUI.Platform.X11
                 0x0038 => 17, // 8
                 0x0039 => 18, // 9
 
-                _ => null // No match found
+                _ => null, // No match found
             };
         }
 
@@ -517,11 +518,6 @@ namespace PlatynUI.Platform.X11
             // Return the root window of the first screen
             return iter.data->root;
         }
-
-        // Add if needed for your implementation
-        [LibraryImport("libxcb.so.1")]
-        [UnmanagedCallConv(CallConvs = new Type[] { typeof(System.Runtime.CompilerServices.CallConvCdecl) })]
-        private static partial void xcb_free_reply(IntPtr connection, IntPtr reply);
     }
 
     // Additional helper class to store keycode information with modifiers

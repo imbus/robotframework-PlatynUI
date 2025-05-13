@@ -240,13 +240,11 @@ public partial class ElementNode(INode? parent, IUIAutomationElement element) : 
 
     public virtual object? GetStrategy(string name, bool throwException = true)
     {
-        switch (name)
+        return name switch
         {
-            case "org.platynui.strategies.Control":
-                return this;
-            default:
-                return null;
-        }
+            "org.platynui.strategies.Control" => this,
+            _ => null,
+        };
     }
 
     public bool has_focus => Element.CurrentHasKeyboardFocus != 0;

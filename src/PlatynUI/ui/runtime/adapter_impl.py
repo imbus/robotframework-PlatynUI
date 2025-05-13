@@ -78,7 +78,8 @@ class ElementImpl(Element, AdapterImplBase):
 
     @property
     def top_level_parent(self) -> Optional[Adapter]:
-        raise NotImplementedError("top_level_parent")
+        # TODO: check if this is correct
+        return None
 
     @property
     def default_click_position(self) -> Point:
@@ -104,8 +105,9 @@ class ElementImpl(Element, AdapterImplBase):
 class AdapterImpl(Adapter, ElementImpl):
     def __init__(self, adapter_interface: "IAdapter", technology: "TechnologyImpl") -> None:
         super().__init__()
-        self._adapter_interface: Optional["IAdapter"] = adapter_interface
         self._technology = technology
+        self._adapter_interface: Optional["IAdapter"] = adapter_interface
+
         self._strategies_cache: Dict[str, Any] = {}
         self.last_children_search_data: Optional[Tuple[str, bool]] = None
 
@@ -135,8 +137,8 @@ class AdapterImpl(Adapter, ElementImpl):
     def invalidate(self) -> None:
         self.last_children_search_data = None
 
-        if self.adapter_interface is not None:
-            self.adapter_interface.Invalidate()
+        if self._adapter_interface is not None:
+            self._adapter_interface.Invalidate()
 
         self._adapter_interface = None
 
@@ -186,7 +188,7 @@ class AdapterImpl(Adapter, ElementImpl):
 
     @property
     def parent(self) -> Optional["Adapter"]:
-        raise NotImplementedError("parent")
+        return self.technology.adapter_factory.get_parent_adapter(self, False)
 
     @property
     def children(self) -> List["Adapter"]:

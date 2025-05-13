@@ -1,11 +1,12 @@
 using PlatynUI.Runtime;
 
 var r = DisplayDevice.GetBoundingRectangle();
+Console.WriteLine($"Bounding Rectangle: {r}");
+var rectWidth = 200;
+var rectHeight = 200;
 
-DisplayDevice.HighlightRect(r.X, r.Y, 500, 500);
-
-var rectWidth = 50;
-var rectHeight = 50;
+DisplayDevice.HighlightRect(0, 0, rectWidth, rectHeight);
+Thread.Sleep(3000);
 
 for (var i = r.X; i < r.X + r.Width - rectWidth; i++)
 {
@@ -14,7 +15,7 @@ for (var i = r.X; i < r.X + r.Width - rectWidth; i++)
     Thread.Sleep(1);
 }
 
-for (var i = r.Y; i < r.Y + r.Height; i++)
+for (var i = r.Y; i < r.Y + r.Height - rectHeight; i++)
 {
     DisplayDevice.HighlightRect(r.X + r.Width - rectWidth, i, rectWidth, rectHeight);
 

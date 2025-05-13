@@ -3,54 +3,10 @@ using System.CommandLine.NamingConventionBinder;
 using System.IO.Pipes;
 using System.Net;
 using System.Net.Sockets;
-using PlatynUI.Runtime;
-using StreamJsonRpc;
-
-public interface IClientFunctions
-{
-    [JsonRpcMethod("back_to_back")]
-    Task<string> backToBack(string message);
-
-    [JsonRpcMethod("get_rect")]
-    Task<string> GetRect(Rect data);
-}
-
-public class CalculatorService(IClientFunctions client)
-{
-    public Task<int> Add(int a, int b) => Task.FromResult(a + b);
-
-    public Task<int> Subtract(int a, int b) => Task.FromResult(a - b);
-
-    public Task<int> Multiply(int a, int b) => Task.FromResult(a * b);
-
-    public Task<double> Divide(int a, int b)
-    {
-        if (b == 0)
-            throw new ArgumentException("Division by zero is not allowed");
-        return Task.FromResult((double)a / b);
-    }
-
-    [JsonRpcMethod("echo")]
-    public Task<string> EchoMessage(string message)
-    {
-        return Task.FromResult(message);
-    }
-
-    [JsonRpcMethod("send_something_back")]
-    public async Task<string> SendSomethingBack(string message)
-    {
-        Console.Error.WriteLine("from c#" + await client.backToBack(message));
-
-        await client.GetRect(new Rect(0, 0, 100, 100));
-        return $"I give back: {message}";
-    }
-
-    [JsonRpcMethod("click")]
-    public async Task Click(Point point)
-    {
-        Console.Error.WriteLine("Click at: " + point);
-    }
-}
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using PlatynUI.JsonRpc;
+using PlatynUI.Server.Endpoints;
 
 class Program
 {
@@ -76,7 +32,7 @@ class Program
 
     public static async Task<int> Main(string[] args)
     {
-        var rootCommand = new RootCommand("JSON-RPC Server with various transport options")
+        var rootCommand = new RootCommand("JSON-RPC Server")
         {
             new Option<bool>(
                 "--stdio",
@@ -151,7 +107,16 @@ class Program
             }
         );
 
-        return await rootCommand.InvokeAsync(args);
+        var result = await rootCommand.InvokeAsync(args);
+        if (result != 0)
+        {
+            Log($"Command failed with exit code {result}.");
+        }
+        else
+        {
+            Log("Server stopped successfully.");
+        }
+        return result;
     }
 
     private static async Task<int> RunServerAsync(TransportType transportType, string transportValue)
@@ -274,6 +239,7 @@ class Program
             while (true)
             {
                 TcpClient client = await listener.AcceptTcpClientAsync();
+                client.NoDelay = true;
                 Log($"Client connected on {listener.LocalEndpoint}.");
 
                 _ = Task.Run(async () =>
@@ -296,12 +262,18 @@ class Program
 
         while (true)
         {
+            const string prefix = @"\\.\pipe\";
+
+            string name = pipeName.StartsWith(prefix, StringComparison.OrdinalIgnoreCase)
+                ? pipeName[prefix.Length..]
+                : pipeName;
+
             var pipeServer = new NamedPipeServerStream(
-                pipeName,
+                name,
                 PipeDirection.InOut,
                 NamedPipeServerStream.MaxAllowedServerInstances,
                 PipeTransmissionMode.Byte,
-                PipeOptions.Asynchronous
+                PipeOptions.Asynchronous | PipeOptions.CurrentUserOnly
             );
 
             Log("Waiting for pipe connection...");
@@ -471,19 +443,21 @@ class Program
     {
         Log("Creating JSON-RPC instance...");
 
-        var formatter = new JsonMessageFormatter();
+        var peer = new JsonRpcPeer(receivingStream, sendingStream)
+        {
+            JsonSerializerOptions =
+            {
+                DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+            },
+        };
 
-        var messageHandler = new HeaderDelimitedMessageHandler(sendingStream, receivingStream, formatter);
-        var rpc = new JsonRpc(messageHandler);
+        DisplayDeviceEndPoint.Attach(peer);
+        MouseDeviceEndpoint.Attach(peer);
 
-        var client = rpc.Attach<IClientFunctions>(new JsonRpcProxyOptions { ServerRequiresNamedArguments = true });
-        var calculatorService = new CalculatorService(client);
-        rpc.AddLocalRpcTarget(calculatorService);
-        rpc.StartListening();
+        peer.Start();
 
-        Log("JSON-RPC instance is now listening for messages.");
-
-        await rpc.Completion;
+        await peer.Completion;
     }
 
     private static void ConfigureLogging(bool verbose)

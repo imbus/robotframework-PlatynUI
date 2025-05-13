@@ -17,4 +17,5 @@ class TextKeywords:
     @keyword
     @assertable
     def get_text(self, descriptor: ElementDescriptor[Text]) -> str:
-        return descriptor().text
+        result = descriptor().text
+        return result

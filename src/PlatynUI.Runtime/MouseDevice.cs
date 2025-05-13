@@ -20,7 +20,7 @@ public class MouseDevice
     private static MouseDevice? _instance;
     private static MouseDevice Instance => _instance ??= new MouseDevice();
 
-    public static double GetDoubleClickTime()
+    public static int GetDoubleClickTime()
     {
         return Instance.mouseDevice?.GetDoubleClickTime() ?? 0;
     }
@@ -40,9 +40,19 @@ public class MouseDevice
         Instance.mouseDevice?.Move(x, y);
     }
 
+    public static void Press(MouseButton button)
+    {
+        Instance.mouseDevice?.Press(button);
+    }
+
     public static void Press(int button)
     {
         Instance.mouseDevice?.Press((MouseButton)button);
+    }
+
+    public static void Release(MouseButton button)
+    {
+        Instance.mouseDevice?.Release(button);
     }
 
     public static void Release(int button)

@@ -9,7 +9,7 @@ from . import strategies
 from .control import Control
 from .togglestate import ToggleState
 
-__all__ = ["AbstractButton", "Button", "CheckBox", "Link", "RadioButton", "ToggleState"]
+__all__ = ["AbstractButton", "Button", "CheckBox", "Link", "PushButton", "RadioButton", "ToggleState"]
 
 
 class AbstractButton(Control, strategies.Text, strategies.Activatable):
@@ -31,6 +31,11 @@ class Button(AbstractButton):
         self.adapter.get_strategy(strategies.Activatable).activate()
 
         self.ensure_that(self._application_is_ready, raise_exception=False)
+
+
+@context
+class PushButton(Button):
+    pass
 
 
 @context

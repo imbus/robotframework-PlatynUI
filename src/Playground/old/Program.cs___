@@ -1,0 +1,72 @@
+using System.IO.Pipelines;
+using System.Text.Json;
+using PlatynUI.JsonRpc;
+
+// Connect the two pipes by linking their readers and writers
+var pipe1 = new Pipe();
+var pipe2 = new Pipe();
+
+// JsonRpcPeer instances using connected pipes
+var peer1 = new JsonRpcPeer(pipe1.Reader.AsStream(), new DebugStream(pipe2.Writer.AsStream()));
+var peer2 = new JsonRpcPeer(pipe2.Reader.AsStream(), new DebugStream(pipe1.Writer.AsStream()));
+
+// Methode bei peer1 registrieren
+peer1.RegisterMethod(
+    "add",
+    (parameters) =>
+    {
+        ArgumentNullException.ThrowIfNull(parameters, nameof(parameters));
+        if (parameters is not JsonElement element)
+        {
+            throw new ArgumentException("Invalid parameters");
+        }
+        if (element.ValueKind == JsonValueKind.Object)
+        {
+            // Deserialize the parameters from a JSON object
+            var addParams = element.Deserialize<AddParams>() ?? throw new ArgumentException("Invalid parameters");
+
+            return Task.FromResult(addParams.A + addParams.B);
+        }
+        var numbers = parameters?.Deserialize<int[]>();
+        if (numbers == null || numbers.Length != 2)
+        {
+            throw new ArgumentException("Invalid parameters");
+        }
+        return Task.FromResult(numbers[0] + numbers[1]);
+    }
+);
+peer1.RegisterMethod(
+    "Huhu",
+    (parameters) =>
+    {
+        return Task.FromResult("Hallo");
+    }
+);
+
+peer1.Start();
+peer2.Start();
+
+// JSON-RPC-Anfrage von peer2 an peer1 senden
+var result = await peer2.SendRequestAsync<int>("add", new[] { 3, 5 });
+Console.WriteLine($"Result: {result}"); // Ausgabe: Result: 8
+
+var result1 = await peer2.SendRequestAsync("Huhu");
+Console.WriteLine($"Result: {result1}"); // Ausgabe: Result: 8
+
+var result3 = await peer2.SendRequestAsync<int>("add", new AddParams { A = 3, B = 5 });
+Console.WriteLine($"Result: {result3}"); // Ausgabe: Result: 8
+
+// JSON-RPC-Benachrichtigung von peer2 an peer1 senden
+await peer2.SendNotificationAsync("notify", new { Message = "Hello, World!" });
+
+record AddParams
+{
+    public required int A { get; init; }
+    public required int B { get; init; }
+};
+
+interface IDemoApi
+{
+    Task<int> Add(int a, int b);
+    Task<string> Huhu();
+}

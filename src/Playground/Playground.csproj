@@ -3,6 +3,11 @@
     <Description>PlatynUI Playground</Description>
     <OutputType>Exe</OutputType>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <NeedsPlatynUIExtensions>true</NeedsPlatynUIExtensions>
+    <!-- <NeedsPlatynUIExtensions>true</NeedsPlatynUIExtensions> -->
   </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PlatynUI.JsonRpc.Endpoints\PlatynUI.JsonRpc.Endpoints.csproj" />
+  </ItemGroup>
+
 </Project>

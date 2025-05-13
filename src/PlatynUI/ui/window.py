@@ -10,7 +10,7 @@ from ..core.types import Point, Size
 from . import strategies
 from .control import Control
 
-__all__ = ["Window"]
+__all__ = ["Frame", "Window"]
 
 
 @context
@@ -189,3 +189,8 @@ class Window(Control):
         self.adapter.get_strategy(strategies.Resizable).resize(size)
 
         self.ensure_that(self._application_is_ready, raise_exception=False)
+
+
+@context
+class Frame(Window):
+    pass

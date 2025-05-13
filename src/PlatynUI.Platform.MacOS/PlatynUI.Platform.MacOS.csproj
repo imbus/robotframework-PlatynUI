@@ -12,15 +12,17 @@
     <ProjectReference Include="..\PlatynUI.Runtime\PlatynUI.Runtime.csproj">
       <Private>false</Private>
     </ProjectReference>
-    <PackageReference Include="StreamJsonRpc" />
+    <ProjectReference Include="..\PlatynUI.JsonRpc\PlatynUI.JsonRpc.csproj" />
+    <ProjectReference
+      Include="..\PlatynUI.JsonRpc.Generators\PlatynUI.JsonRpc.Generators.csproj"
+      OutputItemType="Analyzer"
+      ReferenceOutputAssembly="false" />
   </ItemGroup>
 
-  <!-- Swift-Konfiguration -->
   <PropertyGroup>
     <SwiftBuildConfig Condition="'$(Configuration)' == 'Release'">release</SwiftBuildConfig>
     <SwiftBuildConfig Condition="'$(Configuration)' != 'Release'">debug</SwiftBuildConfig>
 
-    <!-- Pfade -->
     <SwiftPackageDir>$(MSBuildProjectDirectory)/SwiftInterop</SwiftPackageDir>
     <SwiftLibName>libPlatynUI.Platform.MacOS.Interop.dylib</SwiftLibName>
     <SwiftExeName>PlatynUI.Platform.MacOS.Highlighter</SwiftExeName>
@@ -29,34 +31,28 @@
     <SwiftExeCopyTarget>$(MSBuildProjectDirectory)/runtimes/osx/native/$(SwiftExeName)</SwiftExeCopyTarget>
   </PropertyGroup>
 
-  <!-- Trigger -->
   <ItemGroup>
     <SwiftSources Include="**/*.swift" />
   </ItemGroup>
 
-  <!-- Build Swift dylib + Kopieren in runtimes/ für NuGet -->
   <Target Name="BuildSwiftLibrary" Inputs="@(SwiftSources);@(SwiftPackage)"
     Outputs="$(SwiftLibOutput)" BeforeTargets="BeforeBuild">
 
-    <Message Text="⚙️ Building Swift dylib ($(SwiftBuildConfig))..." Importance="high" />
+    <Message Text="Building Swift dylib ($(SwiftBuildConfig))..." Importance="high" />
     <Exec Command="swift build -c $(SwiftBuildConfig)" WorkingDirectory="$(SwiftPackageDir)" />
 
-    <!-- Stelle sicher, dass das Verzeichnis existiert -->
     <MakeDir Directories="$(MSBuildProjectDirectory)/runtimes/osx/native" />
 
-    <!-- Kopiere die Swift-Bibliothek an die NuGet-konforme Stelle -->
     <Copy SourceFiles="$(SwiftLibOutput)" DestinationFiles="$(SwiftLibCopyTarget)"
       SkipUnchangedFiles="true" Condition="Exists('$(SwiftLibOutput)')" />
 
-    <!-- Kopiere die Swift-Executable an die NuGet-konforme Stelle -->
     <Copy SourceFiles="$(SwiftPackageDir)/.build/$(SwiftBuildConfig)/$(SwiftExeName)"
       DestinationFiles="$(SwiftExeCopyTarget)" SkipUnchangedFiles="true"
       Condition="Exists('$(SwiftPackageDir)/.build/$(SwiftBuildConfig)/$(SwiftExeName)')" />
 
-    <Message Text="✅ Copied dylib to NuGet path: runtimes/osx/native/" Importance="high" />
+    <Message Text="Copied dylib to NuGet path: runtimes/osx/native/" Importance="high" />
   </Target>
 
-  <!-- Die Dateien ins NuGet-Paket einbinden -->
   <ItemGroup>
     <None Include="runtimes/osx/native/$(SwiftLibName)">
       <Pack>true</Pack>
@@ -70,10 +66,8 @@
     </None>
   </ItemGroup>
 
-
-  <!-- Clean -->
   <Target Name="CleanSwiftLibrary" AfterTargets="Clean">
-    <Message Text="🧹 Cleaning Swift build and NuGet-native dylib..." Importance="high" />
+    <Message Text="Cleaning Swift build and NuGet-native dylib..." Importance="high" />
     <Exec Command="swift package clean" WorkingDirectory="$(SwiftPackageDir)" />
     <RemoveDir Directories="$(MSBuildProjectDirectory)/runtimes" />
   </Target>

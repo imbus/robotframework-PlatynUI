@@ -5,10 +5,34 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "type": "lldb",
+            "request": "attach",
+            "name": "lldb: Attach",
+            "pid": "${command:pickMyProcess}" // use ${command:pickProcess} to pick other users' processes
+        },
+
+
+        {
+            "name": "PlatynUI.JsonRpc.Generator",
+            "type": "coreclr",
+            "request": "launch",
+            "program": "/usr/local/share/dotnet/dotnet",
+            "args": [
+                "build",
+                "${workspaceFolder}/src/Playground/Playground.csproj"
+            ],
+            "cwd": "${workspaceFolder}",
+            "stopAtEntry": false,
+            "justMyCode": false,
+            "env": {
+                "UseSharedCompilation": "false"
+            }
+        },
+        {
             "name": "C#: Playground Debug",
             "type": "dotnet",
             "request": "launch",
-            "projectPath": "${workspaceFolder}/src/Playground/Playground.csproj",
+            "projectPath": "${workspaceFolder}/src/Playground/Playground.csproj"
         },
         {
             "name": ".NET Core Launch (console)",
@@ -36,6 +60,24 @@
             "env": {
                 "PYTHONNET_RUNTIME": "coreclr"
             }
+        },
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:robotframework-PlatynUI}/src/PlatynUI.Platform.MacOS/SwiftInterop",
+            "name": "Debug PlatynUI.Platform.MacOS.Highlighter (src/PlatynUI.Platform.MacOS/SwiftInterop)",
+            "program": "${workspaceFolder:robotframework-PlatynUI}/src/PlatynUI.Platform.MacOS/SwiftInterop/.build/debug/PlatynUI.Platform.MacOS.Highlighter",
+            "preLaunchTask": "swift: Build Debug PlatynUI.Platform.MacOS.Highlighter (src/PlatynUI.Platform.MacOS/SwiftInterop)"
+        },
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:robotframework-PlatynUI}/src/PlatynUI.Platform.MacOS/SwiftInterop",
+            "name": "Release PlatynUI.Platform.MacOS.Highlighter (src/PlatynUI.Platform.MacOS/SwiftInterop)",
+            "program": "${workspaceFolder:robotframework-PlatynUI}/src/PlatynUI.Platform.MacOS/SwiftInterop/.build/release/PlatynUI.Platform.MacOS.Highlighter",
+            "preLaunchTask": "swift: Build Release PlatynUI.Platform.MacOS.Highlighter (src/PlatynUI.Platform.MacOS/SwiftInterop)"
         }
     ]
 }

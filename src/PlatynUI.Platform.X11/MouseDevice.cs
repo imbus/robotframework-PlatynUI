@@ -1,9 +1,8 @@
 using System.ComponentModel.Composition;
 using System.Runtime.InteropServices;
-
+using PlatynUI.Platform.X11.Interop.XCB;
 using PlatynUI.Runtime;
 using PlatynUI.Runtime.Core;
-using PlatynUI.Platform.X11.Interop.XCB;
 using static PlatynUI.Platform.X11.Interop.XCB.XCB;
 
 namespace PlatynUI.Platform.X11;
@@ -21,10 +20,9 @@ public class MouseDevice() : IMouseDevice
         return new Size(defaultDoubleClickDistance, defaultDoubleClickDistance);
     }
 
-    public double GetDoubleClickTime()
+    public int GetDoubleClickTime()
     {
-        const double defaultDoubleClickTimeMs = 400; // milliseconds
-        return defaultDoubleClickTimeMs / 1000.0; // Convert to seconds
+        return 400; // milliseconds
     }
 
     public unsafe Point GetPosition()
@@ -46,7 +44,7 @@ public class MouseDevice() : IMouseDevice
         var y = reply->root_y;
 
         // Free the reply
-        Marshal.FreeHGlobal((IntPtr)reply);
+        free(reply);
 
         return new Point(x, y);
     }
@@ -84,6 +82,7 @@ public class MouseDevice() : IMouseDevice
         );
         _ = xcb_flush(Connection.Connection);
     }
+
     public void Release(MouseButton button) => Release((int)button);
 
     public unsafe void Release(int button)
@@ -118,6 +117,4 @@ public class MouseDevice() : IMouseDevice
         // Return the root window of the first screen
         return iter.data->root;
     }
-
 }
-

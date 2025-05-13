@@ -72,17 +72,17 @@ class ControlProxy(ElementProxy, strategies.Control):
 
 
 @adapter_proxy_for(role="Text")
-class TextProxy(ControlProxy, strategies.Text):
+class TextProxy(ControlProxy, strategies.Text, strategies.Clearable, strategies.EditableText, strategies.HasMultiLine):
     @property
     def text(self) -> str:
         return self.adapter.get_strategy(strategies.Text).text
 
-
-@adapter_proxy_for(role="Edit")
-class EditProxy(TextProxy, strategies.Clearable, strategies.EditableText, strategies.HasMultiLine):
     @property
     def is_multi_line(self) -> bool:
-        return self.adapter.get_strategy(strategies.HasMultiLine).is_multi_line
+        return (
+            self.adapter.supports_strategy(strategies.HasMultiLine)
+            and self.adapter.get_strategy(strategies.HasMultiLine).is_multi_line
+        )
 
     def set_text(self, value: str) -> None:
         self.clear()
@@ -95,8 +95,19 @@ class EditProxy(TextProxy, strategies.Clearable, strategies.EditableText, strate
         )
 
 
+@adapter_proxy_for(role="Edit")
+class EditProxy(TextProxy):
+    pass
+
+
 @adapter_proxy_for(role="Button")
 class ButtonProxy(ControlProxy, strategies.Activatable):
+    def activate(self) -> None:
+        AdapterMouseProxy(self.adapter).click()
+
+
+@adapter_proxy_for(role="PushButton")
+class PushButtonProxy(ControlProxy, strategies.Activatable):
     def activate(self) -> None:
         AdapterMouseProxy(self.adapter).click()
 
@@ -390,3 +401,8 @@ class WindowProxy(
             )
         else:
             self.adapter.get_strategy(strategies.Resizable).resize(size)
+
+
+@adapter_proxy_for(role="Frame")
+class FrameProxy(WindowProxy):
+    pass

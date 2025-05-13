@@ -19,7 +19,7 @@ def main() -> None:
     else:
         exe_name = "PlatynUI.Spy"
 
-    debug_path = (Path(__file__).parent.parent.parent.parent / f"artifacts/bin/PlatynUI.Spy/Debug/{exe_name}").resolve()
+    debug_path = (Path(__file__).parent.parent.parent.parent / f"artifacts/bin/PlatynUI.Spy/debug/{exe_name}").resolve()
     runtime_path = (Path(__file__).parent.parent / f"ui/runtime/coreclr/{exe_name}").resolve()
 
     if debug_path.exists():

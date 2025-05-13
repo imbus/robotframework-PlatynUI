@@ -4,24 +4,25 @@
 
 import AppKit
 import ArgumentParser
+import Cocoa
 import Foundation
-import JSONRPC
+import Interop
 
 struct HighlighterArguments: ParsableCommand {
     @Flag(name: .shortAndLong, help: "Start a server on stdio to show or hide.")
     public var server: Bool = false
 
     @Option(name: .shortAndLong, help: "The x-coordinate of the rectangle.")
-    public var x: Double = 0
+    public var x: Double = 5
 
     @Option(name: .shortAndLong, help: "The y-coordinate of the rectangle.")
-    public var y: Double = 0
+    public var y: Double = 5
 
     @Option(name: .shortAndLong, help: "The width of the rectangle.")
-    public var width: Double = 100
+    public var width: Double = 105
 
     @Option(name: .shortAndLong, help: "The height of the rectangle.")
-    public var height: Double = 100
+    public var height: Double = 105
 
     @Option(name: .shortAndLong, help: "Timeout in seconds before the program exits.")
     public var timeout: Double = 3
@@ -36,7 +37,6 @@ func watchProcessExit(pid: Int, completion: @escaping @Sendable () -> Void) {
     DispatchQueue.global(qos: .background).async {
         let kq = kqueue()
         guard kq != -1 else {
-            print("Failed to create kqueue")
             return
         }
 
@@ -50,13 +50,10 @@ func watchProcessExit(pid: Int, completion: @escaping @Sendable () -> Void) {
         ke.data = 0
         ke.udata = nil
 
-        // Register event
         if kevent(kq, &ke, 1, nil, 0, nil) == -1 {
-            print("Failed to register kevent")
             return
         }
 
-        // Wait for event
         var eventList = kevent()
         while kevent(kq, nil, 0, &eventList, 1, nil) > 0 {
             if eventList.fflags & UInt32(NOTE_EXIT) != 0 {
@@ -69,38 +66,33 @@ func watchProcessExit(pid: Int, completion: @escaping @Sendable () -> Void) {
     }
 }
 
-public func GetDisplayHeight() -> Double {
-    let screens = NSScreen.screens
-
-    if screens.isEmpty {
-        return 0
+func convertTopLeftRectRelativeToMainScreen(_ rect: NSRect) throws -> NSRect {
+    guard let mainScreen = NSScreen.screens.first else {
+        throw MainScreenNotFoundException(message: "Main screen not found")
     }
 
-    var minY = screens[0].frame.minY
-    var maxY = screens[0].frame.maxY
+    let mainFrame = mainScreen.frame
+    let originMacOS = CGPoint(
+        x: rect.origin.x + mainFrame.origin.x,
+        y: mainFrame.maxY - rect.origin.y - rect.height
+    )
 
-    for screen in screens {
-        let frame = screen.frame
-        minY = min(minY, frame.minY)
-        maxY = max(maxY, frame.maxY)
-    }
-
-    return maxY - minY
+    return NSRect(origin: originMacOS, size: rect.size)
 }
 
-func showHighlight(x: Double, y: Double, width: Double, height: Double, time: Double?) {
+func showHighlight(x: Double, y: Double, width: Double, height: Double, time: Double?) throws {
+    let borderWidth = 3.0
+    let halfBorderWidth = borderWidth / 2.0
+
+    let topLeftRect = NSRect(
+        x: x - halfBorderWidth,
+        y: y - halfBorderWidth,
+        width: width + borderWidth,
+        height: height + borderWidth)
+
+    let rect = try convertTopLeftRectRelativeToMainScreen(topLeftRect)
+
     DispatchQueue.main.async {
-
-        let borderWidth = 6.0
-        let halfBorderWidth = borderWidth / 2.0
-
-        let adjustedY = GetDisplayHeight() - y - height
-
-        let rect = NSRect(
-            x: x - halfBorderWidth,
-            y: adjustedY - halfBorderWidth,
-            width: width + borderWidth,
-            height: height + borderWidth)
 
         if overlayWindow == nil {
             overlayWindow = NSWindow(
@@ -108,7 +100,7 @@ func showHighlight(x: Double, y: Double, width: Double, height: Double, time: Do
                 styleMask: .borderless,
                 backing: .buffered,
                 defer: false)
-            overlayWindow?.level = .popUpMenu  // Höheres Level als .statusBar
+            overlayWindow?.level = .popUpMenu
             overlayWindow?.backgroundColor = .clear
             overlayWindow?.isOpaque = false
             overlayWindow?.hasShadow = false
@@ -149,102 +141,6 @@ func closeHighlight() {
     }
 }
 
-private func handleNotification(_ anyNotification: AnyJSONRPCNotification, data: Data) async {
-    do {
-        switch anyNotification.method {
-        case "Exit":
-            DispatchQueue.main.async {
-                app.terminate(nil)
-            }
-        default:
-            return
-        }
-    }
-}
-
-struct InitializeParams: Codable, Hashable, Sendable {
-    public var processId: Int
-
-    public init(
-        processId: Int
-
-    ) {
-        self.processId = processId
-    }
-}
-
-struct ShowParams: Codable, Hashable, Sendable {
-    public var x: Double
-    public var y: Double
-    public var width: Double
-    public var height: Double
-    public var timeout: Double?
-
-    public init(
-        x: Double,
-        y: Double,
-        width: Double,
-        height: Double,
-        timeout: Double?
-    ) {
-        self.x = x
-        self.y = y
-        self.width = width
-        self.height = height
-        self.timeout = timeout
-    }
-}
-
-func handleRequest(
-    _ anyRequest: AnyJSONRPCRequest, data: Data, handler: @escaping JSONRPCEvent.RequestHandler
-) async {
-    do {
-        switch anyRequest.method {
-        case "Initialize":
-            let params = try JSONDecoder().decode(JSONRPCRequest<InitializeParams>.self, from: data)
-                .params!
-
-            watchProcessExit(pid: params.processId) {
-                print("Parent process terminated, shutting down...")
-                DispatchQueue.main.async {
-                    app.terminate(nil)
-                }
-            }
-
-            await handler(.success(JSONValue.null))
-        case "Show":
-
-            let params = try JSONDecoder().decode(JSONRPCRequest<ShowParams>.self, from: data)
-                .params!
-
-            showHighlight(
-                x: params.x,
-                y: params.y,
-                width: params.width,
-                height: params.height,
-                time: params.timeout
-            )
-
-            await handler(.success(JSONValue.null))
-        case "Hide":
-            closeHighlight()
-            await handler(.success(JSONValue.null))
-        default:
-            await handler(
-                .failure(
-                    AnyJSONRPCResponseError(
-                        code: JSONRPCErrors.methodNotFound, message: "Method not found")))
-
-        }
-    } catch {
-        await handler(
-            .failure(
-                AnyJSONRPCResponseError(
-                    code: JSONRPCErrors.internalError, message: error.localizedDescription)))
-    }
-
-}
-
 func handleError(_ error: Error) {
     FileHandle.standardError.write("Error: \(error)\n".data(using: .utf8)!)
 }
@@ -260,32 +156,129 @@ struct Main {
         arguments = HighlighterArguments.parseOrExit()
 
         if arguments.server {
-            let channel = DataChannel.stdioPipe().withMessageFraming()
-            let session = JSONRPCSession(channel: channel)
+            let inputStream = InputStream(fileAtPath: "/dev/stdin")!
+            inputStream.open()
 
-            Task {
-                let seq = await session.eventSequence
+            let outputStream = OutputStream(toFileAtPath: "/dev/stdout", append: false)!
+            outputStream.open()
 
-                for await event in seq {
-                    switch event {
-                    case let .request(request, handler, data):
-                        await handleRequest(request, data: data, handler: handler)
-                    case let .notification(notification, data):
-                        await handleNotification(notification, data: data)
-                    case let .error(error):
-                        handleError(error)
+            let peer = JsonRpcPeer(reader: inputStream, writer: outputStream)
+
+            Task.detached {
+
+                await peer.registerRequestHandler(method: "initialize") {
+                    @Sendable params, decoder in
+                    guard let params = params else {
+                        throw JsonRpcError(
+                            code: JsonRpcErrorCode.invalidParams.rawValue,
+                            message: "Missing parameters"
+                        )
                     }
+                    struct Params: Codable, Hashable, Sendable {
+                        public var processId: Int
+
+                        public init(
+                            processId: Int
+
+                        ) {
+                            self.processId = processId
+                        }
+                    }
+
+                    let p: Params = try params.decode()
+
+                    if p.processId != 0 {
+
+                        Task.detached {
+                            watchProcessExit(pid: p.processId) {
+                                Task { @MainActor in
+                                    app.terminate(nil)
+                                }
+                            }
+                        }
+                    }
+                    return JSONValue.null
+                }
+                await peer.registerRequestHandler(method: "hide") {
+                    @Sendable params, decoder in
+
+                    closeHighlight()
+
+                    return JSONValue.null
+                }
+
+                await peer.registerRequestHandler(method: "show") {
+                    @Sendable params, decoder in
+                    guard let params = params else {
+                        throw JsonRpcError(
+                            code: JsonRpcErrorCode.invalidParams.rawValue,
+                            message: "Missing parameters"
+                        )
+                    }
+                    struct Params: Codable, Hashable, Sendable {
+                        public var x: Double
+                        public var y: Double
+                        public var width: Double
+                        public var height: Double
+                        public var timeout: Double?
+
+                        public init(
+                            x: Double,
+                            y: Double,
+                            width: Double,
+                            height: Double,
+                            timeout: Double?
+                        ) {
+                            self.x = x
+                            self.y = y
+                            self.width = width
+                            self.height = height
+                            self.timeout = timeout
+                        }
+                    }
+                    let p: Params = try params.decode()
+
+                    try showHighlight(
+                        x: p.x,
+                        y: p.y,
+                        width: p.width,
+                        height: p.height,
+                        time: p.timeout
+                    )
+                    return JSONValue.null
+                }
+                await peer.registerNotificationHandler(method: "exit") {
+                    @Sendable params, decoder in
+
+                    await peer.stop()
+                }
+
+                do {
+                    let task = try await peer.start()
+
+                    _ = try await task.value
+
+                } catch {
+                    handleError(error)
+                }
+
+                Task { @MainActor in
+                    app.terminate(nil)
                 }
             }
 
         } else {
-            showHighlight(
-                x: arguments.x,
-                y: arguments.y,
-                width: arguments.width,
-                height: arguments.height,
-                time: arguments.timeout
-            )
+            do {
+                try showHighlight(
+                    x: arguments.x,
+                    y: arguments.y,
+                    width: arguments.width,
+                    height: arguments.height,
+                    time: arguments.timeout
+                )
+            } catch {
+                handleError(error)
+            }
         }
 
         app.run()
