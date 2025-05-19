@@ -1,6 +1,8 @@
 *** Settings ***
 Library     PlatynUI
 
+Test Tags    wip
+
 *** Variables ***
 &{CALCULATOR}
 ...   button_1=app:Application[@Name='__main__.py']//PushButton[@Name='1']
