@@ -66,7 +66,7 @@ class DotNetInterface:
             clr.AddReference(str(debug_assembly_path)[:-4])
         elif runtime_assembly_path.exists():
             logger.debug(f"Loading PlatynUI from {runtime_assembly_path}")  # noqa: G004
-            clr.AddReference(str(debug_assembly_path)[:-4])
+            clr.AddReference(str(runtime_assembly_path)[:-4])
         else:
             logger.error(
                 "Load PlatynUI failed: Could not find the assembly "
