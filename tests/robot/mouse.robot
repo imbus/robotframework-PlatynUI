@@ -1,21 +1,24 @@
 *** Settings ***
-Library     PlatynUI
+Library         PlatynUI
+
+Test Tags       wip
+
 
 *** Variables ***
 &{CALCULATOR}
-...   button_1=app:Application[@Name='__main__.py']//PushButton[@Name='1']
-...   button_2=app:Application[@Name='__main__.py']//PushButton[@Name='2']
-...   button_3=app:Application[@Name='__main__.py']//PushButton[@Name='3']
+...                 button_1=app:Application[@Name='__main__.py']//PushButton[@Name='1']
+...                 button_2=app:Application[@Name='__main__.py']//PushButton[@Name='2']
+...                 button_3=app:Application[@Name='__main__.py']//PushButton[@Name='3']
 
-${BUTTON1}    app:Application[@Name='__main__.py']//PushButton[@Name='1']
+${BUTTON1}          app:Application[@Name='__main__.py']//PushButton[@Name='1']
+
 
 *** Test Cases ***
 first
-
     Sleep    2
-    Mouse Click   ${CALCULATOR.button_1}
+    Mouse Click    ${CALCULATOR.button_1}
 
-    #Activate    app:Application[@Name='__main__.py']/Frame
+    # Activate    app:Application[@Name='__main__.py']/Frame
     Mouse Click    app:Application[@Name='__main__.py']//PushButton[@Name='C']
     Mouse Click    app:Application[@Name='__main__.py']//PushButton[@Name='1']
     Mouse Click    app:Application[@Name='__main__.py']//PushButton[@Name='2']
@@ -24,8 +27,7 @@ first
     Mouse Click    app:Application[@Name='__main__.py']//PushButton[@Name='4']
 
 keyboard
-
-    #Mouse Click    app:Application[@Name='__main__.py']//PushButton[@Name='C']
+    # Mouse Click    app:Application[@Name='__main__.py']//PushButton[@Name='C']
     Type Keys    app:Application[@Name='__main__.py']//Text[@AccessibleId='display']    12345+6789
     Mouse Click    app:Application[@Name='__main__.py']//PushButton[@Name='=']
     Activate    app:Application[@Name='__main__.py']//PushButton[@Name='C']
@@ -33,7 +35,7 @@ keyboard
 keyboard set text
     Set Text    app:Application[@Name='__main__.py']//Text[@AccessibleId='display']    12345+6789
     Activate    app:Application[@Name='__main__.py']//PushButton[@Name='=']
-    ${text}  Get Text    app:Application[@Name='__main__.py']//Text[@AccessibleId='display']
+    ${text}    Get Text    app:Application[@Name='__main__.py']//Text[@AccessibleId='display']
     Log    ${text}
     Get Text    app:Application[@Name='__main__.py']//Text[@AccessibleId='display']    ==    19134
     Get Text    app:Application[@Name='__main__.py']//Text[@AccessibleId='display']    ==    19
@@ -51,6 +53,7 @@ second
 third
     Activate    app:Application[@Name='kate']/Frame/MenuBar/MenuItem[@Name='File']
     Activate    app:Application[@Name='kate']/Frame/MenuBar/MenuItem[@Name='File']//MenuItem[@Name='Neu']
+
 
 *** Keywords ***
 Enter Number
