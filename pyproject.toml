@@ -69,6 +69,7 @@ dependencies = [
   "pytest-xdist",
   "pytest-html",
   "pytest-cov",
+  "pythonnet",
   "mypy",
   "ruff",
   "GitPython",
