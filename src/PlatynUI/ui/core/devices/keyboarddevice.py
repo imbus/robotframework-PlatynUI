@@ -139,51 +139,94 @@ class KeyConverter:
             )
         return result
 
+    def _is_valid_control_sequence(self, content: str) -> bool:
+        """Check if content between < and > represents a valid control key sequence."""
+        if not content:
+            return False
+
+        # Split by + to get individual keys
+        keys = [k.strip() for k in content.split("+") if k.strip()]
+        if not keys:
+            return False
+
+        # Try to validate each key by attempting to convert it
+        for key in keys:
+            try:
+                result = self.base_keyboard_device.key_to_keycode(key)
+                if not result.valid:
+                    return False
+                # Check if this is actually a control key (not just a character string)
+                # Control keys return KeyCodeInfo, character strings return str
+                if hasattr(result, "code") and isinstance(result.code, str):
+                    # This is a character string, not a control key
+                    return False
+            except Exception:
+                return False
+
+        return True
+
     def __convert_single(self, keys: Union[str, Any, Iterable[Any]]) -> Iterable[KeyEvent]:
         if isinstance(keys, str):
             g = self.__next_key(keys)
             for i in g:
                 if i == "<":
-                    current = ""
-                    first = 0
-                    escape = False
-                    sequence = []
-                    need_end = True
+                    # Collect everything until > (or end of string)
+                    content_chars = []
+                    found_end = False
+                    first_char = True
+
                     for j in g:
-                        first += 1
-                        if j == "<":
-                            if first == 1:
-                                if self._down:
-                                    yield KeyEvent(self.__key_to_keycode(j), press=True)
-                                if self._up:
-                                    yield KeyEvent(self.__key_to_keycode(j), press=False)
-                                escape = True
-                                break
-                            else:
-                                raise InvalidKeySequenceError(f"Invalid key sequence at index {self._current_index}")
-
-                        if str.isspace(j):
-                            continue
-                        elif j == "+":
-                            sequence.append(current)
-                            current = ""
-                        elif j == ">":
-                            need_end = False
+                        if j == "<" and first_char:
+                            # This is the << escape sequence
+                            if self._down:
+                                yield KeyEvent(self.__key_to_keycode("<"), press=True)
+                            if self._up:
+                                yield KeyEvent(self.__key_to_keycode("<"), press=False)
+                            found_end = True
                             break
-                        else:
-                            current += j
-                    if need_end:
-                        raise InvalidKeySequenceError(
-                            f"Invalid key sequence at index {self._current_index}: > is missing"
-                        )
+                        if j == ">":
+                            found_end = True
+                            break
+                        content_chars.append(j)
+                        first_char = False
 
-                    if not escape:
-                        if current:
-                            sequence.append(current)
+                    if not found_end:
+                        # No closing >, treat < as literal
+                        if self._down:
+                            yield KeyEvent(self.__key_to_keycode("<"), press=True)
+                        if self._up:
+                            yield KeyEvent(self.__key_to_keycode("<"), press=False)
+                        # Re-process the collected characters
+                        for char in content_chars:
+                            if self._down:
+                                yield KeyEvent(self.__key_to_keycode(char), press=True)
+                            if self._up:
+                                yield KeyEvent(self.__key_to_keycode(char), press=False)
+                        continue
+
+                    content = "".join(content_chars)
+
+                    # Check if it's a valid control sequence
+                    if self._is_valid_control_sequence(content):
+                        # Parse as control sequence - strip the < and >
+                        current = ""
+                        sequence = []
+
+                        for char in content:
+                            if char == "+":
+                                if current.strip():
+                                    sequence.append(current.strip())
+                                current = ""
+                            elif not str.isspace(char):
+                                current += char
+
+                        if current.strip():
+                            sequence.append(current.strip())
 
                         if len(sequence) == 0:
                             raise InvalidKeySequenceError(f"Empty key sequence at index {self._current_index}")
 
+                        # Generate key events for the control sequence
                         if self._down:
                             for k in [KeyEvent(self.__key_to_keycode(k), press=True) for k in sequence]:
                                 yield k
@@ -193,6 +236,25 @@ class KeyConverter:
                                 for k in (reversed(sequence) if self._down else sequence)
                             ]:
                                 yield k
+                    else:
+                        # Not a valid control sequence, treat the entire <...> as literal characters
+                        # Output: < + content + >
+                        if self._down:
+                            yield KeyEvent(self.__key_to_keycode("<"), press=True)
+                        if self._up:
+                            yield KeyEvent(self.__key_to_keycode("<"), press=False)
+
+                        for char in content:
+                            if self._down:
+                                yield KeyEvent(self.__key_to_keycode(char), press=True)
+                            if self._up:
+                                yield KeyEvent(self.__key_to_keycode(char), press=False)
+
+                        if self._down:
+                            yield KeyEvent(self.__key_to_keycode(">"), press=True)
+                        if self._up:
+                            yield KeyEvent(self.__key_to_keycode(">"), press=False)
+
                     continue
 
                 if self._down:
