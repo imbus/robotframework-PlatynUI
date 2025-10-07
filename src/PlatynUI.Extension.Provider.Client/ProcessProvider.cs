@@ -206,13 +206,13 @@ public class ProcessProvider(Process process, string pipeName, INode? parent) : 
 
     public INode? GetRootNode()
     {
-        if (_rootNode == null)
+        _rootNode?.Invalidate();
+
+        if (ApplicationInfo.GetRoot() is ElementReference root)
         {
-            if (ApplicationInfo.GetRoot() is ElementReference root)
-            {
-                _rootNode = new ApplicationNode(Parent, root, this);
-            }
+            _rootNode = new ApplicationNode(Parent, root, this);
         }
+
         return _rootNode;
     }
 }

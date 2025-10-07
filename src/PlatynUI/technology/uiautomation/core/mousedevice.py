@@ -12,7 +12,7 @@ from .loader import DotNetInterface
 class UiaMouseDevice(BaseMouseDevice):
     @property
     def double_click_time(self) -> float:
-        return DotNetInterface.mouse_device().GetDoubleClickTime()
+        return DotNetInterface.mouse_device().GetDoubleClickTime() * 0.001  # ms to s
 
     @property
     def double_click_size(self) -> Size:
