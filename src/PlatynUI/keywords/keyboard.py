@@ -16,6 +16,10 @@ class Keyboard:
         descriptor().keyboard.type_keys(*keys, delay=delay)
 
     @keyword
+    def type_keys_without_context(self, descriptor: ElementDescriptor[HasKeyboard], *keys: str, delay: Optional[float] = None) -> None:
+        descriptor().keyboard.type_keys_without_context(*keys, delay=delay)
+
+    @keyword
     def press_keys(self, descriptor: ElementDescriptor[HasKeyboard], *keys: str, delay: Optional[float] = None) -> None:
         descriptor().keyboard.press_keys(*keys, delay=delay)
 
