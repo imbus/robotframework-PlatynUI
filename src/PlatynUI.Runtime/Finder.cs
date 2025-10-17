@@ -30,6 +30,21 @@ public static class Finder
         return node?.UnderlyingObject;
     }
 
+    public static void InvalidateNode(string xpath, bool findVirtual = false)
+    {
+        var parent = Desktop.GetInstance();
+
+        var navigator = new XPathNavigator(parent, findVirtual, xsltContext.NameTable);
+        var expression = XPathExpression.Compile(xpath, xsltContext);
+
+        var node = navigator.SelectSingleNode(expression);
+
+        if (node?.UnderlyingObject is INode element)
+        {
+            element.Invalidate();
+        }
+    }
+
     public static IEnumerable<object?> EnumAllNodes(INode? parent, string xpath, bool findVirtual = false)
     {
         parent ??= Desktop.GetInstance();

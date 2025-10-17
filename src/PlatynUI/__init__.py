@@ -16,6 +16,7 @@ from .keywords import (
     ElementDescriptor,
     Keyboard,
     Mouse,
+    NodeKeywords,
     Properties,
     RootElementDescriptor,
     TextKeywords,
@@ -107,7 +108,7 @@ def _add_assertion_parameters(sig: inspect.Signature) -> inspect.Signature:
 class PlatynUI(DynamicCore):
     def __init__(self) -> None:
         super().__init__(
-            [Application(), ActivatableKeywords(), TextKeywords(), Keyboard(), Mouse(), Properties(), Wait()]
+            [Application(), ActivatableKeywords(), TextKeywords(), Keyboard(), Mouse(), NodeKeywords(), Properties(), Wait()]
         )
 
     def get_keyword_arguments(self, name: str) -> Any:

@@ -8,8 +8,8 @@
     x:DataType="vm:MainWindowViewModel"
     Icon="/Assets/avalonia-logo.ico"
     Title="AvaloniaTestApp"
-    Width="300"
-    Height="200"
+    Width="600"
+    Height="500"
     x:Name="Main">
 
 
@@ -19,15 +19,33 @@
         App.axaml.cs) -->
         <vm:MainWindowViewModel />
     </Design.DataContext>
-    <StackPanel>
-        <TextBlock Text="Hello, World!" HorizontalAlignment="Center" VerticalAlignment="Center" AutomationProperties.AutomationId="Hallo World"/>
-        <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center" />
-        <Button Content="Click me!" Command="{Binding ClickCommand}" HorizontalAlignment="Center"
-            VerticalAlignment="Center" />
-        <TextBox x:Name="AutoCompleteEditBox" Text="{Binding Greeting}"
-            HorizontalAlignment="Center" VerticalAlignment="Center" AutomationProperties.AutomationId="ATextBox" />
-        <ScrollBar AutomationProperties.AutomationId="MyScrollBar" Name="MyScrollBar"
-             HorizontalAlignment="Left" Visibility="Visible" VerticalAlignment="Center" Orientation="Horizontal" Width="100" />                
-    </StackPanel>
+    
+    <ScrollViewer>
+        <StackPanel Margin="10">
+            <!-- Original Content -->
+            <TextBlock Text="Hello, World!" HorizontalAlignment="Center" VerticalAlignment="Center" AutomationProperties.AutomationId="Hallo World"/>
+            <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            <Button Content="Click me!" Command="{Binding ClickCommand}" HorizontalAlignment="Center"
+                VerticalAlignment="Center" />
+            <TextBox x:Name="AutoCompleteEditBox" Text="{Binding Greeting}"
+                HorizontalAlignment="Center" VerticalAlignment="Center" AutomationProperties.AutomationId="ATextBox" />
+            <ScrollBar AutomationProperties.AutomationId="MyScrollBar" Name="MyScrollBar"
+                 HorizontalAlignment="Left" Visibility="Visible" VerticalAlignment="Center" Orientation="Horizontal" Width="100" />
+            
+            <!-- Separator -->
+            <Separator Margin="0,20,0,20" />
+            
+            <!-- Dynamic Content Controls -->
+            <TextBlock Text="Dynamic Button Generator" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,10"/>
+            
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="10" Margin="0,0,0,20">
+                <Button Content="Add Button" Command="{Binding AddButtonCommand}" 
+                        AutomationProperties.AutomationId="AddButtonCommand" />
+                
+                <!-- Dynamic Button - only exists in visual tree when visible -->
+                <ContentControl Content="{Binding DynamicRemoveButton}" />
+            </StackPanel>
+        </StackPanel>
+    </ScrollViewer>
 
 </Window>

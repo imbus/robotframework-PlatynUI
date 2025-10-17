@@ -6,6 +6,7 @@ from .activatable import ActivatableKeywords
 from .application import Application
 from .keyboard import Keyboard
 from .mouse import Mouse
+from .node import NodeKeywords
 from .properties import Properties
 from .text import TextKeywords
 from .types import ElementDescriptor, RootElementDescriptor
@@ -17,6 +18,7 @@ __all__ = [
     "ElementDescriptor",
     "Keyboard",
     "Mouse",
+    "NodeKeywords",
     "Properties",
     "RootElementDescriptor",
     "TextKeywords",

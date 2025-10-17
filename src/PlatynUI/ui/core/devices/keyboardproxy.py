@@ -43,6 +43,9 @@ class KeyboardProxy(metaclass=ABCMeta):
 
         self.after_action(KeyboardProxy.Action.TYPE)
 
+    def type_keys_without_context(self, *keys: Union[str, Any, Iterable[Any]], delay: Optional[float] = None) -> None:
+        self.keyboard_device.type_keys(*keys, delay=delay)
+
     def press_keys(self, *keys: Union[str, Any, Iterable[Any]], delay: Optional[float] = None) -> None:
         self.before_action(KeyboardProxy.Action.PRESS)
 
