@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
+## [0.9.2](https://github.com/imbus/robotframework-PlatynUI/compare/v0.9.1..v0.9.2) - 2025-11-04
+
+### Bug Fixes
+
+- Adjust double click time calculation and add double click actions in tests ([2391dd3](https://github.com/imbus/robotframework-PlatynUI/commit/2391dd3abfbd887bde167d06cb322beb4316b25c))
+
+
 ## [0.9.1](https://github.com/imbus/robotframework-PlatynUI/compare/v0.9.0..v0.9.1) - 2025-10-06
 
 ### Bug Fixes
