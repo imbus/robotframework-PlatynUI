@@ -4,6 +4,7 @@
 
 from .activatable import ActivatableKeywords
 from .application import Application
+from .elements import Elements
 from .keyboard import Keyboard
 from .mouse import Mouse
 from .properties import Properties
@@ -15,6 +16,7 @@ __all__ = [
     "ActivatableKeywords",
     "Application",
     "ElementDescriptor",
+    "Elements",
     "Keyboard",
     "Mouse",
     "Properties",
