@@ -83,7 +83,7 @@ public partial class ElementNode(INode? parent, IUIAutomationElement element) : 
 
     public string FrameworkId => Element.CurrentFrameworkId;
 
-    public string RuntimeId => throw new NotImplementedException();
+    public string RuntimeId => Helper.GetRuntimeId(Element);
 
     static readonly object InvalidValue = new();
 
