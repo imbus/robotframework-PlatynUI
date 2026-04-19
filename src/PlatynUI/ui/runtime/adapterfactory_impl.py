@@ -105,8 +105,30 @@ class AdapterFactoryImpl(AdapterFactory):
         locator: LocatorBase,
         raise_error: Optional[bool] = True,
     ) -> List["Adapter"]:
-        # TODO
-        return []
+        if not isinstance(locator, Locator):
+            if raise_error:
+                raise ValueError(f"Invalid locator type: {locator}")
+            return []
+
+        parent_adapter = parent.adapter if parent else None
+        while parent_adapter is not None and isinstance(parent_adapter, AdapterProxy):
+            parent_adapter = parent_adapter.adapter
+
+        parent_impl = (
+            parent_adapter._adapter_interface if parent_adapter and isinstance(parent_adapter, AdapterImpl) else None
+        )
+        path = locator.get_path(parent, context_type=context_type)
+
+        nodes = DotNetInterface.finder().FindNodes(cast("INode", parent_impl), path, False)
+
+        results: List["Adapter"] = []
+        for node in nodes:
+            if node is not None:
+                results.append(
+                    AdapterProxyFactory.find_proxy_for(AdapterImpl(cast("IAdapter", node), self._technology))
+                )
+
+        return results
 
     def get_parent_adapter(
         self,
