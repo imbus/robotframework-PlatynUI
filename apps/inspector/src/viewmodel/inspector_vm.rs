@@ -22,6 +22,8 @@ pub struct InspectorViewModel {
     pub search_text: String,
     /// Whether the window should stay on top.
     pub always_on_top: bool,
+    /// Whether the selected node should be refreshed automatically every 15 s.
+    pub auto_refresh: bool,
     /// Cached attributes for the currently selected node.
     pub selected_attributes: Vec<DisplayAttribute>,
     /// Label for the currently selected node.
@@ -95,6 +97,7 @@ impl InspectorViewModel {
             focused_index: 0,
             search_text: String::new(),
             always_on_top: false,
+            auto_refresh: false,
             selected_attributes: Vec::new(),
             selected_label: String::new(),
             results: Vec::new(),

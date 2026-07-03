@@ -154,6 +154,7 @@ pub fn show_search_bar(
     search_text: &mut String,
     search_error_hint: Option<&str>,
     always_on_top: &mut bool,
+    auto_refresh: &mut bool,
     is_searching: bool,
     has_node_selection: bool,
 ) -> Vec<ToolbarAction> {
@@ -288,6 +289,7 @@ pub fn show_search_bar(
             if ui.add_enabled(has_node_selection, egui::Button::new("\u{21BB} Refresh")).clicked() {
                 actions.push(ToolbarAction::RefreshNode);
             }
+            ui.checkbox(auto_refresh, "\u{21BB} Auto").on_hover_text("Automatically refresh the selected node every 15 s");
             if ui.add_enabled(has_node_selection, egui::Button::new("\u{21BB} Subtree")).clicked() {
                 actions.push(ToolbarAction::RefreshSubtree);
             }

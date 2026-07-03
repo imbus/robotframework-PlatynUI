@@ -33,6 +33,7 @@ use platynui_link::platynui_link_providers;
 use platynui_runtime::Runtime;
 use std::collections::BTreeSet;
 use std::sync::Arc;
+use std::time::{Duration, Instant};
 
 #[cfg(target_os = "windows")]
 use winreg::RegKey;
@@ -135,6 +136,7 @@ struct InspectorApp {
     pinned_attributes: BTreeSet<String>,
     collapsed_attribute_groups: BTreeSet<String>,
     prev_always_on_top: Option<bool>,
+    last_auto_refresh: Option<Instant>,
     show_about_dialog: bool,
     last_pixels_per_point: f32,
 }
@@ -176,6 +178,7 @@ impl InspectorApp {
             pinned_attributes: BTreeSet::new(),
             collapsed_attribute_groups: BTreeSet::new(),
             prev_always_on_top: None,
+            last_auto_refresh: None,
             show_about_dialog: false,
             last_pixels_per_point: ctx.pixels_per_point(),
         }
@@ -284,6 +287,7 @@ impl eframe::App for InspectorApp {
             &mut self.vm.search_text,
             search_error_hint.as_deref(),
             &mut self.vm.always_on_top,
+            &mut self.vm.auto_refresh,
             is_searching,
             has_node_selection,
         );
@@ -307,10 +311,30 @@ impl eframe::App for InspectorApp {
             match action {
                 toolbar::ToolbarAction::EvaluateXPath => self.execute_command(&ctx, AppCommand::EvaluateXPath),
                 toolbar::ToolbarAction::CancelSearch => self.execute_command(&ctx, AppCommand::CancelSearch),
-                toolbar::ToolbarAction::RefreshNode => self.execute_command(&ctx, AppCommand::RefreshNode),
+                toolbar::ToolbarAction::RefreshNode => {
+                    self.last_auto_refresh = Some(Instant::now());
+                    self.execute_command(&ctx, AppCommand::RefreshNode);
+                }
                 toolbar::ToolbarAction::RefreshSubtree => self.execute_command(&ctx, AppCommand::RefreshSubtree),
                 toolbar::ToolbarAction::SearchTextChanged => self.vm.on_search_text_changed(),
             }
+        }
+
+        // Auto-refresh: trigger RefreshNode every 15 s when enabled and a node is selected.
+        const AUTO_REFRESH_INTERVAL: Duration = Duration::from_secs(15);
+        if self.vm.auto_refresh && has_node_selection {
+            let now = Instant::now();
+            let elapsed = self.last_auto_refresh.map_or(AUTO_REFRESH_INTERVAL, |t| now.duration_since(t));
+            if elapsed >= AUTO_REFRESH_INTERVAL {
+                self.last_auto_refresh = Some(now);
+                self.execute_command(&ctx, AppCommand::RefreshNode);
+            }
+            let remaining = AUTO_REFRESH_INTERVAL.saturating_sub(
+                self.last_auto_refresh.map_or(Duration::ZERO, |t| now.duration_since(t)),
+            );
+            ctx.request_repaint_after(remaining);
+        } else if !self.vm.auto_refresh {
+            self.last_auto_refresh = None;
         }
 
         // Poll background initial tree load (must run every frame while loading).
