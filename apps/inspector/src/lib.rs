@@ -68,6 +68,9 @@ struct InspectorArgs {
     /// Use `RUST_LOG` for fine-grained per-crate filtering.
     #[arg(long = "log-level", value_enum)]
     log_level: Option<LogLevel>,
+    /// Start the inspector window minimized (runs in the background).
+    #[arg(long = "minimized")]
+    minimized: bool,
 }
 
 /// Supported log level values for the `--log-level` CLI flag.
@@ -139,6 +142,7 @@ struct InspectorApp {
     last_auto_refresh: Option<Instant>,
     show_about_dialog: bool,
     last_pixels_per_point: f32,
+    start_minimized: bool,
 }
 
 #[derive(Clone, Copy, Debug)]
@@ -167,7 +171,7 @@ impl InspectorApp {
         }
     }
 
-    fn new(runtime: Arc<Runtime>, preloaded_root_children: Vec<Arc<UiNodeData>>, ctx: &egui::Context) -> Self {
+    fn new(runtime: Arc<Runtime>, preloaded_root_children: Vec<Arc<UiNodeData>>, ctx: &egui::Context, start_minimized: bool) -> Self {
         Self::apply_system_fonts(ctx);
 
         Self {
@@ -181,6 +185,7 @@ impl InspectorApp {
             last_auto_refresh: None,
             show_about_dialog: false,
             last_pixels_per_point: ctx.pixels_per_point(),
+            start_minimized,
         }
     }
 
@@ -254,6 +259,12 @@ impl eframe::App for InspectorApp {
         let ctx = ui.ctx().clone();
         ctx.plugin_or_default::<egui_async::EguiAsyncPlugin>();
         self.maybe_refresh_system_fonts(&ctx);
+
+        if self.start_minimized {
+            self.start_minimized = false;
+            ctx.send_viewport_cmd(egui::ViewportCommand::Minimized(true));
+            ctx.send_viewport_cmd(egui::ViewportCommand::Visible(true));
+        }
 
         let is_searching = self.vm.is_searching();
         let has_node_selection = self.vm.selected_index.is_some();
@@ -571,7 +582,8 @@ pub fn run() -> eframe::Result {
             .with_inner_size([1100.0, 750.0])
             .with_title("PlatynUI Inspector")
             .with_app_id("org.platynui.inspector")
-            .with_icon(Arc::new(icon)),
+            .with_icon(Arc::new(icon))
+            .with_visible(!args.minimized),
         ..Default::default()
     };
 
@@ -581,7 +593,7 @@ pub fn run() -> eframe::Result {
         Box::new(move |cc| {
             cc.egui_ctx.set_visuals(egui::Visuals::dark());
 
-            Ok(Box::new(InspectorApp::new(Arc::clone(&runtime), preloaded_root_children, &cc.egui_ctx)))
+            Ok(Box::new(InspectorApp::new(Arc::clone(&runtime), preloaded_root_children, &cc.egui_ctx, args.minimized)))
         }),
     )
 }
